@@ -1,0 +1,54 @@
+name: Department of Interior API Plans and Pricing
+description: >-
+  DOI bureau APIs are publicly funded federal government services provided
+  at no cost to the public. All APIs are free to use. Some services offer
+  tiered access with higher rate limits for registered API key holders.
+plans:
+  - name: Public Access (No Key)
+    description: >-
+      Open access to most DOI bureau APIs without registration. Available for
+      exploratory use and low-volume data retrieval. Subject to default rate
+      limits.
+    price: Free
+    features:
+      - Access to NPS Data API with reduced rate limits
+      - USGS Water Data APIs (OGC endpoints)
+      - USGS Earthquake data feeds
+      - USGS Mineral Resources data
+      - BLM GIS REST services
+      - ScienceBase catalog access
+
+  - name: Registered Developer (API Key)
+    description: >-
+      Free registration provides an API key that unlocks higher rate limits
+      for NPS and USGS APIs. Suitable for application developers, researchers,
+      and data consumers with moderate to high usage needs.
+    price: Free
+    registrationURL: https://www.nps.gov/subjects/developer/get-started.htm
+    features:
+      - All public access features
+      - Higher rate limits on NPS Data API
+      - Higher rate limits on USGS Water Data APIs
+      - Priority access for registered users
+      - API key-based authentication via HTTP header
+
+  - name: USGS Water Data API Key
+    description: >-
+      Separate free registration available for USGS Water Data APIs to access
+      higher rate limits for water resource data including continuous values,
+      daily values, and water quality portal data.
+    price: Free
+    registrationURL: https://api.waterdata.usgs.gov/signup/
+    features:
+      - Continuous sensor measurement data
+      - Daily values (historical)
+      - Water quality portal data
+      - STAC API access
+      - Higher requests-per-hour allowance
+
+notes: >-
+  As federal government APIs, all DOI bureau services are publicly funded and
+  provided free of charge. There are no paid tiers, enterprise plans, or
+  subscription fees. Commercial use is permitted under standard government
+  data policies. Some data may carry specific licensing or attribution
+  requirements.

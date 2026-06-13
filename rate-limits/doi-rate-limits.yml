@@ -1,0 +1,76 @@
+name: Department of Interior API Rate Limits
+description: >-
+  Rate limit policies across DOI bureau APIs. Most APIs are free federal
+  services without published hard limits, but some enforce request throttling
+  to ensure fair use. Registered API key holders generally receive higher
+  allowances than anonymous users.
+rateLimits:
+  - api: NPS Data API
+    baseURL: https://developer.nps.gov/api/v1
+    tiers:
+      - name: Anonymous (No Key)
+        description: Limited access without an API key; specific limits not published
+        requestsPerHour: Not published
+        notes: API key required in X-Api-Key HTTP header for most use cases
+      - name: Registered Key Holder
+        description: Free API key provides increased rate limits
+        requestsPerHour: Higher than anonymous; specific value not published
+        notes: >-
+          Register at https://www.nps.gov/subjects/developer/get-started.htm.
+          Key sent as HTTP header: X-Api-Key or via query param api_key.
+
+  - api: USGS Water Data APIs
+    baseURL: https://api.waterdata.usgs.gov
+    tiers:
+      - name: Anonymous
+        description: Open access without registration; lower rate limits apply
+        requestsPerHour: Not published
+        notes: Access to OGC API endpoints, STAC, and Water Quality Portal
+      - name: Registered API Key
+        description: Free key registration unlocks higher rate limits
+        requestsPerHour: Higher than anonymous; specific value not published
+        notes: Register at https://api.waterdata.usgs.gov/signup/
+
+  - api: USGS Earthquake Web Services
+    baseURL: https://earthquake.usgs.gov/fdsnws/event/1
+    tiers:
+      - name: Public Access
+        description: Open access; no API key required
+        requestsPerHour: Not published
+        notes: >-
+          Standard fair-use throttling applies. Heavy bulk usage may trigger
+          temporary blocks. Bulk downloads recommended for large datasets.
+
+  - api: USGS Mineral Resources Data API
+    baseURL: https://mrdata.usgs.gov
+    tiers:
+      - name: Public Access
+        description: Open access; no API key required
+        requestsPerHour: Not published
+        notes: Standard fair-use expected for federal government data service
+
+  - api: BLM GIS REST Services
+    baseURL: https://gis.blm.gov/arcgis/rest/services
+    tiers:
+      - name: Public Access
+        description: Open ArcGIS REST services; no API key required
+        requestsPerHour: Not published
+        notes: >-
+          ArcGIS Server-based services; heavy usage may trigger platform-level
+          throttling
+
+  - api: USGS ScienceBase
+    baseURL: https://www.sciencebase.gov/catalog
+    tiers:
+      - name: Public Access
+        description: Open catalog access; no API key required
+        requestsPerHour: Not published
+        notes: Authentication required for write operations; read is public
+
+generalNotes: >-
+  DOI bureau APIs are federal public services with no formally published
+  rate limit figures. Users experiencing throttling should implement
+  exponential backoff, use registered API keys where available, and consider
+  bulk data downloads for large dataset needs. The USGS legacy WaterServices
+  APIs (waterservices.usgs.gov) will be decommissioned in Q1 2027; migrate
+  to api.waterdata.usgs.gov.

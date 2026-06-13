@@ -1,0 +1,86 @@
+name: Department of Interior API FinOps
+description: >-
+  Financial operations considerations for consuming DOI bureau APIs. All DOI
+  APIs are federally funded and free to the public. FinOps considerations
+  relate to consumer-side infrastructure costs, data storage, and processing
+  rather than API usage fees.
+costModel:
+  type: Free / No Cost
+  description: >-
+    All DOI bureau APIs (NPS, USGS, BLM, FWS) are provided as a public
+    service of the United States federal government at no cost. There are
+    no subscription fees, per-request charges, data transfer fees, or
+    enterprise licensing costs.
+
+consumerCostConsiderations:
+  - category: Infrastructure
+    description: >-
+      Consumer-side cloud or on-premises compute for processing DOI data
+      (e.g., ingesting water sensor data streams, storing earthquake feeds).
+      Costs are entirely on the consumer side.
+    estimatedImpact: Low to High depending on data volume
+
+  - category: Data Storage
+    description: >-
+      USGS water, earthquake, and mineral data can be high-volume. Storing
+      historical data or real-time streams may require significant storage
+      depending on use case.
+    estimatedImpact: Medium to High for real-time or bulk ingestion use cases
+
+  - category: Geospatial Processing
+    description: >-
+      BLM GIS services and USGS geospatial data may require GIS tooling
+      (ArcGIS, QGIS, PostGIS) for processing. Licensing for commercial GIS
+      tools is a consumer cost.
+    estimatedImpact: Medium for geospatial-heavy use cases
+
+  - category: API Key Management
+    description: >-
+      Free API keys for NPS and USGS services require registration and
+      management. No cost, but operational overhead for key rotation and
+      storage in secrets management systems.
+    estimatedImpact: Low
+
+  - category: Legacy API Migration
+    description: >-
+      USGS legacy WaterServices (waterservices.usgs.gov) will be
+      decommissioned in Q1 2027. Consumer applications must migrate to
+      api.waterdata.usgs.gov. Migration engineering effort is a cost.
+    estimatedImpact: Medium for applications using legacy water services
+    deadline: Q1 2027
+
+optimization:
+  - tip: Use registered API keys to access higher rate limits and avoid throttling
+    applies_to:
+      - NPS Data API
+      - USGS Water Data APIs
+  - tip: >-
+      Use bulk data downloads from USGS Science Data Catalog and data.gov
+      for large historical datasets instead of API polling
+    applies_to:
+      - USGS Water Data APIs
+      - USGS ScienceBase
+      - USGS Mineral Resources
+  - tip: >-
+      Cache NPS park, campground, and visitor center data locally as it
+      changes infrequently; reduces API calls and processing overhead
+    applies_to:
+      - NPS Data API
+  - tip: >-
+      Subscribe to USGS earthquake notification feeds (GeoJSON, Atom) for
+      push-based event delivery instead of polling the query API
+    applies_to:
+      - USGS Earthquake Hazards Web Services
+  - tip: >-
+      Plan migration from waterservices.usgs.gov to api.waterdata.usgs.gov
+      before Q1 2027 decommissioning deadline
+    applies_to:
+      - USGS Water Data APIs
+
+fundingContext: >-
+  DOI and its bureaus (NPS, USGS, BLM, FWS, BIA) are funded through
+  annual congressional appropriations. API availability is subject to
+  government funding cycles, continuing resolutions, and potential
+  government shutdowns, which can cause temporary API outages. Consumers
+  of DOI APIs should design for intermittent availability and implement
+  caching strategies accordingly.

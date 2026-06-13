@@ -1,0 +1,184 @@
+aid: doi
+name: Department of Interior
+description: >-
+  The U.S. Department of the Interior (DOI) manages and conserves federal lands
+  and natural resources across America. DOI's bureaus and offices provide REST
+  APIs and data services covering national park information, water resources,
+  earthquake data, mineral resources, geospatial federal land boundaries, and
+  wildlife data. Key API providers include the National Park Service (NPS),
+  the U.S. Geological Survey (USGS), and the Bureau of Land Management (BLM).
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+url: https://raw.githubusercontent.com/api-evangelist/doi/refs/heads/main/apis.yml
+created: '2026-06-13'
+modified: '2026-06-13'
+specificationVersion: '0.19'
+type: Index
+tags:
+  - Federal Government
+  - National Parks
+  - Federal Lands
+  - Water Resources
+  - Wildlife
+  - Minerals
+  - Geospatial
+  - Geology
+  - Native American Affairs
+  - Public Lands
+apis:
+  - name: NPS Data API
+    description: >-
+      The National Park Service Data API provides authoritative data about NPS
+      sites including parks, alerts, campgrounds, events, visitor centers, news
+      releases, articles, and educational lesson plans. Access requires a free
+      API key sent via HTTP request header.
+    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    humanURL: https://www.nps.gov/subjects/developer/index.htm
+    baseURL: https://developer.nps.gov/api/v1
+    tags:
+      - National Parks
+      - Recreation
+      - Federal Lands
+      - Campgrounds
+      - Events
+    properties:
+      - type: Documentation
+        url: https://www.nps.gov/subjects/developer/api-documentation.htm
+      - type: GettingStarted
+        url: https://www.nps.gov/subjects/developer/get-started.htm
+      - type: Authentication
+        url: https://www.nps.gov/subjects/developer/api-guides.htm
+    contact:
+      - FN: National Park Service Developer Resources
+        url: https://www.nps.gov/subjects/developer/index.htm
+
+  - name: USGS Water Data APIs
+    description: >-
+      Modernized USGS Water Data APIs providing real-time and historical water
+      resource data including continuous sensor measurements, daily values, and
+      water quality information from thousands of monitoring sites nationwide.
+      Supports OGC API standards and STAC for geospatial data access.
+    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    humanURL: https://api.waterdata.usgs.gov
+    baseURL: https://api.waterdata.usgs.gov
+    tags:
+      - Water
+      - Hydrology
+      - Streamflow
+      - Water Quality
+      - Real-Time Data
+    properties:
+      - type: Documentation
+        url: https://api.waterdata.usgs.gov/docs/
+      - type: Migration
+        url: https://api.waterdata.usgs.gov/docs/ogcapi/migration/
+    contact:
+      - FN: USGS Water Resources
+        url: https://www.usgs.gov/tools/usgs-water-data-apis
+
+  - name: USGS Earthquake Hazards Web Services
+    description: >-
+      Real-time earthquake data feeds, notifications, and web services providing
+      access to seismic event data including location, magnitude, depth, and
+      related hazard information. Supports GeoJSON, QuakeML, and CSV formats.
+    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    humanURL: https://earthquake.usgs.gov/fdsnws/event/1/
+    baseURL: https://earthquake.usgs.gov/fdsnws/event/1
+    tags:
+      - Earthquakes
+      - Seismic
+      - Natural Hazards
+      - Real-Time Data
+    properties:
+      - type: Documentation
+        url: https://earthquake.usgs.gov/fdsnws/event/1/
+    contact:
+      - FN: USGS Earthquake Hazards Program
+        url: https://earthquake.usgs.gov/
+
+  - name: USGS Mineral Resources Data API
+    description: >-
+      API access to the USGS Mineral Resources Data System (MRDS) and related
+      mineral deposit databases. Supports geographic queries, bounding box
+      searches, point queries, and access to data on mineral deposits, mining
+      operations, and geochemical samples across the United States.
+    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    humanURL: https://mrdata.usgs.gov/catalog/api.php
+    baseURL: https://mrdata.usgs.gov
+    tags:
+      - Minerals
+      - Mining
+      - Geochemistry
+      - Natural Resources
+    properties:
+      - type: Documentation
+        url: https://mrdata.usgs.gov/catalog/api.php
+    contact:
+      - FN: USGS Mineral Resources Program
+        url: https://www.usgs.gov/programs/mineral-resources-program/data
+
+  - name: BLM GIS REST Services
+    description: >-
+      Bureau of Land Management geospatial REST services providing access to
+      federal land status, cadastral data (Public Land Survey System), mineral
+      rights boundaries, and other BLM-managed land data through ArcGIS REST
+      service endpoints.
+    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    humanURL: https://www.blm.gov/services/geospatial/GISData
+    baseURL: https://gis.blm.gov/arcgis/rest/services
+    tags:
+      - Geospatial
+      - Federal Lands
+      - Cadastral
+      - GIS
+      - Public Lands
+    properties:
+      - type: Documentation
+        url: https://www.blm.gov/services/geospatial/GISData
+    contact:
+      - FN: Bureau of Land Management Geospatial
+        url: https://www.blm.gov/services/geospatial
+
+  - name: USGS ScienceBase API
+    description: >-
+      ScienceBase provides collaborative scientific data management
+      infrastructure enabling upload, documentation, sharing, and discovery
+      of USGS scientific data using standards-compliant REST web services.
+      Covers a broad range of earth science, ecology, and natural resource data.
+    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    humanURL: https://www.sciencebase.gov/catalog/
+    baseURL: https://www.sciencebase.gov/catalog
+    tags:
+      - Science Data
+      - Ecology
+      - Natural Resources
+      - Data Catalog
+    properties:
+      - type: Documentation
+        url: https://www.usgs.gov/sciencebase-instructions-and-documentation/api-and-web-services
+    contact:
+      - FN: USGS ScienceBase
+        url: https://www.sciencebase.gov
+
+common:
+  - type: Website
+    url: https://www.doi.gov/
+  - type: Documentation
+    url: https://www.doi.gov/ocio/customers/web-services
+  - type: GitHubOrg
+    url: https://github.com/usgs
+  - type: LinkedIn
+    url: https://www.linkedin.com/company/department-of-the-interior
+  - type: Blog
+    url: https://www.doi.gov/blog
+  - type: X
+    url: https://twitter.com/interior
+  - type: Plans
+    url: plans/doi-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/doi-rate-limits.yml
+  - type: FinOps
+    url: finops/doi-finops.yml
+
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
