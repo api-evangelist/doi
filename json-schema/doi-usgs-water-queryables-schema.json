@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Queryables",
+  "description": "JSON Schema for queryables in the USGS Water Data OGC API",
+  "properties": {
+    "queryables": {
+      "items": {
+        "$ref": "#/components/schemas/queryable"
+      },
+      "type": "array"
+    }
+  },
+  "required": [
+    "queryables"
+  ],
+  "type": "object"
+}

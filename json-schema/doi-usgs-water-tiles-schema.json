@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Tiles",
+  "description": "JSON Schema for tiles in the USGS Water Data OGC API",
+  "properties": {
+    "links": {
+      "items": {
+        "$ref": "https://schemas.opengis.net/ogcapi/tiles/part1/1.0/openapi/ogcapi-tiles-1.yaml#/components/schemas/link"
+      },
+      "type": "array"
+    },
+    "tileMatrixSetLinks": {
+      "items": {
+        "$ref": "#/components/schemas/tilematrixsetlink"
+      },
+      "type": "array"
+    }
+  },
+  "required": [
+    "tileMatrixSetLinks",
+    "links"
+  ],
+  "type": "object"
+}

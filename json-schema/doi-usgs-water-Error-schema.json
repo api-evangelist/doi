@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Error",
+  "description": "JSON Schema for Error in the USGS Water Data OGC API",
+  "properties": {
+    "error": {
+      "properties": {
+        "code": {
+          "description": "Error code such as OVER_RATE_LIMIT, see https://api.data.gov/docs/developer-manual/#general-web-service-errors",
+          "type": "string"
+        },
+        "message": {
+          "description": "Error message",
+          "type": "string"
+        }
+      },
+      "required": [
+        "code",
+        "message"
+      ],
+      "type": "object"
+    }
+  },
+  "type": "object"
+}

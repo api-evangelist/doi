@@ -1,0 +1,34 @@
+{
+  "summary": "USGS Water Data - Monitoring Location Feature",
+  "description": "Example GeoJSON feature for a USGS water monitoring site",
+  "value": {
+    "type": "Feature",
+    "id": "01646500",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        -77.1303,
+        38.9711
+      ]
+    },
+    "properties": {
+      "monitoringLocationNumber": "01646500",
+      "monitoringLocationName": "POTOMAC RIVER NEAR WASH, DC LITTLE FALLS PUMP STA",
+      "monitoringLocationType": "Stream",
+      "stateFipsCode": "11",
+      "countyFipsCode": "11001",
+      "huc8Code": "02070008",
+      "drainageAreaValue": "11560",
+      "drainageAreaUnit": "square miles",
+      "altitudeValue": "36.5",
+      "altitudeUnit": "feet above NGVD29"
+    },
+    "links": [
+      {
+        "href": "https://waterdata.usgs.gov/monitoring-location/01646500/",
+        "rel": "canonical",
+        "type": "text/html"
+      }
+    ]
+  }
+}

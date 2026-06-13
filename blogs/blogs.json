@@ -1,0 +1,13 @@
+{
+  "provider": "doi",
+  "name": "Department of Interior",
+  "blogs": [
+    {
+      "name": "DOI Blog",
+      "url": "https://www.doi.gov/blog",
+      "rss": null,
+      "last_fetched": null,
+      "posts": []
+    }
+  ]
+}

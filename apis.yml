@@ -71,6 +71,8 @@ apis:
         url: https://api.waterdata.usgs.gov/docs/
       - type: Migration
         url: https://api.waterdata.usgs.gov/docs/ogcapi/migration/
+      - type: OpenAPI
+        url: openapi/doi-usgs-water-openapi.yml
     contact:
       - FN: USGS Water Resources
         url: https://www.usgs.gov/tools/usgs-water-data-apis

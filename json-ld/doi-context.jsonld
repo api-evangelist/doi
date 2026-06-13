@@ -1,0 +1,247 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "doi": "https://www.doi.gov/ns/",
+    "usgs": "https://www.usgs.gov/ns/",
+    "nps": "https://www.nps.gov/ns/",
+    "blm": "https://www.blm.gov/ns/",
+    "schema": "https://schema.org/",
+    "hydra": "http://www.w3.org/ns/hydra/core#",
+    "ogc": "http://www.opengis.net/ont/geosparql#",
+    "dcat": "http://www.w3.org/ns/dcat#",
+    "dcterms": "http://purl.org/dc/terms/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+
+    "name": "schema:name",
+    "description": "schema:description",
+    "url": "schema:url",
+    "identifier": "schema:identifier",
+    "image": "schema:image",
+    "location": "schema:location",
+    "latitude": "schema:latitude",
+    "longitude": "schema:longitude",
+    "dateCreated": "schema:dateCreated",
+    "dateModified": "schema:dateModified",
+
+    "monitoringLocationNumber": {
+      "@id": "usgs:monitoringLocationNumber",
+      "@type": "xsd:string"
+    },
+    "monitoringLocationName": {
+      "@id": "usgs:monitoringLocationName",
+      "@type": "xsd:string"
+    },
+    "monitoringLocationType": {
+      "@id": "usgs:monitoringLocationType",
+      "@type": "xsd:string"
+    },
+    "huc8Code": {
+      "@id": "usgs:huc8Code",
+      "@type": "xsd:string"
+    },
+    "drainageAreaValue": {
+      "@id": "usgs:drainageAreaValue",
+      "@type": "xsd:decimal"
+    },
+    "drainageAreaUnit": {
+      "@id": "usgs:drainageAreaUnit",
+      "@type": "xsd:string"
+    },
+    "altitudeValue": {
+      "@id": "usgs:altitudeValue",
+      "@type": "xsd:decimal"
+    },
+    "altitudeUnit": {
+      "@id": "usgs:altitudeUnit",
+      "@type": "xsd:string"
+    },
+    "parameterCode": {
+      "@id": "usgs:parameterCode",
+      "@type": "xsd:string"
+    },
+    "statCd": {
+      "@id": "usgs:statisticalCode",
+      "@type": "xsd:string"
+    },
+    "agencyCode": {
+      "@id": "usgs:agencyCode",
+      "@type": "xsd:string"
+    },
+    "stateFipsCode": {
+      "@id": "usgs:stateFipsCode",
+      "@type": "xsd:string"
+    },
+    "countyFipsCode": {
+      "@id": "usgs:countyFipsCode",
+      "@type": "xsd:string"
+    },
+
+    "parkCode": {
+      "@id": "nps:parkCode",
+      "@type": "xsd:string"
+    },
+    "designation": {
+      "@id": "nps:designation",
+      "@type": "xsd:string"
+    },
+    "states": {
+      "@id": "nps:states",
+      "@type": "xsd:string"
+    },
+    "latLong": {
+      "@id": "nps:latLong",
+      "@type": "xsd:string"
+    },
+    "entranceFee": {
+      "@id": "nps:entranceFee",
+      "@type": "xsd:decimal"
+    },
+    "operatingHours": {
+      "@id": "nps:operatingHours",
+      "@type": "@json"
+    },
+
+    "magnitude": {
+      "@id": "usgs:magnitude",
+      "@type": "xsd:decimal"
+    },
+    "depth": {
+      "@id": "usgs:depth",
+      "@type": "xsd:decimal"
+    },
+    "eventId": {
+      "@id": "usgs:eventId",
+      "@type": "xsd:string"
+    },
+    "catalog": {
+      "@id": "usgs:catalog",
+      "@type": "xsd:string"
+    },
+    "productType": {
+      "@id": "usgs:productType",
+      "@type": "xsd:string"
+    },
+    "tsunamiFlag": {
+      "@id": "usgs:tsunamiFlag",
+      "@type": "xsd:boolean"
+    },
+
+    "commodityCode": {
+      "@id": "usgs:commodityCode",
+      "@type": "xsd:string"
+    },
+    "depositType": {
+      "@id": "usgs:depositType",
+      "@type": "xsd:string"
+    },
+    "developmentStatus": {
+      "@id": "usgs:developmentStatus",
+      "@type": "xsd:string"
+    },
+
+    "caseId": {
+      "@id": "blm:caseId",
+      "@type": "xsd:string"
+    },
+    "plss": {
+      "@id": "blm:publicLandSurveySystem",
+      "@type": "xsd:string"
+    },
+    "landUseCategory": {
+      "@id": "blm:landUseCategory",
+      "@type": "xsd:string"
+    },
+    "adminUnit": {
+      "@id": "blm:adminUnit",
+      "@type": "xsd:string"
+    },
+
+    "sbId": {
+      "@id": "usgs:scienceBaseId",
+      "@type": "xsd:string"
+    },
+    "parentId": {
+      "@id": "usgs:parentId",
+      "@type": "xsd:string"
+    },
+    "provenance": {
+      "@id": "dcterms:provenance",
+      "@type": "@json"
+    },
+
+    "links": {
+      "@id": "hydra:link",
+      "@type": "@json"
+    },
+    "collections": {
+      "@id": "dcat:dataset",
+      "@container": "@set"
+    },
+    "extent": {
+      "@id": "dcterms:spatial",
+      "@type": "@json"
+    },
+    "bbox": {
+      "@id": "ogc:hasBoundingBox",
+      "@type": "@json"
+    },
+
+    "error": {
+      "@id": "doi:error",
+      "@type": "@json"
+    }
+  },
+  "@graph": [
+    {
+      "@id": "https://github.com/api-evangelist/doi",
+      "@type": "dcat:Catalog",
+      "schema:name": "Department of Interior API Catalog",
+      "schema:description": "JSON-LD context for the U.S. Department of the Interior APIs including USGS Water Data, NPS, Earthquake Hazards, Mineral Resources, BLM GIS, and ScienceBase.",
+      "schema:url": "https://www.doi.gov/",
+      "schema:publisher": {
+        "@id": "https://www.doi.gov/",
+        "@type": "schema:GovernmentOrganization",
+        "schema:name": "U.S. Department of the Interior",
+        "schema:url": "https://www.doi.gov/"
+      },
+      "dcat:dataset": [
+        {
+          "@id": "https://api.waterdata.usgs.gov/ogcapi/v0",
+          "@type": "dcat:DataService",
+          "schema:name": "USGS Water Data OGC APIs",
+          "schema:url": "https://api.waterdata.usgs.gov"
+        },
+        {
+          "@id": "https://developer.nps.gov/api/v1",
+          "@type": "dcat:DataService",
+          "schema:name": "NPS Data API",
+          "schema:url": "https://developer.nps.gov/api/v1"
+        },
+        {
+          "@id": "https://earthquake.usgs.gov/fdsnws/event/1",
+          "@type": "dcat:DataService",
+          "schema:name": "USGS Earthquake Hazards Web Services",
+          "schema:url": "https://earthquake.usgs.gov"
+        },
+        {
+          "@id": "https://mrdata.usgs.gov",
+          "@type": "dcat:DataService",
+          "schema:name": "USGS Mineral Resources Data API",
+          "schema:url": "https://mrdata.usgs.gov"
+        },
+        {
+          "@id": "https://gis.blm.gov/arcgis/rest/services",
+          "@type": "dcat:DataService",
+          "schema:name": "BLM GIS REST Services",
+          "schema:url": "https://gis.blm.gov/arcgis/rest/services"
+        },
+        {
+          "@id": "https://www.sciencebase.gov/catalog",
+          "@type": "dcat:DataService",
+          "schema:name": "USGS ScienceBase API",
+          "schema:url": "https://www.sciencebase.gov/catalog"
+        }
+      ]
+    }
+  ]
+}

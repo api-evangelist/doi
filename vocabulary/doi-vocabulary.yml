@@ -1,0 +1,205 @@
+vocabulary:
+  name: Department of Interior API Vocabulary
+  description: >-
+    Domain vocabulary for the U.S. Department of the Interior APIs, covering
+    water resources, national parks, earthquake hazards, mineral resources,
+    geospatial federal lands, and scientific data management.
+  version: '1.0'
+  created: '2026-06-13'
+  modified: '2026-06-13'
+
+domains:
+  - name: Water Resources
+    description: USGS water monitoring and hydrology terminology
+    source: https://api.waterdata.usgs.gov
+    terms:
+      - term: monitoringLocationNumber
+        label: Monitoring Location Number
+        description: Unique USGS identifier for a water monitoring site (e.g., stream gauge station)
+        type: string
+        example: '01646500'
+
+      - term: monitoringLocationType
+        label: Monitoring Location Type
+        description: Classification of monitoring site such as Stream, Lake, Well, or Atmosphere
+        type: string
+        values: [Stream, Lake, Well, Spring, Atmosphere, Estuary, Ocean, Ice Mass]
+
+      - term: huc8Code
+        label: HUC-8 Hydrologic Unit Code
+        description: Eight-digit hydrologic unit code identifying the watershed containing the monitoring location
+        type: string
+        example: '02070008'
+
+      - term: drainageAreaValue
+        label: Drainage Area
+        description: The area of land that drains to a monitoring location, typically in square miles or square kilometers
+        type: number
+
+      - term: altitudeValue
+        label: Altitude
+        description: Elevation of the monitoring location above a vertical datum (e.g., NGVD29, NAVD88)
+        type: number
+
+      - term: parameterCode
+        label: Parameter Code
+        description: USGS numeric code identifying a specific water quality or quantity measurement parameter
+        type: string
+        example: '00060'
+
+      - term: statCd
+        label: Statistical Code
+        description: USGS code indicating the statistical type (e.g., 00001=maximum, 00002=minimum, 00003=mean)
+        type: string
+
+      - term: agencyCode
+        label: Agency Code
+        description: Code identifying the agency responsible for collecting the water data
+        type: string
+        example: USGS
+
+  - name: National Parks
+    description: NPS parks and recreation site terminology
+    source: https://developer.nps.gov/api/v1
+    terms:
+      - term: parkCode
+        label: Park Code
+        description: Unique four-letter code identifying a National Park Service site
+        type: string
+        example: yose
+
+      - term: designation
+        label: Park Designation
+        description: Official NPS designation type such as National Park, National Monument, or National Recreation Area
+        type: string
+        values: [National Park, National Monument, National Recreation Area, National Seashore, National Historic Site, National Forest]
+
+      - term: states
+        label: States
+        description: Comma-separated list of state abbreviations where the park is located
+        type: string
+        example: CA,NV
+
+      - term: latLong
+        label: Latitude/Longitude
+        description: Geographic coordinates for the park or facility centroid
+        type: string
+
+  - name: Earthquake Hazards
+    description: USGS seismic data terminology
+    source: https://earthquake.usgs.gov/fdsnws/event/1
+    terms:
+      - term: magnitude
+        label: Magnitude
+        description: Quantitative measure of the size of an earthquake on the Richter or moment magnitude scale
+        type: number
+
+      - term: depth
+        label: Depth
+        description: Depth of the earthquake hypocenter below the Earth's surface in kilometers
+        type: number
+
+      - term: eventId
+        label: Event ID
+        description: Unique identifier for a seismic event in the USGS earthquake catalog
+        type: string
+        example: us7000kg6v
+
+      - term: catalog
+        label: Catalog
+        description: Source catalog for the seismic event data (e.g., us, ak, ci)
+        type: string
+
+      - term: productType
+        label: Product Type
+        description: Type of earthquake data product such as shakemap, dyfi, moment-tensor
+        type: string
+
+  - name: Mineral Resources
+    description: USGS mineral deposit and mining terminology
+    source: https://mrdata.usgs.gov
+    terms:
+      - term: commodityCode
+        label: Commodity Code
+        description: Code identifying the primary mineral commodity at a deposit site
+        type: string
+
+      - term: depositType
+        label: Deposit Type
+        description: Classification of mineral deposit based on geological characteristics
+        type: string
+
+      - term: developmentStatus
+        label: Development Status
+        description: Current operational status of a mineral deposit or mine site
+        type: string
+        values: [Producer, Past Producer, Prospect, Occurrence]
+
+  - name: Federal Lands
+    description: BLM and general federal land management terminology
+    source: https://gis.blm.gov/arcgis/rest/services
+    terms:
+      - term: caseId
+        label: Case ID
+        description: BLM case identifier for a land or mineral rights action
+        type: string
+
+      - term: plss
+        label: Public Land Survey System
+        description: Legal description of federal land parcels using Township, Range, and Section notation
+        type: string
+
+      - term: landUseCategory
+        label: Land Use Category
+        description: BLM classification of how a parcel of federal land is managed or authorized for use
+        type: string
+
+  - name: Scientific Data
+    description: USGS ScienceBase data management terminology
+    source: https://www.sciencebase.gov/catalog
+    terms:
+      - term: sbId
+        label: ScienceBase Item ID
+        description: Unique identifier for a data item in the USGS ScienceBase catalog
+        type: string
+
+      - term: parentId
+        label: Parent Item ID
+        description: ScienceBase identifier of the parent collection or community item
+        type: string
+
+      - term: provenance
+        label: Provenance
+        description: Metadata describing the origin, custody chain, and creation methodology of a scientific dataset
+        type: object
+
+api_parameters:
+  - name: f
+    label: Format
+    description: Output format for the response (e.g., json, geojson, csv, html)
+    source: USGS Water OGC API
+
+  - name: limit
+    label: Limit
+    description: Maximum number of features to return in a response (max 50000, default 10000)
+    source: USGS Water OGC API
+
+  - name: bbox
+    label: Bounding Box
+    description: Spatial filter as comma-separated min longitude, min latitude, max longitude, max latitude
+    source: USGS Water OGC API
+
+  - name: datetime
+    label: Datetime
+    description: Temporal filter as RFC 3339 date-time value or interval (e.g., 2024-01-01T00:00:00Z/2024-12-31T23:59:59Z)
+    source: USGS Water OGC API
+
+  - name: properties
+    label: Properties
+    description: Comma-separated list of property names to include in the response
+    source: USGS Water OGC API
+
+  - name: sortby
+    label: Sort By
+    description: Property name to sort results by, with optional + (ascending) or - (descending) prefix
+    source: USGS Water OGC API

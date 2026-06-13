@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Tilematrixsetlink",
+  "description": "JSON Schema for tilematrixsetlink in the USGS Water Data OGC API",
+  "properties": {
+    "tileMatrixSet": {
+      "type": "string"
+    },
+    "tileMatrixSetURI": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "tileMatrixSet"
+  ],
+  "type": "object"
+}

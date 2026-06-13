@@ -1,0 +1,59 @@
+{
+  "summary": "USGS Water Data OGC API - Collections list response",
+  "description": "Example response from GET /collections showing available data collections",
+  "value": {
+    "links": [
+      {
+        "href": "https://api.waterdata.usgs.gov/ogcapi/v0/collections",
+        "rel": "self",
+        "type": "application/json",
+        "title": "Collections"
+      },
+      {
+        "href": "https://api.waterdata.usgs.gov/ogcapi/v0",
+        "rel": "root",
+        "type": "application/json",
+        "title": "Landing Page"
+      }
+    ],
+    "collections": [
+      {
+        "id": "continuous",
+        "title": "Continuous Monitoring Data",
+        "description": "Continuous sensor measurement data from USGS monitoring locations",
+        "links": [
+          {
+            "href": "https://api.waterdata.usgs.gov/ogcapi/v0/collections/continuous/items",
+            "rel": "items",
+            "type": "application/geo+json"
+          }
+        ],
+        "extent": {
+          "spatial": {
+            "bbox": [
+              [
+                -180,
+                -90,
+                180,
+                90
+              ]
+            ],
+            "crs": "http://www.opengis.net/def/crs/OGC/1.3/CRS84"
+          }
+        }
+      },
+      {
+        "id": "daily",
+        "title": "Daily Values",
+        "description": "Daily statistical summaries of USGS water monitoring data",
+        "links": [
+          {
+            "href": "https://api.waterdata.usgs.gov/ogcapi/v0/collections/daily/items",
+            "rel": "items",
+            "type": "application/geo+json"
+          }
+        ]
+      }
+    ]
+  }
+}

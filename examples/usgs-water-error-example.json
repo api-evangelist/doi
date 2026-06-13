@@ -1,0 +1,10 @@
+{
+  "summary": "USGS Water Data OGC API - Error response",
+  "description": "Example error response when rate limit is exceeded",
+  "value": {
+    "error": {
+      "code": "OVER_RATE_LIMIT",
+      "message": "Rate limit exceeded. You have exceeded your rate limit. Contact us via https://waterdata.usgs.gov/contact if you need higher limits."
+    }
+  }
+}
