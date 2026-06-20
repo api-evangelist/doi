@@ -7,7 +7,7 @@ description: >-
   earthquake data, mineral resources, geospatial federal land boundaries, and
   wildlife data. Key API providers include the National Park Service (NPS),
   the U.S. Geological Survey (USGS), and the Bureau of Land Management (BLM).
-image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 url: https://raw.githubusercontent.com/api-evangelist/doi/refs/heads/main/apis.yml
 created: '2026-06-13'
 modified: '2026-06-13'
@@ -31,7 +31,7 @@ apis:
       sites including parks, alerts, campgrounds, events, visitor centers, news
       releases, articles, and educational lesson plans. Access requires a free
       API key sent via HTTP request header.
-    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     humanURL: https://www.nps.gov/subjects/developer/index.htm
     baseURL: https://developer.nps.gov/api/v1
     tags:
@@ -57,7 +57,7 @@ apis:
       resource data including continuous sensor measurements, daily values, and
       water quality information from thousands of monitoring sites nationwide.
       Supports OGC API standards and STAC for geospatial data access.
-    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     humanURL: https://api.waterdata.usgs.gov
     baseURL: https://api.waterdata.usgs.gov
     tags:
@@ -82,7 +82,7 @@ apis:
       Real-time earthquake data feeds, notifications, and web services providing
       access to seismic event data including location, magnitude, depth, and
       related hazard information. Supports GeoJSON, QuakeML, and CSV formats.
-    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     humanURL: https://earthquake.usgs.gov/fdsnws/event/1/
     baseURL: https://earthquake.usgs.gov/fdsnws/event/1
     tags:
@@ -103,7 +103,7 @@ apis:
       mineral deposit databases. Supports geographic queries, bounding box
       searches, point queries, and access to data on mineral deposits, mining
       operations, and geochemical samples across the United States.
-    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     humanURL: https://mrdata.usgs.gov/catalog/api.php
     baseURL: https://mrdata.usgs.gov
     tags:
@@ -124,7 +124,7 @@ apis:
       federal land status, cadastral data (Public Land Survey System), mineral
       rights boundaries, and other BLM-managed land data through ArcGIS REST
       service endpoints.
-    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     humanURL: https://www.blm.gov/services/geospatial/GISData
     baseURL: https://gis.blm.gov/arcgis/rest/services
     tags:
@@ -146,7 +146,7 @@ apis:
       infrastructure enabling upload, documentation, sharing, and discovery
       of USGS scientific data using standards-compliant REST web services.
       Covers a broad range of earth science, ecology, and natural resource data.
-    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     humanURL: https://www.sciencebase.gov/catalog/
     baseURL: https://www.sciencebase.gov/catalog
     tags:
