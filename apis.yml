@@ -162,6 +162,10 @@ apis:
         url: https://www.sciencebase.gov
 
 common:
+  - type: DomainSecurity
+    url: security/doi-domain-security.yml
+  - type: Authentication
+    url: authentication/doi-authentication.yml
   - type: Website
     url: https://www.doi.gov/
   - type: Documentation
