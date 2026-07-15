@@ -162,6 +162,8 @@ apis:
         url: https://www.sciencebase.gov
 
 common:
+  - type: AgenticAccess
+    url: agentic-access/doi-agentic-access.yml
   - type: DomainSecurity
     url: security/doi-domain-security.yml
   - type: Authentication
