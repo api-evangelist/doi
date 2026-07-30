@@ -7,7 +7,20 @@ description: >-
   earthquake data, mineral resources, geospatial federal land boundaries, and
   wildlife data. Key API providers include the National Park Service (NPS),
   the U.S. Geological Survey (USGS), and the Bureau of Land Management (BLM).
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: free
+  onboarding: self-serve
+  trial: false
+  try_now: true
+  public: false
+  label: Free · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/doi.png
 url: https://raw.githubusercontent.com/api-evangelist/doi/refs/heads/main/apis.yml
 created: '2026-06-13'
 modified: '2026-06-13'
@@ -25,142 +38,727 @@ tags:
   - Native American Affairs
   - Public Lands
 apis:
-  - name: NPS Data API
-    description: >-
-      The National Park Service Data API provides authoritative data about NPS
-      sites including parks, alerts, campgrounds, events, visitor centers, news
-      releases, articles, and educational lesson plans. Access requires a free
-      API key sent via HTTP request header.
-    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-    humanURL: https://www.nps.gov/subjects/developer/index.htm
-    baseURL: https://developer.nps.gov/api/v1
-    tags:
-      - National Parks
-      - Recreation
-      - Federal Lands
-      - Campgrounds
-      - Events
-    properties:
-      - type: Documentation
-        url: https://www.nps.gov/subjects/developer/api-documentation.htm
-      - type: GettingStarted
-        url: https://www.nps.gov/subjects/developer/get-started.htm
-      - type: Authentication
-        url: https://www.nps.gov/subjects/developer/api-guides.htm
-    contact:
-      - FN: National Park Service Developer Resources
-        url: https://www.nps.gov/subjects/developer/index.htm
-
-  - name: USGS Water Data APIs
-    description: >-
-      Modernized USGS Water Data APIs providing real-time and historical water
-      resource data including continuous sensor measurements, daily values, and
-      water quality information from thousands of monitoring sites nationwide.
-      Supports OGC API standards and STAC for geospatial data access.
-    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-    humanURL: https://api.waterdata.usgs.gov
-    baseURL: https://api.waterdata.usgs.gov
-    tags:
-      - Water
-      - Hydrology
-      - Streamflow
-      - Water Quality
-      - Real-Time Data
-    properties:
-      - type: Documentation
-        url: https://api.waterdata.usgs.gov/docs/
-      - type: Migration
-        url: https://api.waterdata.usgs.gov/docs/ogcapi/migration/
-      - type: OpenAPI
-        url: openapi/doi-usgs-water-openapi.yml
-    contact:
-      - FN: USGS Water Resources
-        url: https://www.usgs.gov/tools/usgs-water-data-apis
-
-  - name: USGS Earthquake Hazards Web Services
-    description: >-
-      Real-time earthquake data feeds, notifications, and web services providing
-      access to seismic event data including location, magnitude, depth, and
-      related hazard information. Supports GeoJSON, QuakeML, and CSV formats.
-    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-    humanURL: https://earthquake.usgs.gov/fdsnws/event/1/
-    baseURL: https://earthquake.usgs.gov/fdsnws/event/1
-    tags:
-      - Earthquakes
-      - Seismic
-      - Natural Hazards
-      - Real-Time Data
-    properties:
-      - type: Documentation
-        url: https://earthquake.usgs.gov/fdsnws/event/1/
-    contact:
-      - FN: USGS Earthquake Hazards Program
-        url: https://earthquake.usgs.gov/
-
-  - name: USGS Mineral Resources Data API
-    description: >-
-      API access to the USGS Mineral Resources Data System (MRDS) and related
-      mineral deposit databases. Supports geographic queries, bounding box
-      searches, point queries, and access to data on mineral deposits, mining
-      operations, and geochemical samples across the United States.
-    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-    humanURL: https://mrdata.usgs.gov/catalog/api.php
-    baseURL: https://mrdata.usgs.gov
-    tags:
-      - Minerals
-      - Mining
-      - Geochemistry
-      - Natural Resources
-    properties:
-      - type: Documentation
-        url: https://mrdata.usgs.gov/catalog/api.php
-    contact:
-      - FN: USGS Mineral Resources Program
-        url: https://www.usgs.gov/programs/mineral-resources-program/data
-
-  - name: BLM GIS REST Services
-    description: >-
-      Bureau of Land Management geospatial REST services providing access to
-      federal land status, cadastral data (Public Land Survey System), mineral
-      rights boundaries, and other BLM-managed land data through ArcGIS REST
-      service endpoints.
-    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-    humanURL: https://www.blm.gov/services/geospatial/GISData
-    baseURL: https://gis.blm.gov/arcgis/rest/services
-    tags:
-      - Geospatial
-      - Federal Lands
-      - Cadastral
-      - GIS
-      - Public Lands
-    properties:
-      - type: Documentation
-        url: https://www.blm.gov/services/geospatial/GISData
-    contact:
-      - FN: Bureau of Land Management Geospatial
-        url: https://www.blm.gov/services/geospatial
-
-  - name: USGS ScienceBase API
-    description: >-
-      ScienceBase provides collaborative scientific data management
-      infrastructure enabling upload, documentation, sharing, and discovery
-      of USGS scientific data using standards-compliant REST web services.
-      Covers a broad range of earth science, ecology, and natural resource data.
-    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-    humanURL: https://www.sciencebase.gov/catalog/
-    baseURL: https://www.sciencebase.gov/catalog
-    tags:
-      - Science Data
-      - Ecology
-      - Natural Resources
-      - Data Catalog
-    properties:
-      - type: Documentation
-        url: https://www.usgs.gov/sciencebase-instructions-and-documentation/api-and-web-services
-    contact:
-      - FN: USGS ScienceBase
-        url: https://www.sciencebase.gov
-
+- name: NPS Data API
+  description: >-
+    The National Park Service Data API provides authoritative data about NPS sites including parks, alerts,
+    campgrounds, events, visitor centers, news releases, articles, and educational lesson plans. Access
+    requires a free API key sent via HTTP request header.
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://www.nps.gov/subjects/developer/index.htm
+  baseURL: https://developer.nps.gov/api/v1
+  tags:
+  - National Parks
+  - Recreation
+  - Federal Lands
+  - Campgrounds
+  - Events
+  properties:
+  - type: Documentation
+    url: https://www.nps.gov/subjects/developer/api-documentation.htm
+  - type: GettingStarted
+    url: https://www.nps.gov/subjects/developer/get-started.htm
+  - type: Authentication
+    url: https://www.nps.gov/subjects/developer/api-guides.htm
+  contact:
+  - FN: National Park Service Developer Resources
+    url: https://www.nps.gov/subjects/developer/index.htm
+- name: USGS Earthquake Hazards Web Services
+  description: >-
+    Real-time earthquake data feeds, notifications, and web services providing access to seismic event
+    data including location, magnitude, depth, and related hazard information. Supports GeoJSON, QuakeML,
+    and CSV formats.
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://earthquake.usgs.gov/fdsnws/event/1/
+  baseURL: https://earthquake.usgs.gov/fdsnws/event/1
+  tags:
+  - Earthquakes
+  - Seismic
+  - Natural Hazards
+  - Real-Time Data
+  properties:
+  - type: Documentation
+    url: https://earthquake.usgs.gov/fdsnws/event/1/
+  contact:
+  - FN: USGS Earthquake Hazards Program
+    url: https://earthquake.usgs.gov/
+- name: USGS Mineral Resources Data API
+  description: >-
+    API access to the USGS Mineral Resources Data System (MRDS) and related mineral deposit databases.
+    Supports geographic queries, bounding box searches, point queries, and access to data on mineral deposits,
+    mining operations, and geochemical samples across the United States.
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://mrdata.usgs.gov/catalog/api.php
+  baseURL: https://mrdata.usgs.gov
+  tags:
+  - Minerals
+  - Mining
+  - Geochemistry
+  - Natural Resources
+  properties:
+  - type: Documentation
+    url: https://mrdata.usgs.gov/catalog/api.php
+  contact:
+  - FN: USGS Mineral Resources Program
+    url: https://www.usgs.gov/programs/mineral-resources-program/data
+- name: BLM GIS REST Services
+  description: >-
+    Bureau of Land Management geospatial REST services providing access to federal land status, cadastral
+    data (Public Land Survey System), mineral rights boundaries, and other BLM-managed land data through
+    ArcGIS REST service endpoints.
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://www.blm.gov/services/geospatial/GISData
+  baseURL: https://gis.blm.gov/arcgis/rest/services
+  tags:
+  - Geospatial
+  - Federal Lands
+  - Cadastral
+  - GIS
+  - Public Lands
+  properties:
+  - type: Documentation
+    url: https://www.blm.gov/services/geospatial/GISData
+  contact:
+  - FN: Bureau of Land Management Geospatial
+    url: https://www.blm.gov/services/geospatial
+- name: USGS ScienceBase API
+  description: >-
+    ScienceBase provides collaborative scientific data management infrastructure enabling upload, documentation,
+    sharing, and discovery of USGS scientific data using standards-compliant REST web services. Covers
+    a broad range of earth science, ecology, and natural resource data.
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://www.sciencebase.gov/catalog/
+  baseURL: https://www.sciencebase.gov/catalog
+  tags:
+  - Science Data
+  - Ecology
+  - Natural Resources
+  - Data Catalog
+  properties:
+  - type: Documentation
+    url: https://www.usgs.gov/sciencebase-instructions-and-documentation/api-and-web-services
+  contact:
+  - FN: USGS ScienceBase
+    url: https://www.sciencebase.gov
+- aid: doi:doi-agency-codes-api
+  name: Department of Interior agency-codes API
+  description: >-
+    Code identifying the agency or organization used for site information, data sources, and permitting
+    agencies. Agency codes are fixed values assigned by the National Water Information System (NWIS).
+  humanURL: https://www.nps.gov/subjects/developer/index.htm
+  baseURL: https://developer.nps.gov/api/v1
+  tags:
+  - agency-codes
+  properties:
+  - type: OpenAPI
+    url: openapi/doi-agency-codes-api-openapi.yml
+  - type: Documentation
+    url: https://api.waterdata.usgs.gov/docs/
+  - type: Migration
+    url: https://api.waterdata.usgs.gov/docs/ogcapi/migration/
+- aid: doi:doi-altitude-datums-api
+  name: Department of Interior altitude-datums API
+  description: >-
+    The recommended vertical datum is NAVD88 (North American Vertical Datum of 1988) where applicable
+    as stated in Office of Information Technical Memo 2002.01. NGVD29 (National Geodetic Vertical Datum
+    of 1929) and NAVD88 are the only datums that can be converted on output. NWIS uses the North American
+    Vertical Datum Conversions (VERTCON) of the National Geodetic Survey to convert from NGVD29 to NAVD88
+    or vice versa. Conversions to or from other vertical datums are not available.
+  humanURL: https://www.nps.gov/subjects/developer/index.htm
+  baseURL: https://developer.nps.gov/api/v1
+  tags:
+  - altitude-datums
+  properties:
+  - type: OpenAPI
+    url: openapi/doi-altitude-datums-api-openapi.yml
+  - type: Documentation
+    url: https://api.waterdata.usgs.gov/docs/
+  - type: Migration
+    url: https://api.waterdata.usgs.gov/docs/ogcapi/migration/
+- aid: doi:doi-aquifer-codes-api
+  name: Department of Interior aquifer-codes API
+  description: >-
+    Local aquifers in USGS data are identified by an aquifer name and geohydrologic unit code (a three-digit
+    number related to the age of the formation, followed by a 4 or 5 character abbreviation for the geologic
+    unit or aquifer name). For the age of formation (aquifer age), generally the smaller the number represents
+    the younger the geohydrologic unit. Aquifer names and the definition of an aquifer can be very subjective.
+    One rock unit may be called different aquifer names by different people. Local aquifers and layered
+    aquifers are often grouped into larger named regional aquifers or aquifer systems. For example, the
+    National Northern Atlantic Coastal Plain aquifer system (National aquifer) consists of five layered
+    regional aquifers. Each regional aquifer is divided into two or more aquifers which may have a different
+    name in each of the states in which the aquifer is found.
+  humanURL: https://www.nps.gov/subjects/developer/index.htm
+  baseURL: https://developer.nps.gov/api/v1
+  tags:
+  - aquifer-codes
+  properties:
+  - type: OpenAPI
+    url: openapi/doi-aquifer-codes-api-openapi.yml
+  - type: Documentation
+    url: https://api.waterdata.usgs.gov/docs/
+  - type: Migration
+    url: https://api.waterdata.usgs.gov/docs/ogcapi/migration/
+- aid: doi:doi-aquifer-types-api
+  name: Department of Interior aquifer-types API
+  description: >-
+    Groundwater occurs in aquifers under two different conditions. Where water only partly fills an aquifer,
+    the upper surface is free to rise and decline. These aquifers are referred to as unconfined (or water-table)
+    aquifers. Where water completely fills an aquifer that is overlain by a confining bed, the aquifer
+    is referred to as a confined (or artesian) aquifer. When a confined aquifer is penetrated by a well,
+    the water level in the well will rise above the top of the aquifer (but not necessarily above land
+    surface).
+  humanURL: https://www.nps.gov/subjects/developer/index.htm
+  baseURL: https://developer.nps.gov/api/v1
+  tags:
+  - aquifer-types
+  properties:
+  - type: OpenAPI
+    url: openapi/doi-aquifer-types-api-openapi.yml
+  - type: Documentation
+    url: https://api.waterdata.usgs.gov/docs/
+  - type: Migration
+    url: https://api.waterdata.usgs.gov/docs/ogcapi/migration/
+- aid: doi:doi-channel-measurements-api
+  name: Department of Interior channel-measurements API
+  description: Channel measurements taken as part of streamflow field measurements.
+  humanURL: https://www.nps.gov/subjects/developer/index.htm
+  baseURL: https://developer.nps.gov/api/v1
+  tags:
+  - channel-measurements
+  properties:
+  - type: OpenAPI
+    url: openapi/doi-channel-measurements-api-openapi.yml
+  - type: Documentation
+    url: https://api.waterdata.usgs.gov/docs/
+  - type: Migration
+    url: https://api.waterdata.usgs.gov/docs/ogcapi/migration/
+- aid: doi:doi-citations-api
+  name: Department of Interior citations API
+  description: Citations associated with water measurement methods.
+  humanURL: https://www.nps.gov/subjects/developer/index.htm
+  baseURL: https://developer.nps.gov/api/v1
+  tags:
+  - citations
+  properties:
+  - type: OpenAPI
+    url: openapi/doi-citations-api-openapi.yml
+  - type: Documentation
+    url: https://api.waterdata.usgs.gov/docs/
+  - type: Migration
+    url: https://api.waterdata.usgs.gov/docs/ogcapi/migration/
+- aid: doi:doi-combined-metadata-api
+  name: Department of Interior combined-metadata API
+  description: >-
+    This endpoint combines metadata from timeseries and field measurements collections by site.
+  humanURL: https://www.nps.gov/subjects/developer/index.htm
+  baseURL: https://developer.nps.gov/api/v1
+  tags:
+  - combined-metadata
+  properties:
+  - type: OpenAPI
+    url: openapi/doi-combined-metadata-api-openapi.yml
+  - type: Documentation
+    url: https://api.waterdata.usgs.gov/docs/
+  - type: Migration
+    url: https://api.waterdata.usgs.gov/docs/ogcapi/migration/
+- aid: doi:doi-continuous-api
+  name: Department of Interior continuous API
+  description: >-
+    Continuous data are collected via automated sensors installed at a monitoring location. They are collected
+    at a high frequency and often at a fixed 15-minute interval. Depending on the specific monitoring
+    location, the data may be transmitted automatically via telemetry and be available on WDFN within
+    minutes of collection, while other times the delivery of data may be delayed if the monitoring location
+    does not have the capacity to automatically transmit data. Continuous data are described by parameter
+    name and parameter code (pcode). These data might also be referred to as "instantaneous values" or
+    "IV".
+  humanURL: https://www.nps.gov/subjects/developer/index.htm
+  baseURL: https://developer.nps.gov/api/v1
+  tags:
+  - continuous
+  properties:
+  - type: OpenAPI
+    url: openapi/doi-continuous-api-openapi.yml
+  - type: Documentation
+    url: https://api.waterdata.usgs.gov/docs/
+  - type: Migration
+    url: https://api.waterdata.usgs.gov/docs/ogcapi/migration/
+- aid: doi:doi-coordinate-accuracy-codes-api
+  name: Department of Interior coordinate-accuracy-codes API
+  description: >-
+    Appropriate code on the schedule to indicate the accuracy of the latitude-longitude values.
+  humanURL: https://www.nps.gov/subjects/developer/index.htm
+  baseURL: https://developer.nps.gov/api/v1
+  tags:
+  - coordinate-accuracy-codes
+  properties:
+  - type: OpenAPI
+    url: openapi/doi-coordinate-accuracy-codes-api-openapi.yml
+  - type: Documentation
+    url: https://api.waterdata.usgs.gov/docs/
+  - type: Migration
+    url: https://api.waterdata.usgs.gov/docs/ogcapi/migration/
+- aid: doi:doi-coordinate-datum-codes-api
+  name: Department of Interior coordinate-datum-codes API
+  description: >-
+    Horizontal datum code for the latitude/longitude coordinates. There are currently more than 300 horizontal
+    datums available for entry.
+  humanURL: https://www.nps.gov/subjects/developer/index.htm
+  baseURL: https://developer.nps.gov/api/v1
+  tags:
+  - coordinate-datum-codes
+  properties:
+  - type: OpenAPI
+    url: openapi/doi-coordinate-datum-codes-api-openapi.yml
+  - type: Documentation
+    url: https://api.waterdata.usgs.gov/docs/
+  - type: Migration
+    url: https://api.waterdata.usgs.gov/docs/ogcapi/migration/
+- aid: doi:doi-coordinate-method-codes-api
+  name: Department of Interior coordinate-method-codes API
+  description: Methods used to determine latitude-longitude values.
+  humanURL: https://www.nps.gov/subjects/developer/index.htm
+  baseURL: https://developer.nps.gov/api/v1
+  tags:
+  - coordinate-method-codes
+  properties:
+  - type: OpenAPI
+    url: openapi/doi-coordinate-method-codes-api-openapi.yml
+  - type: Documentation
+    url: https://api.waterdata.usgs.gov/docs/
+  - type: Migration
+    url: https://api.waterdata.usgs.gov/docs/ogcapi/migration/
+- aid: doi:doi-counties-api
+  name: Department of Interior counties API
+  description: >-
+    The name of the county or county equivalent (parish, borough, planning reagion, etc.) in which the
+    site is located. List includes Census Bureau FIPS county codes, names and associated Country and State.
+  humanURL: https://www.nps.gov/subjects/developer/index.htm
+  baseURL: https://developer.nps.gov/api/v1
+  tags:
+  - counties
+  properties:
+  - type: OpenAPI
+    url: openapi/doi-counties-api-openapi.yml
+  - type: Documentation
+    url: https://api.waterdata.usgs.gov/docs/
+  - type: Migration
+    url: https://api.waterdata.usgs.gov/docs/ogcapi/migration/
+- aid: doi:doi-countries-api
+  name: Department of Interior countries API
+  description: FIPS country codes and names.
+  humanURL: https://www.nps.gov/subjects/developer/index.htm
+  baseURL: https://developer.nps.gov/api/v1
+  tags:
+  - countries
+  properties:
+  - type: OpenAPI
+    url: openapi/doi-countries-api-openapi.yml
+  - type: Documentation
+    url: https://api.waterdata.usgs.gov/docs/
+  - type: Migration
+    url: https://api.waterdata.usgs.gov/docs/ogcapi/migration/
+- aid: doi:doi-daily-api
+  name: Department of Interior daily API
+  description: >-
+    Daily data provide one data value to represent water conditions for the day. Throughout much of the
+    history of the USGS, the primary water data available was daily data collected manually at the monitoring
+    location once each day. With improved availability of computer storage and automated transmission
+    of data, the daily data published today are generally a statistical summary or metric of the continuous
+    data collected each day, such as the daily mean, minimum, or maximum value. Daily data are automatically
+    calculated from the continuous data of the same parameter code and are described by parameter code
+    and a statistic code. These data have also been referred to as “daily values” or “DV”.
+  humanURL: https://www.nps.gov/subjects/developer/index.htm
+  baseURL: https://developer.nps.gov/api/v1
+  tags:
+  - daily
+  properties:
+  - type: OpenAPI
+    url: openapi/doi-daily-api-openapi.yml
+  - type: Documentation
+    url: https://api.waterdata.usgs.gov/docs/
+  - type: Migration
+    url: https://api.waterdata.usgs.gov/docs/ogcapi/migration/
+- aid: doi:doi-field-measurements-api
+  name: Department of Interior field-measurements API
+  description: >-
+    Field measurements are physically measured values collected during a visit to the monitoring location.
+    Field measurements consist of measurements of gage height and discharge, and readings of groundwater
+    levels, and are primarily used as calibration readings for the automated sensors collecting continuous
+    data. They are collected at a low frequency, and delivery of the data in WDFN may be delayed due to
+    data processing time.
+  humanURL: https://www.nps.gov/subjects/developer/index.htm
+  baseURL: https://developer.nps.gov/api/v1
+  tags:
+  - field-measurements
+  properties:
+  - type: OpenAPI
+    url: openapi/doi-field-measurements-api-openapi.yml
+  - type: Documentation
+    url: https://api.waterdata.usgs.gov/docs/
+  - type: Migration
+    url: https://api.waterdata.usgs.gov/docs/ogcapi/migration/
+- aid: doi:doi-field-measurements-metadata-api
+  name: Department of Interior field-measurements-metadata API
+  description: >-
+    This endpoint provides metadata about field measurement collections, including when the earliest and
+    most recent observations for a parameter occurred at a monitoring location and its units.
+  humanURL: https://www.nps.gov/subjects/developer/index.htm
+  baseURL: https://developer.nps.gov/api/v1
+  tags:
+  - field-measurements-metadata
+  properties:
+  - type: OpenAPI
+    url: openapi/doi-field-measurements-metadata-api-openapi.yml
+  - type: Documentation
+    url: https://api.waterdata.usgs.gov/docs/
+  - type: Migration
+    url: https://api.waterdata.usgs.gov/docs/ogcapi/migration/
+- aid: doi:doi-hydrologic-unit-codes-api
+  name: Department of Interior hydrologic-unit-codes API
+  description: >-
+    Hydrologic units are geographic areas representing part or all of a surface drainage basin or distinct
+    hydrologic feature identified by a unique number (HUC), and a name. The United States is divided and
+    sub-divided into successively smaller hydrologic units which are classified into four levels: regions,
+    sub-regions, accounting units, and cataloging units. Each unit consists of two to eight digits based
+    on the four levels of classification in the hydrologic unit system. Additional information can be
+    found at &lthttps://water.usgs.gov/GIS/huc.html&gt.
+  humanURL: https://www.nps.gov/subjects/developer/index.htm
+  baseURL: https://developer.nps.gov/api/v1
+  tags:
+  - hydrologic-unit-codes
+  properties:
+  - type: OpenAPI
+    url: openapi/doi-hydrologic-unit-codes-api-openapi.yml
+  - type: Documentation
+    url: https://api.waterdata.usgs.gov/docs/
+  - type: Migration
+    url: https://api.waterdata.usgs.gov/docs/ogcapi/migration/
+- aid: doi:doi-latest-continuous-api
+  name: Department of Interior latest-continuous API
+  description: >-
+    This endpoint provides the most recent observation for each time series of continuous data. Continuous
+    data are collected via automated sensors installed at a monitoring location. They are collected at
+    a high frequency and often at a fixed 15-minute interval. Depending on the specific monitoring location,
+    the data may be transmitted automatically via telemetry and be available on WDFN within minutes of
+    collection, while other times the delivery of data may be delayed if the monitoring location does
+    not have the capacity to automatically transmit data. Continuous data are described by parameter name
+    and parameter code. These data might also be referred to as "instantaneous values" or "IV"
+  humanURL: https://www.nps.gov/subjects/developer/index.htm
+  baseURL: https://developer.nps.gov/api/v1
+  tags:
+  - latest-continuous
+  properties:
+  - type: OpenAPI
+    url: openapi/doi-latest-continuous-api-openapi.yml
+  - type: Documentation
+    url: https://api.waterdata.usgs.gov/docs/
+  - type: Migration
+    url: https://api.waterdata.usgs.gov/docs/ogcapi/migration/
+- aid: doi:doi-latest-daily-api
+  name: Department of Interior latest-daily API
+  description: >-
+    Daily data provide one data value to represent water conditions for the day. Throughout much of the
+    history of the USGS, the primary water data available was daily data collected manually at the monitoring
+    location once each day. With improved availability of computer storage and automated transmission
+    of data, the daily data published today are generally a statistical summary or metric of the continuous
+    data collected each day, such as the daily mean, minimum, or maximum value. Daily data are automatically
+    calculated from the continuous data of the same parameter code and are described by parameter code
+    and a statistic code. These data have also been referred to as “daily values” or “DV”.
+  humanURL: https://www.nps.gov/subjects/developer/index.htm
+  baseURL: https://developer.nps.gov/api/v1
+  tags:
+  - latest-daily
+  properties:
+  - type: OpenAPI
+    url: openapi/doi-latest-daily-api-openapi.yml
+  - type: Documentation
+    url: https://api.waterdata.usgs.gov/docs/
+  - type: Migration
+    url: https://api.waterdata.usgs.gov/docs/ogcapi/migration/
+- aid: doi:doi-latest-field-measurements-api
+  name: Department of Interior latest-field-measurements API
+  description: >-
+    Field measurements are physically measured values collected during a visit to the monitoring location.
+    Field measurements consist of measurements of gage height and discharge, and readings of groundwater
+    levels, and are primarily used as calibration readings for the automated sensors collecting continuous
+    data. They are collected at a low frequency, and delivery of the data in WDFN may be delayed due to
+    data processing time.
+  humanURL: https://www.nps.gov/subjects/developer/index.htm
+  baseURL: https://developer.nps.gov/api/v1
+  tags:
+  - latest-field-measurements
+  properties:
+  - type: OpenAPI
+    url: openapi/doi-latest-field-measurements-api-openapi.yml
+  - type: Documentation
+    url: https://api.waterdata.usgs.gov/docs/
+  - type: Migration
+    url: https://api.waterdata.usgs.gov/docs/ogcapi/migration/
+- aid: doi:doi-medium-codes-api
+  name: Department of Interior medium-codes API
+  description: >-
+    Medium refers to the specific environmental medium from which the sample was collected. Medium type
+    differs from site type because one site type, such as surface water, could have data for several media,
+    such as water, bottom sediment, fish tissue, and others.
+  humanURL: https://www.nps.gov/subjects/developer/index.htm
+  baseURL: https://developer.nps.gov/api/v1
+  tags:
+  - medium-codes
+  properties:
+  - type: OpenAPI
+    url: openapi/doi-medium-codes-api-openapi.yml
+  - type: Documentation
+    url: https://api.waterdata.usgs.gov/docs/
+  - type: Migration
+    url: https://api.waterdata.usgs.gov/docs/ogcapi/migration/
+- aid: doi:doi-method-categories-api
+  name: Department of Interior method-categories API
+  description: >-
+    Categorical standards for methods describing the associated data's appropriateness for an intended
+    use.
+  humanURL: https://www.nps.gov/subjects/developer/index.htm
+  baseURL: https://developer.nps.gov/api/v1
+  tags:
+  - method-categories
+  properties:
+  - type: OpenAPI
+    url: openapi/doi-method-categories-api-openapi.yml
+  - type: Documentation
+    url: https://api.waterdata.usgs.gov/docs/
+  - type: Migration
+    url: https://api.waterdata.usgs.gov/docs/ogcapi/migration/
+- aid: doi:doi-method-citations-api
+  name: Department of Interior method-citations API
+  description: Citation identifiers for water measurement methods.
+  humanURL: https://www.nps.gov/subjects/developer/index.htm
+  baseURL: https://developer.nps.gov/api/v1
+  tags:
+  - method-citations
+  properties:
+  - type: OpenAPI
+    url: openapi/doi-method-citations-api-openapi.yml
+  - type: Documentation
+    url: https://api.waterdata.usgs.gov/docs/
+  - type: Migration
+    url: https://api.waterdata.usgs.gov/docs/ogcapi/migration/
+- aid: doi:doi-methods-api
+  name: Department of Interior methods API
+  description: >-
+    Water measurement or water-quality analytical methods. Codes and descriptions defining a method for
+    calculating or measuring the value of a water quality or quantity parameter. Method codes are associated
+    with one or many parameter codes.
+  humanURL: https://www.nps.gov/subjects/developer/index.htm
+  baseURL: https://developer.nps.gov/api/v1
+  tags:
+  - methods
+  properties:
+  - type: OpenAPI
+    url: openapi/doi-methods-api-openapi.yml
+  - type: Documentation
+    url: https://api.waterdata.usgs.gov/docs/
+  - type: Migration
+    url: https://api.waterdata.usgs.gov/docs/ogcapi/migration/
+- aid: doi:doi-monitoring-locations-api
+  name: Department of Interior monitoring-locations API
+  description: >-
+    Location information is basic information about the monitoring location including the name, identifier,
+    agency responsible for data collection, and the date the location was established. It also includes
+    information about the type of location, such as stream, lake, or groundwater, and geographic information
+    about the location, such as state, county, latitude and longitude, and hydrologic unit code (HUC).
+  humanURL: https://www.nps.gov/subjects/developer/index.htm
+  baseURL: https://developer.nps.gov/api/v1
+  tags:
+  - monitoring-locations
+  properties:
+  - type: OpenAPI
+    url: openapi/doi-monitoring-locations-api-openapi.yml
+  - type: Documentation
+    url: https://api.waterdata.usgs.gov/docs/
+  - type: Migration
+    url: https://api.waterdata.usgs.gov/docs/ogcapi/migration/
+- aid: doi:doi-national-aquifer-codes-api
+  name: Department of Interior national-aquifer-codes API
+  description: >-
+    National aquifers are the principal aquifers or aquifer systems in the United States, defined as regionally
+    extensive aquifers or aquifer systems that have the potential to be used as a source of potable water.
+  humanURL: https://www.nps.gov/subjects/developer/index.htm
+  baseURL: https://developer.nps.gov/api/v1
+  tags:
+  - national-aquifer-codes
+  properties:
+  - type: OpenAPI
+    url: openapi/doi-national-aquifer-codes-api-openapi.yml
+  - type: Documentation
+    url: https://api.waterdata.usgs.gov/docs/
+  - type: Migration
+    url: https://api.waterdata.usgs.gov/docs/ogcapi/migration/
+- aid: doi:doi-parameter-codes-api
+  name: Department of Interior parameter-codes API
+  description: >-
+    Parameter codes are 5-digit codes and associated descriptions used to identify the constituent measured
+    and the units of measure. Some parameter code definitions include information about the sampling matrix,
+    fraction, and methods used to measure the constituent. Some parameters are fixed-value (fxd) numeric
+    codes having textual meaning (for example: parameter code 00041 is a weather code parameter, code
+    of 60 means rain), but more commonly represent a numeric value for chemical, physical, or biological
+    data.
+  humanURL: https://www.nps.gov/subjects/developer/index.htm
+  baseURL: https://developer.nps.gov/api/v1
+  tags:
+  - parameter-codes
+  properties:
+  - type: OpenAPI
+    url: openapi/doi-parameter-codes-api-openapi.yml
+  - type: Documentation
+    url: https://api.waterdata.usgs.gov/docs/
+  - type: Migration
+    url: https://api.waterdata.usgs.gov/docs/ogcapi/migration/
+- aid: doi:doi-peaks-api
+  name: Department of Interior peaks API
+  description: >-
+    Annual peak flow values are the maximum instantaneous streamflow values recorded at a particular site
+    for the entire water year from October 1 to September 30. Note that the annual peak flow value may
+    not occur at the same time the maximum water level occurs due to conditions such as backwater, tidal
+    fluctuations, etc.
+  humanURL: https://www.nps.gov/subjects/developer/index.htm
+  baseURL: https://developer.nps.gov/api/v1
+  tags:
+  - peaks
+  properties:
+  - type: OpenAPI
+    url: openapi/doi-peaks-api-openapi.yml
+  - type: Documentation
+    url: https://api.waterdata.usgs.gov/docs/
+  - type: Migration
+    url: https://api.waterdata.usgs.gov/docs/ogcapi/migration/
+- aid: doi:doi-reliability-codes-api
+  name: Department of Interior reliability-codes API
+  description: Code indicating the reliability of the data available for the site.
+  humanURL: https://www.nps.gov/subjects/developer/index.htm
+  baseURL: https://developer.nps.gov/api/v1
+  tags:
+  - reliability-codes
+  properties:
+  - type: OpenAPI
+    url: openapi/doi-reliability-codes-api-openapi.yml
+  - type: Documentation
+    url: https://api.waterdata.usgs.gov/docs/
+  - type: Migration
+    url: https://api.waterdata.usgs.gov/docs/ogcapi/migration/
+- aid: doi:doi-server-api
+  name: Department of Interior server API
+  description: >-
+    These APIs provide OGC-compliant interfaces to USGS water data, letting you download continuous sensor
+    measurements, discrete field measurements, metadata about monitoring locations, and more.
+  humanURL: https://www.nps.gov/subjects/developer/index.htm
+  baseURL: https://developer.nps.gov/api/v1
+  tags:
+  - server
+  properties:
+  - type: OpenAPI
+    url: openapi/doi-server-api-openapi.yml
+  - type: Documentation
+    url: https://api.waterdata.usgs.gov/docs/
+  - type: Migration
+    url: https://api.waterdata.usgs.gov/docs/ogcapi/migration/
+- aid: doi:doi-site-types-api
+  name: Department of Interior site-types API
+  description: >-
+    The hydrologic cycle setting or a man-made feature thought to affect the hydrologic conditions measured
+    at a site. Primary and secondary site types associated with data collection sites. All sites have
+    a primary site type, and may additionally have a secondary site type that further describes the location.
+  humanURL: https://www.nps.gov/subjects/developer/index.htm
+  baseURL: https://developer.nps.gov/api/v1
+  tags:
+  - site-types
+  properties:
+  - type: OpenAPI
+    url: openapi/doi-site-types-api-openapi.yml
+  - type: Documentation
+    url: https://api.waterdata.usgs.gov/docs/
+  - type: Migration
+    url: https://api.waterdata.usgs.gov/docs/ogcapi/migration/
+- aid: doi:doi-states-api
+  name: Department of Interior states API
+  description: >-
+    State name or territory. Includes U.S. states and foreign entities classified under FIPS as 'Principal
+    Administrative Divisions'.
+  humanURL: https://www.nps.gov/subjects/developer/index.htm
+  baseURL: https://developer.nps.gov/api/v1
+  tags:
+  - states
+  properties:
+  - type: OpenAPI
+    url: openapi/doi-states-api-openapi.yml
+  - type: Documentation
+    url: https://api.waterdata.usgs.gov/docs/
+  - type: Migration
+    url: https://api.waterdata.usgs.gov/docs/ogcapi/migration/
+- aid: doi:doi-statistic-codes-api
+  name: Department of Interior statistic-codes API
+  description: Statistic codes.
+  humanURL: https://www.nps.gov/subjects/developer/index.htm
+  baseURL: https://developer.nps.gov/api/v1
+  tags:
+  - statistic-codes
+  properties:
+  - type: OpenAPI
+    url: openapi/doi-statistic-codes-api-openapi.yml
+  - type: Documentation
+    url: https://api.waterdata.usgs.gov/docs/
+  - type: Migration
+    url: https://api.waterdata.usgs.gov/docs/ogcapi/migration/
+- aid: doi:doi-time-series-metadata-api
+  name: Department of Interior time-series-metadata API
+  description: >-
+    Daily data and continuous measurements are grouped into time series, which represent a collection
+    of observations of a single parameter, potentially aggregated using a standard statistic, at a single
+    monitoring location. This endpoint provides metadata about those time series, including their operational
+    thresholds, units of measurement, and when the earliest and most recent observations in a time series
+    occurred.
+  humanURL: https://www.nps.gov/subjects/developer/index.htm
+  baseURL: https://developer.nps.gov/api/v1
+  tags:
+  - time-series-metadata
+  properties:
+  - type: OpenAPI
+    url: openapi/doi-time-series-metadata-api-openapi.yml
+  - type: Documentation
+    url: https://api.waterdata.usgs.gov/docs/
+  - type: Migration
+    url: https://api.waterdata.usgs.gov/docs/ogcapi/migration/
+- aid: doi:doi-time-zone-codes-api
+  name: Department of Interior time-zone-codes API
+  description: >-
+    The ISO 8601 standard defines time zone offsets as a numerical value added to a local time to convert
+    it to Coordinated Universal Time (UTC), either as +hh:mm or -hh:mm, or represented by the letter Z
+    to explicitly indicate UTC. For example, +05:30 means 5 hours and 30 minutes ahead of UTC, while -08:00
+    means 8 hours behind UTC. The offset Z specifically signifies UTC.
+  humanURL: https://www.nps.gov/subjects/developer/index.htm
+  baseURL: https://developer.nps.gov/api/v1
+  tags:
+  - time-zone-codes
+  properties:
+  - type: OpenAPI
+    url: openapi/doi-time-zone-codes-api-openapi.yml
+  - type: Documentation
+    url: https://api.waterdata.usgs.gov/docs/
+  - type: Migration
+    url: https://api.waterdata.usgs.gov/docs/ogcapi/migration/
+- aid: doi:doi-topographic-codes-api
+  name: Department of Interior topographic-codes API
+  description: >-
+    The code that best describes the topographic setting in which the site is located. Topographic setting
+    refers to the geomorphic features in the vicinity of the site.
+  humanURL: https://www.nps.gov/subjects/developer/index.htm
+  baseURL: https://developer.nps.gov/api/v1
+  tags:
+  - topographic-codes
+  properties:
+  - type: OpenAPI
+    url: openapi/doi-topographic-codes-api-openapi.yml
+  - type: Documentation
+    url: https://api.waterdata.usgs.gov/docs/
+  - type: Migration
+    url: https://api.waterdata.usgs.gov/docs/ogcapi/migration/
 common:
   - type: AgenticAccess
     url: agentic-access/doi-agentic-access.yml
