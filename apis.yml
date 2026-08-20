@@ -27,6 +27,17 @@ modified: '2026-06-13'
 specificationVersion: '0.23'
 type: Index
 tags:
+  - Federal-Government
+  - National Parks
+  - Federal Lands
+  - Water Resources
+  - Wildlife
+  - Minerals
+  - Geospatial
+  - Geology
+  - Native American Affairs
+  - Public Lands
+tags_raw:
   - Federal Government
   - National Parks
   - Federal Lands
@@ -47,6 +58,12 @@ apis:
   humanURL: https://www.nps.gov/subjects/developer/index.htm
   baseURL: https://developer.nps.gov/api/v1
   tags:
+  - National Parks
+  - Recreation
+  - Federal Lands
+  - Campgrounds
+  - Event
+  tags_raw:
   - National Parks
   - Recreation
   - Federal Lands
@@ -237,6 +254,8 @@ apis:
   humanURL: https://www.nps.gov/subjects/developer/index.htm
   baseURL: https://developer.nps.gov/api/v1
   tags:
+  - Citations
+  tags_raw:
   - citations
   properties:
   - type: OpenAPI
@@ -348,6 +367,8 @@ apis:
   humanURL: https://www.nps.gov/subjects/developer/index.htm
   baseURL: https://developer.nps.gov/api/v1
   tags:
+  - Countries
+  tags_raw:
   - countries
   properties:
   - type: OpenAPI
@@ -369,6 +390,8 @@ apis:
   humanURL: https://www.nps.gov/subjects/developer/index.htm
   baseURL: https://developer.nps.gov/api/v1
   tags:
+  - Daily
+  tags_raw:
   - daily
   properties:
   - type: OpenAPI
@@ -548,7 +571,8 @@ apis:
     with one or many parameter codes.
   humanURL: https://www.nps.gov/subjects/developer/index.htm
   baseURL: https://developer.nps.gov/api/v1
-  tags:
+  tags: []
+  tags_raw:
   - methods
   properties:
   - type: OpenAPI
@@ -567,6 +591,8 @@ apis:
   humanURL: https://www.nps.gov/subjects/developer/index.htm
   baseURL: https://developer.nps.gov/api/v1
   tags:
+  - Monitoring Locations
+  tags_raw:
   - monitoring-locations
   properties:
   - type: OpenAPI
@@ -651,6 +677,8 @@ apis:
   humanURL: https://www.nps.gov/subjects/developer/index.htm
   baseURL: https://developer.nps.gov/api/v1
   tags:
+  - Server
+  tags_raw:
   - server
   properties:
   - type: OpenAPI
@@ -684,6 +712,8 @@ apis:
   humanURL: https://www.nps.gov/subjects/developer/index.htm
   baseURL: https://developer.nps.gov/api/v1
   tags:
+  - States
+  tags_raw:
   - states
   properties:
   - type: OpenAPI
