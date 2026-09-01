@@ -603,7 +603,7 @@ apis:
   humanURL: https://www.nps.gov/subjects/developer/index.htm
   baseURL: https://developer.nps.gov/api/v1
   tags:
-  - monitoring-locations
+  - Monitoring Locations
   tags_raw:
   - monitoring-locations
   properties:
