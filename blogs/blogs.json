@@ -4,13 +4,10 @@
   "feeds": [
     {
       "source": "https://www.linkedin.com/company/department-of-the-interior",
-      "feed_url": "https://www.linkedin.com/company/department-of-the-interior",
-      "title": "",
-      "saved": 0,
-      "method": "none"
+      "error": "HTTPError"
     }
   ],
-  "fetched": "2026-09-06T19:17:18Z",
+  "fetched": "2026-09-13T13:00:00Z",
   "post_count": 0,
   "agent_pulled": "2026-07-04"
 }
