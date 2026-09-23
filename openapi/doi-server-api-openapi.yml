@@ -1,4 +1,4 @@
-openapi: 3.0.2
+openapi: 3.2.0
 info:
   contact:
     name: US Geological Survey - Water Data for the Nation
@@ -12,14 +12,12 @@ info:
       - href: https://waterdata.usgs.gov/questions-comments/?referrerUrl=https://api.waterdata.usgs.gov
         type: text/html
       name: WDFN Support
-  description: 'These APIs provide OGC-compliant interfaces to USGS water data, letting you download continuous sensor measurements, discrete field measurements, metadata about monitoring locations, and more.
-
-    '
+  description: These APIs provide OGC-compliant interfaces to USGS water data, letting you download continuous sensor measurements, discrete field measurements, metadata about monitoring locations, and more.
   license:
     name: US Government work in the public domain
     url: https://creativecommons.org/publicdomain/zero/1.0/
   termsOfService: https://creativecommons.org/publicdomain/zero/1.0/
-  title: USGS Water Data OGC APIs agency-codes server API
+  title: USGS Water Data OGC Server API
   version: 0.56.0
   x-keywords:
   - geospatial
@@ -33,17 +31,14 @@ servers:
     '
   url: https://api.waterdata.usgs.gov/ogcapi/v0
 tags:
-- description: 'These APIs provide OGC-compliant interfaces to USGS water data, letting you download continuous sensor measurements, discrete field measurements, metadata about monitoring locations, and more.
-
-    '
+- description: These APIs provide OGC-compliant interfaces to USGS water data, letting you download continuous sensor measurements, discrete field measurements, metadata about monitoring locations, and more.
   externalDocs:
     description: information
     url: https://api.waterdata.usgs.gov
-  name: server
+  name: Server
 paths:
   /:
     get:
-      description: Landing page
       operationId: getLandingPage
       parameters:
       - $ref: '#/components/parameters/f'
@@ -61,10 +56,9 @@ paths:
           $ref: https://schemas.opengis.net/ogcapi/features/part1/1.0/openapi/ogcapi-features-1.yaml#/components/responses/ServerError
       summary: Landing page
       tags:
-      - server
+      - Server
   /collections:
     get:
-      description: Collections
       operationId: getCollections
       parameters:
       - $ref: '#/components/parameters/f'
@@ -82,10 +76,9 @@ paths:
           $ref: https://schemas.opengis.net/ogcapi/features/part1/1.0/openapi/ogcapi-features-1.yaml#/components/responses/ServerError
       summary: Collections
       tags:
-      - server
+      - Server
   /conformance:
     get:
-      description: API conformance definition
       operationId: getConformanceDeclaration
       parameters:
       - $ref: '#/components/parameters/f'
@@ -103,10 +96,9 @@ paths:
           $ref: https://schemas.opengis.net/ogcapi/features/part1/1.0/openapi/ogcapi-features-1.yaml#/components/responses/ServerError
       summary: API conformance definition
       tags:
-      - server
+      - Server
   /openapi:
     get:
-      description: This document
       operationId: getOpenapi
       parameters:
       - $ref: '#/components/parameters/f'
@@ -136,58 +128,25 @@ paths:
           $ref: '#/components/responses/default'
       summary: This document
       tags:
-      - server
+      - Server
 components:
+  schemas:
+    Error:
+      properties:
+        error:
+          properties:
+            code:
+              description: Error code such as OVER_RATE_LIMIT, see https://api.data.gov/docs/developer-manual/#general-web-service-errors
+              type: string
+            message:
+              description: Error message
+              type: string
+          required:
+          - code
+          - message
+          type: object
+      type: object
   responses:
-    TooManyRequests429:
-      content:
-        application/json:
-          examples:
-            rateLimitExceeded:
-              summary: Rate Limit Exceeded
-              value:
-                error:
-                  code: OVER_RATE_LIMIT
-                  message: You have exceeded your rate limit. Make sure you provided your API key from https://api.waterdata.usgs.gov/signup/, then either try again later or contact us at https://waterdata.usgs.gov/questions-comments/?referrerUrl=https://api.waterdata.usgs.gov for assistance.
-          schema:
-            $ref: '#/components/schemas/Error'
-        application/xml:
-          example: "&ltresponse&gt\n      &lterror&gt\n        &ltcode&gtOVER_RATE_LIMIT&lt/code&gt\n        &ltmessage&gtYou have exceeded your rate limit. Make sure you provided your API key from https://api.waterdata.usgs.gov/signup/, then either try again later or contact us at https://waterdata.usgs.gov/questions-comments/?referrerUrl=https://api.waterdata.usgs.gov for assistance.&lt/message&gt\n      &lt/error&gt\n    &lt/response&gt"
-          schema:
-            properties:
-              response:
-                properties:
-                  error:
-                    properties:
-                      code:
-                        type: string
-                      message:
-                        type: string
-                    required:
-                    - code
-                    - message
-                    type: object
-                required:
-                - error
-                type: object
-            type: object
-        text/csv:
-          examples:
-            rateLimitCsv:
-              summary: Rate Limit Exceeded (CSV)
-              value: 'Error Code,Error Message
-
-                OVER_RATE_LIMIT,You have exceeded your rate limit. Make sure you provided your API key from https://api.waterdata.usgs.gov/signup/, then either try again later or contact us at https://waterdata.usgs.gov/questions-comments/?referrerUrl=https://api.waterdata.usgs.gov for assistance.'
-          schema:
-            type: string
-        text/html:
-          examples:
-            rateLimitHtml:
-              summary: Rate Limit Exceeded (HTML)
-              value: "&lthtml&gt\n      &ltbody&gt\n        &lth1&gtOVER_RATE_LIMIT&lt/h1&gt\n        &ltp&gtYou have exceeded your rate limit. Make sure you provided your API key from https://api.waterdata.usgs.gov/signup/, then either try again later or contact us at https://waterdata.usgs.gov/questions-comments/?referrerUrl=https://api.waterdata.usgs.gov for assistance.&lt/p&gt\n      &lt/body&gt\n    &lt/html&gt"
-          schema:
-            type: string
-      description: Too Many Requests - Rate limit exceeded.
     Forbidden403:
       content:
         application/json:
@@ -237,6 +196,55 @@ components:
           schema:
             type: string
       description: Forbidden - API key is missing or not authorized for this resource.
+    TooManyRequests429:
+      content:
+        application/json:
+          examples:
+            rateLimitExceeded:
+              summary: Rate Limit Exceeded
+              value:
+                error:
+                  code: OVER_RATE_LIMIT
+                  message: You have exceeded your rate limit. Make sure you provided your API key from https://api.waterdata.usgs.gov/signup/, then either try again later or contact us at https://waterdata.usgs.gov/questions-comments/?referrerUrl=https://api.waterdata.usgs.gov for assistance.
+          schema:
+            $ref: '#/components/schemas/Error'
+        application/xml:
+          example: "&ltresponse&gt\n      &lterror&gt\n        &ltcode&gtOVER_RATE_LIMIT&lt/code&gt\n        &ltmessage&gtYou have exceeded your rate limit. Make sure you provided your API key from https://api.waterdata.usgs.gov/signup/, then either try again later or contact us at https://waterdata.usgs.gov/questions-comments/?referrerUrl=https://api.waterdata.usgs.gov for assistance.&lt/message&gt\n      &lt/error&gt\n    &lt/response&gt"
+          schema:
+            properties:
+              response:
+                properties:
+                  error:
+                    properties:
+                      code:
+                        type: string
+                      message:
+                        type: string
+                    required:
+                    - code
+                    - message
+                    type: object
+                required:
+                - error
+                type: object
+            type: object
+        text/csv:
+          examples:
+            rateLimitCsv:
+              summary: Rate Limit Exceeded (CSV)
+              value: 'Error Code,Error Message
+
+                OVER_RATE_LIMIT,You have exceeded your rate limit. Make sure you provided your API key from https://api.waterdata.usgs.gov/signup/, then either try again later or contact us at https://waterdata.usgs.gov/questions-comments/?referrerUrl=https://api.waterdata.usgs.gov for assistance.'
+          schema:
+            type: string
+        text/html:
+          examples:
+            rateLimitHtml:
+              summary: Rate Limit Exceeded (HTML)
+              value: "&lthtml&gt\n      &ltbody&gt\n        &lth1&gtOVER_RATE_LIMIT&lt/h1&gt\n        &ltp&gtYou have exceeded your rate limit. Make sure you provided your API key from https://api.waterdata.usgs.gov/signup/, then either try again later or contact us at https://waterdata.usgs.gov/questions-comments/?referrerUrl=https://api.waterdata.usgs.gov for assistance.&lt/p&gt\n      &lt/body&gt\n    &lt/html&gt"
+          schema:
+            type: string
+      description: Too Many Requests - Rate limit exceeded.
     '200':
       description: successful operation
     default:
@@ -271,22 +279,6 @@ components:
         enum:
         - en-US
         type: string
-  schemas:
-    Error:
-      properties:
-        error:
-          properties:
-            code:
-              description: Error code such as OVER_RATE_LIMIT, see https://api.data.gov/docs/developer-manual/#general-web-service-errors
-              type: string
-            message:
-              description: Error message
-              type: string
-          required:
-          - code
-          - message
-          type: object
-      type: object
   securitySchemes:
     ApiKeyHeader:
       description: Providing your API key gives you higher rate limits when querying our APIs. You can obtain an API key at https://api.waterdata.usgs.gov/signup

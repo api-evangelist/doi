@@ -1,0 +1,59 @@
+openapi: 3.2.0
+info:
+  title: USGS Water Services Instantaneous Values API
+  description: The U.S. Geological Survey Water Services API provides real-time and historical surface-water, groundwater, and water-quality data for sites across the United States. Endpoints follow the WaterML / IV (instantaneous values), DV (daily values), and Site Service patterns.
+  version: '1'
+  contact:
+    name: USGS Water Mission Area
+    url: https://water.usgs.gov/
+  license:
+    name: Public Domain
+    url: https://creativecommons.org/publicdomain/mark/1.0/
+servers:
+- url: https://waterservices.usgs.gov/nwis
+  description: National Water Information System
+tags:
+- name: InstantaneousValues
+  description: Real-time instantaneous values
+paths:
+  /iv/:
+    get:
+      tags:
+      - InstantaneousValues
+      summary: Real-time instantaneous values
+      operationId: getInstantaneousValues
+      parameters:
+      - $ref: '#/components/parameters/format'
+      - name: sites
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: parameterCd
+        in: query
+        schema:
+          type: string
+      - name: period
+        in: query
+        schema:
+          type: string
+          example: P7D
+      responses:
+        '200':
+          description: Instantaneous values response
+components:
+  parameters:
+    format:
+      name: format
+      in: query
+      schema:
+        type: string
+        enum:
+        - json
+        - rdb
+        - waterml
+        - xml
+        default: json
+externalDocs:
+  description: USGS Water Services
+  url: https://waterservices.usgs.gov/

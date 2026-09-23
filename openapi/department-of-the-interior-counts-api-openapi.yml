@@ -1,0 +1,54 @@
+openapi: 3.2.0
+info:
+  title: USGS Earthquake Hazards Program Counts API
+  description: The U.S. Geological Survey's Earthquake Hazards Program publishes a public earthquake-catalog API returning GeoJSON FeatureCollections for queries by time, magnitude, location, depth, intensity, and event type.
+  version: '1'
+  contact:
+    name: USGS
+    url: https://earthquake.usgs.gov/contactus/
+  license:
+    name: Public Domain
+    url: https://creativecommons.org/publicdomain/mark/1.0/
+servers:
+- url: https://earthquake.usgs.gov/fdsnws/event/1
+  description: Production
+tags:
+- name: Counts
+  description: Event count queries
+paths:
+  /count:
+    get:
+      tags:
+      - Counts
+      summary: Count events matching the query
+      operationId: countEvents
+      parameters:
+      - name: starttime
+        in: query
+        schema:
+          type: string
+          format: date-time
+      - name: endtime
+        in: query
+        schema:
+          type: string
+          format: date-time
+      - name: minmagnitude
+        in: query
+        schema:
+          type: number
+      responses:
+        '200':
+          description: Count
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                  maxAllowed:
+                    type: integer
+externalDocs:
+  description: USGS Earthquake Catalog API
+  url: https://earthquake.usgs.gov/fdsnws/event/1/
