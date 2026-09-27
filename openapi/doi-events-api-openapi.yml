@@ -16,6 +16,9 @@ tags:
   description: Park events
 paths:
   /events:
+    servers:
+    - url: https://developer.nps.gov/api/v1
+      description: Production
     get:
       tags:
       - Events
@@ -43,10 +46,10 @@ paths:
                 $ref: '#/components/schemas/GenericResponse'
       security:
       - ApiKeyAuth: []
-    servers:
-    - url: https://developer.nps.gov/api/v1
-      description: Production
   /query:
+    servers:
+    - url: https://earthquake.usgs.gov/fdsnws/event/1
+      description: Production
     get:
       tags:
       - Events
@@ -128,25 +131,37 @@ paths:
             application/geo+json:
               schema:
                 $ref: '#/components/schemas/EarthquakeFeatureCollection'
-    servers:
-    - url: https://earthquake.usgs.gov/fdsnws/event/1
-      description: Production
 components:
   schemas:
-    GenericResponse:
+    EarthquakeFeatureCollection:
       type: object
       properties:
-        total:
+        type:
           type: string
-        limit:
-          type: string
-        start:
-          type: string
-        data:
+          const: FeatureCollection
+        metadata:
+          type: object
+          properties:
+            generated:
+              type: integer
+            url:
+              type: string
+            title:
+              type: string
+            api:
+              type: string
+            count:
+              type: integer
+            status:
+              type: integer
+        features:
           type: array
           items:
-            type: object
-            additionalProperties: true
+            $ref: '#/components/schemas/EarthquakeFeature'
+        bbox:
+          type: array
+          items:
+            type: number
     EarthquakeFeature:
       type: object
       properties:
@@ -238,35 +253,20 @@ components:
                 type: number
               minItems: 3
               maxItems: 3
-    EarthquakeFeatureCollection:
+    GenericResponse:
       type: object
       properties:
-        type:
+        total:
           type: string
-          const: FeatureCollection
-        metadata:
-          type: object
-          properties:
-            generated:
-              type: integer
-            url:
-              type: string
-            title:
-              type: string
-            api:
-              type: string
-            count:
-              type: integer
-            status:
-              type: integer
-        features:
+        limit:
+          type: string
+        start:
+          type: string
+        data:
           type: array
           items:
-            $ref: '#/components/schemas/EarthquakeFeature'
-        bbox:
-          type: array
-          items:
-            type: number
+            type: object
+            additionalProperties: true
   parameters:
     stateCode:
       name: stateCode

@@ -1,6 +1,8 @@
+# x-archived-from: department-of-the-interior-visitor-centers-api-openapi.yml
+# x-archived-on: 2026-09-26
 openapi: 3.2.0
 info:
-  title: National Park Service (NPS) Data Articles API
+  title: National Park Service (NPS) Data Visitor Centers API
   description: The National Park Service Data API provides programmatic access to information about U.S. national parks - park overviews, alerts, events, visitor centers, campgrounds, things to do, news releases, articles, people, places, and more. The API is REST-based and returns JSON.
   version: '1'
   contact:
@@ -15,22 +17,20 @@ servers:
 security:
 - ApiKeyAuth: []
 tags:
-- name: Articles
-  description: News articles and releases
+- name: Visitor Centers
+  description: Visitor centers
 paths:
-  /articles:
+  /visitorcenters:
     get:
       tags:
-      - Articles
-      summary: List articles
-      operationId: listArticles
+      - Visitor Centers
+      summary: List visitor centers
+      operationId: listVisitorCenters
       parameters:
       - $ref: '#/components/parameters/parkCode'
-      - $ref: '#/components/parameters/q'
-      - $ref: '#/components/parameters/limit'
       responses:
         '200':
-          description: Articles
+          description: Visitor centers
           content:
             application/json:
               schema:
@@ -52,19 +52,6 @@ components:
             type: object
             additionalProperties: true
   parameters:
-    limit:
-      name: limit
-      in: query
-      schema:
-        type: integer
-        default: 50
-        maximum: 50
-    q:
-      name: q
-      in: query
-      schema:
-        type: string
-      description: Free-text search
     parkCode:
       name: parkCode
       in: query

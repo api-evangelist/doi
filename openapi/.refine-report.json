@@ -1,7 +1,17 @@
 {
   "provider": "doi",
   "sources": [
-    "_original/doi-usgs-water-openapi.yml"
+    "_original/doi-usgs-water-openapi.yml",
+    "department-of-the-interior-alerts-api-openapi.yml",
+    "department-of-the-interior-articles-api-openapi.yml",
+    "department-of-the-interior-campgrounds-api-openapi.yml",
+    "department-of-the-interior-counts-api-openapi.yml",
+    "department-of-the-interior-dailyvalues-api-openapi.yml",
+    "department-of-the-interior-events-api-openapi.yml",
+    "department-of-the-interior-instantaneousvalues-api-openapi.yml",
+    "department-of-the-interior-parks-api-openapi.yml",
+    "department-of-the-interior-sites-api-openapi.yml",
+    "department-of-the-interior-visitor-centers-api-openapi.yml"
   ],
   "outputs": [
     "doi-agency-codes-api-openapi.yml",
@@ -39,15 +49,36 @@
     "doi-statistic-codes-api-openapi.yml",
     "doi-time-series-metadata-api-openapi.yml",
     "doi-time-zone-codes-api-openapi.yml",
-    "doi-topographic-codes-api-openapi.yml"
+    "doi-topographic-codes-api-openapi.yml",
+    "doi-alerts-api-openapi.yml",
+    "doi-articles-api-openapi.yml",
+    "doi-campgrounds-api-openapi.yml",
+    "doi-counts-api-openapi.yml",
+    "doi-dailyvalues-api-openapi.yml",
+    "doi-events-api-openapi.yml",
+    "doi-instantaneousvalues-api-openapi.yml",
+    "doi-parks-api-openapi.yml",
+    "doi-sites-api-openapi.yml",
+    "doi-visitor-centers-api-openapi.yml"
   ],
-  "archived": [],
+  "archived": [
+    "archived openapi/department-of-the-interior-alerts-api-openapi.yml",
+    "archived openapi/department-of-the-interior-articles-api-openapi.yml",
+    "archived openapi/department-of-the-interior-campgrounds-api-openapi.yml",
+    "archived openapi/department-of-the-interior-counts-api-openapi.yml",
+    "archived openapi/department-of-the-interior-dailyvalues-api-openapi.yml",
+    "archived openapi/department-of-the-interior-events-api-openapi.yml",
+    "archived openapi/department-of-the-interior-instantaneousvalues-api-openapi.yml",
+    "archived openapi/department-of-the-interior-parks-api-openapi.yml",
+    "archived openapi/department-of-the-interior-sites-api-openapi.yml",
+    "archived openapi/department-of-the-interior-visitor-centers-api-openapi.yml"
+  ],
   "errors": [],
   "warnings": [],
   "notes": [
     "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
     "doi-usgs-water-openapi.yml: upgraded openapi 3.0.2 -> OpenAPI 3.2.0",
-    "apis.yml register: already-registered"
+    "apis.yml register: written (+10 apis, 55 total)"
   ],
   "skipped": [
     "doi-agency-codes-api-openapi.yml: previously refined output, superseded by openapi/_original/",

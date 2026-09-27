@@ -1,3 +1,5 @@
+# x-archived-from: department-of-the-interior-parks-api-openapi.yml
+# x-archived-on: 2026-09-26
 openapi: 3.2.0
 info:
   title: National Park Service (NPS) Data Parks API

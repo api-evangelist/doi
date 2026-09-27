@@ -40,7 +40,7 @@ modified: '2026-06-13'
 specificationVersion: '0.23'
 type: Index
 tags:
-  - Federal-Government
+  - Federal Government
   - National Parks
   - Federal Lands
   - Water Resources
@@ -61,6 +61,7 @@ tags_raw:
   - Geology
   - Native American Affairs
   - Public Lands
+  - Federal-Government
 apis:
 - name: NPS Data API
   description: >-
@@ -170,7 +171,7 @@ apis:
   - FN: USGS ScienceBase
     url: https://www.sciencebase.gov
 - aid: doi:doi-agency-codes-api
-  name: Department of Interior agency-codes API
+  name: Department of Interior Agency Codes API
   description: >-
     Code identifying the agency or organization used for site information, data sources, and permitting
     agencies. Agency codes are fixed values assigned by the National Water Information System (NWIS).
@@ -186,7 +187,7 @@ apis:
   - type: Migration
     url: https://api.waterdata.usgs.gov/docs/ogcapi/migration/
 - aid: doi:doi-altitude-datums-api
-  name: Department of Interior altitude-datums API
+  name: Department of Interior Altitude Datums API
   description: >-
     The recommended vertical datum is NAVD88 (North American Vertical Datum of 1988) where applicable
     as stated in Office of Information Technical Memo 2002.01. NGVD29 (National Geodetic Vertical Datum
@@ -205,7 +206,7 @@ apis:
   - type: Migration
     url: https://api.waterdata.usgs.gov/docs/ogcapi/migration/
 - aid: doi:doi-aquifer-codes-api
-  name: Department of Interior aquifer-codes API
+  name: Department of Interior Aquifer Codes API
   description: >-
     Local aquifers in USGS data are identified by an aquifer name and geohydrologic unit code (a three-digit
     number related to the age of the formation, followed by a 4 or 5 character abbreviation for the geologic
@@ -228,7 +229,7 @@ apis:
   - type: Migration
     url: https://api.waterdata.usgs.gov/docs/ogcapi/migration/
 - aid: doi:doi-aquifer-types-api
-  name: Department of Interior aquifer-types API
+  name: Department of Interior Aquifer Types API
   description: >-
     Groundwater occurs in aquifers under two different conditions. Where water only partly fills an aquifer,
     the upper surface is free to rise and decline. These aquifers are referred to as unconfined (or water-table)
@@ -248,7 +249,7 @@ apis:
   - type: Migration
     url: https://api.waterdata.usgs.gov/docs/ogcapi/migration/
 - aid: doi:doi-channel-measurements-api
-  name: Department of Interior channel-measurements API
+  name: Department of Interior Channel Measurements API
   description: Channel measurements taken as part of streamflow field measurements.
   humanURL: https://www.nps.gov/subjects/developer/index.htm
   baseURL: https://developer.nps.gov/api/v1
@@ -262,7 +263,7 @@ apis:
   - type: Migration
     url: https://api.waterdata.usgs.gov/docs/ogcapi/migration/
 - aid: doi:doi-citations-api
-  name: Department of Interior citations API
+  name: Department of Interior Citations API
   description: Citations associated with water measurement methods.
   humanURL: https://www.nps.gov/subjects/developer/index.htm
   baseURL: https://developer.nps.gov/api/v1
@@ -278,7 +279,7 @@ apis:
   - type: Migration
     url: https://api.waterdata.usgs.gov/docs/ogcapi/migration/
 - aid: doi:doi-combined-metadata-api
-  name: Department of Interior combined-metadata API
+  name: Department of Interior Combined Metadata API
   description: >-
     This endpoint combines metadata from timeseries and field measurements collections by site.
   humanURL: https://www.nps.gov/subjects/developer/index.htm
@@ -293,7 +294,7 @@ apis:
   - type: Migration
     url: https://api.waterdata.usgs.gov/docs/ogcapi/migration/
 - aid: doi:doi-continuous-api
-  name: Department of Interior continuous API
+  name: Department of Interior Continuous API
   description: >-
     Continuous data are collected via automated sensors installed at a monitoring location. They are collected
     at a high frequency and often at a fixed 15-minute interval. Depending on the specific monitoring
@@ -314,7 +315,7 @@ apis:
   - type: Migration
     url: https://api.waterdata.usgs.gov/docs/ogcapi/migration/
 - aid: doi:doi-coordinate-accuracy-codes-api
-  name: Department of Interior coordinate-accuracy-codes API
+  name: Department of Interior Coordinate Accuracy Codes API
   description: >-
     Appropriate code on the schedule to indicate the accuracy of the latitude-longitude values.
   humanURL: https://www.nps.gov/subjects/developer/index.htm
@@ -329,7 +330,7 @@ apis:
   - type: Migration
     url: https://api.waterdata.usgs.gov/docs/ogcapi/migration/
 - aid: doi:doi-coordinate-datum-codes-api
-  name: Department of Interior coordinate-datum-codes API
+  name: Department of Interior Coordinate Datum Codes API
   description: >-
     Horizontal datum code for the latitude/longitude coordinates. There are currently more than 300 horizontal
     datums available for entry.
@@ -345,7 +346,7 @@ apis:
   - type: Migration
     url: https://api.waterdata.usgs.gov/docs/ogcapi/migration/
 - aid: doi:doi-coordinate-method-codes-api
-  name: Department of Interior coordinate-method-codes API
+  name: Department of Interior Coordinate Method Codes API
   description: Methods used to determine latitude-longitude values.
   humanURL: https://www.nps.gov/subjects/developer/index.htm
   baseURL: https://developer.nps.gov/api/v1
@@ -359,7 +360,7 @@ apis:
   - type: Migration
     url: https://api.waterdata.usgs.gov/docs/ogcapi/migration/
 - aid: doi:doi-counties-api
-  name: Department of Interior counties API
+  name: Department of Interior Counties API
   description: >-
     The name of the county or county equivalent (parish, borough, planning reagion, etc.) in which the
     site is located. List includes Census Bureau FIPS county codes, names and associated Country and State.
@@ -375,7 +376,7 @@ apis:
   - type: Migration
     url: https://api.waterdata.usgs.gov/docs/ogcapi/migration/
 - aid: doi:doi-countries-api
-  name: Department of Interior countries API
+  name: Department of Interior Countries API
   description: FIPS country codes and names.
   humanURL: https://www.nps.gov/subjects/developer/index.htm
   baseURL: https://developer.nps.gov/api/v1
@@ -391,7 +392,7 @@ apis:
   - type: Migration
     url: https://api.waterdata.usgs.gov/docs/ogcapi/migration/
 - aid: doi:doi-daily-api
-  name: Department of Interior daily API
+  name: Department of Interior Daily API
   description: >-
     Daily data provide one data value to represent water conditions for the day. Throughout much of the
     history of the USGS, the primary water data available was daily data collected manually at the monitoring
@@ -414,7 +415,7 @@ apis:
   - type: Migration
     url: https://api.waterdata.usgs.gov/docs/ogcapi/migration/
 - aid: doi:doi-field-measurements-api
-  name: Department of Interior field-measurements API
+  name: Department of Interior Field Measurements API
   description: >-
     Field measurements are physically measured values collected during a visit to the monitoring location.
     Field measurements consist of measurements of gage height and discharge, and readings of groundwater
@@ -433,7 +434,7 @@ apis:
   - type: Migration
     url: https://api.waterdata.usgs.gov/docs/ogcapi/migration/
 - aid: doi:doi-field-measurements-metadata-api
-  name: Department of Interior field-measurements-metadata API
+  name: Department of Interior Field Measurements Metadata API
   description: >-
     This endpoint provides metadata about field measurement collections, including when the earliest and
     most recent observations for a parameter occurred at a monitoring location and its units.
@@ -449,7 +450,7 @@ apis:
   - type: Migration
     url: https://api.waterdata.usgs.gov/docs/ogcapi/migration/
 - aid: doi:doi-hydrologic-unit-codes-api
-  name: Department of Interior hydrologic-unit-codes API
+  name: Department of Interior Hydrologic Unit Codes API
   description: >-
     Hydrologic units are geographic areas representing part or all of a surface drainage basin or distinct
     hydrologic feature identified by a unique number (HUC), and a name. The United States is divided and
@@ -469,7 +470,7 @@ apis:
   - type: Migration
     url: https://api.waterdata.usgs.gov/docs/ogcapi/migration/
 - aid: doi:doi-latest-continuous-api
-  name: Department of Interior latest-continuous API
+  name: Department of Interior Latest Continuous API
   description: >-
     This endpoint provides the most recent observation for each time series of continuous data. Continuous
     data are collected via automated sensors installed at a monitoring location. They are collected at
@@ -490,7 +491,7 @@ apis:
   - type: Migration
     url: https://api.waterdata.usgs.gov/docs/ogcapi/migration/
 - aid: doi:doi-latest-daily-api
-  name: Department of Interior latest-daily API
+  name: Department of Interior Latest Daily API
   description: >-
     Daily data provide one data value to represent water conditions for the day. Throughout much of the
     history of the USGS, the primary water data available was daily data collected manually at the monitoring
@@ -511,7 +512,7 @@ apis:
   - type: Migration
     url: https://api.waterdata.usgs.gov/docs/ogcapi/migration/
 - aid: doi:doi-latest-field-measurements-api
-  name: Department of Interior latest-field-measurements API
+  name: Department of Interior Latest Field Measurements API
   description: >-
     Field measurements are physically measured values collected during a visit to the monitoring location.
     Field measurements consist of measurements of gage height and discharge, and readings of groundwater
@@ -530,7 +531,7 @@ apis:
   - type: Migration
     url: https://api.waterdata.usgs.gov/docs/ogcapi/migration/
 - aid: doi:doi-medium-codes-api
-  name: Department of Interior medium-codes API
+  name: Department of Interior Medium Codes API
   description: >-
     Medium refers to the specific environmental medium from which the sample was collected. Medium type
     differs from site type because one site type, such as surface water, could have data for several media,
@@ -547,7 +548,7 @@ apis:
   - type: Migration
     url: https://api.waterdata.usgs.gov/docs/ogcapi/migration/
 - aid: doi:doi-method-categories-api
-  name: Department of Interior method-categories API
+  name: Department of Interior Method Categories API
   description: >-
     Categorical standards for methods describing the associated data's appropriateness for an intended
     use.
@@ -563,7 +564,7 @@ apis:
   - type: Migration
     url: https://api.waterdata.usgs.gov/docs/ogcapi/migration/
 - aid: doi:doi-method-citations-api
-  name: Department of Interior method-citations API
+  name: Department of Interior Method Citations API
   description: Citation identifiers for water measurement methods.
   humanURL: https://www.nps.gov/subjects/developer/index.htm
   baseURL: https://developer.nps.gov/api/v1
@@ -577,7 +578,7 @@ apis:
   - type: Migration
     url: https://api.waterdata.usgs.gov/docs/ogcapi/migration/
 - aid: doi:doi-methods-api
-  name: Department of Interior methods API
+  name: Department of Interior Methods API
   description: >-
     Water measurement or water-quality analytical methods. Codes and descriptions defining a method for
     calculating or measuring the value of a water quality or quantity parameter. Method codes are associated
@@ -595,7 +596,7 @@ apis:
   - type: Migration
     url: https://api.waterdata.usgs.gov/docs/ogcapi/migration/
 - aid: doi:doi-monitoring-locations-api
-  name: Department of Interior monitoring-locations API
+  name: Department of Interior Monitoring Locations API
   description: >-
     Location information is basic information about the monitoring location including the name, identifier,
     agency responsible for data collection, and the date the location was established. It also includes
@@ -615,7 +616,7 @@ apis:
   - type: Migration
     url: https://api.waterdata.usgs.gov/docs/ogcapi/migration/
 - aid: doi:doi-national-aquifer-codes-api
-  name: Department of Interior national-aquifer-codes API
+  name: Department of Interior National Aquifer Codes API
   description: >-
     National aquifers are the principal aquifers or aquifer systems in the United States, defined as regionally
     extensive aquifers or aquifer systems that have the potential to be used as a source of potable water.
@@ -631,7 +632,7 @@ apis:
   - type: Migration
     url: https://api.waterdata.usgs.gov/docs/ogcapi/migration/
 - aid: doi:doi-parameter-codes-api
-  name: Department of Interior parameter-codes API
+  name: Department of Interior Parameter Codes API
   description: >-
     Parameter codes are 5-digit codes and associated descriptions used to identify the constituent measured
     and the units of measure. Some parameter code definitions include information about the sampling matrix,
@@ -651,7 +652,7 @@ apis:
   - type: Migration
     url: https://api.waterdata.usgs.gov/docs/ogcapi/migration/
 - aid: doi:doi-peaks-api
-  name: Department of Interior peaks API
+  name: Department of Interior Peaks API
   description: >-
     Annual peak flow values are the maximum instantaneous streamflow values recorded at a particular site
     for the entire water year from October 1 to September 30. Note that the annual peak flow value may
@@ -669,7 +670,7 @@ apis:
   - type: Migration
     url: https://api.waterdata.usgs.gov/docs/ogcapi/migration/
 - aid: doi:doi-reliability-codes-api
-  name: Department of Interior reliability-codes API
+  name: Department of Interior Reliability Codes API
   description: Code indicating the reliability of the data available for the site.
   humanURL: https://www.nps.gov/subjects/developer/index.htm
   baseURL: https://developer.nps.gov/api/v1
@@ -683,7 +684,7 @@ apis:
   - type: Migration
     url: https://api.waterdata.usgs.gov/docs/ogcapi/migration/
 - aid: doi:doi-server-api
-  name: Department of Interior server API
+  name: Department of Interior Server API
   description: >-
     These APIs provide OGC-compliant interfaces to USGS water data, letting you download continuous sensor
     measurements, discrete field measurements, metadata about monitoring locations, and more.
@@ -701,7 +702,7 @@ apis:
   - type: Migration
     url: https://api.waterdata.usgs.gov/docs/ogcapi/migration/
 - aid: doi:doi-site-types-api
-  name: Department of Interior site-types API
+  name: Department of Interior Site Types API
   description: >-
     The hydrologic cycle setting or a man-made feature thought to affect the hydrologic conditions measured
     at a site. Primary and secondary site types associated with data collection sites. All sites have
@@ -718,7 +719,7 @@ apis:
   - type: Migration
     url: https://api.waterdata.usgs.gov/docs/ogcapi/migration/
 - aid: doi:doi-states-api
-  name: Department of Interior states API
+  name: Department of Interior States API
   description: >-
     State name or territory. Includes U.S. states and foreign entities classified under FIPS as 'Principal
     Administrative Divisions'.
@@ -736,7 +737,7 @@ apis:
   - type: Migration
     url: https://api.waterdata.usgs.gov/docs/ogcapi/migration/
 - aid: doi:doi-statistic-codes-api
-  name: Department of Interior statistic-codes API
+  name: Department of Interior Statistic Codes API
   description: Statistic codes.
   humanURL: https://www.nps.gov/subjects/developer/index.htm
   baseURL: https://developer.nps.gov/api/v1
@@ -750,7 +751,7 @@ apis:
   - type: Migration
     url: https://api.waterdata.usgs.gov/docs/ogcapi/migration/
 - aid: doi:doi-time-series-metadata-api
-  name: Department of Interior time-series-metadata API
+  name: Department of Interior Time Series Metadata API
   description: >-
     Daily data and continuous measurements are grouped into time series, which represent a collection
     of observations of a single parameter, potentially aggregated using a standard statistic, at a single
@@ -769,7 +770,7 @@ apis:
   - type: Migration
     url: https://api.waterdata.usgs.gov/docs/ogcapi/migration/
 - aid: doi:doi-time-zone-codes-api
-  name: Department of Interior time-zone-codes API
+  name: Department of Interior Time Zone Codes API
   description: >-
     The ISO 8601 standard defines time zone offsets as a numerical value added to a local time to convert
     it to Coordinated Universal Time (UTC), either as +hh:mm or -hh:mm, or represented by the letter Z
@@ -787,7 +788,7 @@ apis:
   - type: Migration
     url: https://api.waterdata.usgs.gov/docs/ogcapi/migration/
 - aid: doi:doi-topographic-codes-api
-  name: Department of Interior topographic-codes API
+  name: Department of Interior Topographic Codes API
   description: >-
     The code that best describes the topographic setting in which the site is located. Topographic setting
     refers to the geomorphic features in the vicinity of the site.
@@ -804,8 +805,8 @@ apis:
     url: https://api.waterdata.usgs.gov/docs/ogcapi/migration/
 - aid: doi:doi-open-data
   name: DOI Open Data Catalog
-  description: Department-wide open-data catalog at data.doi.gov, including datasets from all Interior
-    bureaus.
+  description: >-
+    Department-wide open-data catalog at data.doi.gov, including datasets from all Interior bureaus.
   humanURL: https://data.doi.gov/
   tags:
   - Open Data
@@ -814,8 +815,9 @@ apis:
     url: https://data.doi.gov/
 - aid: doi:usfws-environmental-conservation-api
   name: USFWS Environmental Conservation Online System (ECOS) API
-  description: U.S. Fish and Wildlife Service data on listed species under the Endangered Species Act
-    and the National Wildlife Refuge System.
+  description: >-
+    U.S. Fish and Wildlife Service data on listed species under the Endangered Species Act and the National
+    Wildlife Refuge System.
   humanURL: https://ecos.fws.gov/ecp/
   tags:
   - USFWS
@@ -837,8 +839,9 @@ apis:
     url: https://www.usbr.gov/projects/index.php
 - aid: doi:onrr-revenue-data
   name: ONRR Natural Resources Revenue Data
-  description: Office of Natural Resources Revenue datasets on royalty, rent, and bonus revenue from federal
-    energy and mineral production.
+  description: >-
+    Office of Natural Resources Revenue datasets on royalty, rent, and bonus revenue from federal energy
+    and mineral production.
   humanURL: https://revenuedata.doi.gov/
   tags:
   - ONRR
@@ -846,16 +849,16 @@ apis:
   properties:
   - type: Documentation
     url: https://revenuedata.doi.gov/
-- aid: doi:department-of-the-interior-alerts-api
+- aid: doi:doi-alerts-api
   name: Department of Interior Alerts API
   description: Park alerts and emergencies
-  humanURL: https://www.nps.gov/subjects/developer/api-documentation.htm
+  humanURL: https://www.nps.gov/subjects/developer/index.htm
   baseURL: https://developer.nps.gov/api/v1
   tags:
   - Alerts
   properties:
   - type: OpenAPI
-    url: openapi/department-of-the-interior-alerts-api-openapi.yml
+    url: openapi/doi-alerts-api-openapi.yml
   - type: Documentation
     url: https://www.nps.gov/subjects/developer/api-documentation.htm
   - type: JSONSchema
@@ -872,16 +875,16 @@ apis:
     url: examples/earthquake-example.json
   - type: Documentation
     url: https://waterservices.usgs.gov/
-- aid: doi:department-of-the-interior-articles-api
+- aid: doi:doi-articles-api
   name: Department of Interior Articles API
   description: News articles and releases
-  humanURL: https://www.nps.gov/subjects/developer/api-documentation.htm
+  humanURL: https://www.nps.gov/subjects/developer/index.htm
   baseURL: https://developer.nps.gov/api/v1
   tags:
   - Articles
   properties:
   - type: OpenAPI
-    url: openapi/department-of-the-interior-articles-api-openapi.yml
+    url: openapi/doi-articles-api-openapi.yml
   - type: Documentation
     url: https://www.nps.gov/subjects/developer/api-documentation.htm
   - type: JSONSchema
@@ -898,16 +901,16 @@ apis:
     url: examples/earthquake-example.json
   - type: Documentation
     url: https://waterservices.usgs.gov/
-- aid: doi:department-of-the-interior-campgrounds-api
+- aid: doi:doi-campgrounds-api
   name: Department of Interior Campgrounds API
   description: Campground listings
-  humanURL: https://www.nps.gov/subjects/developer/api-documentation.htm
+  humanURL: https://www.nps.gov/subjects/developer/index.htm
   baseURL: https://developer.nps.gov/api/v1
   tags:
   - Campgrounds
   properties:
   - type: OpenAPI
-    url: openapi/department-of-the-interior-campgrounds-api-openapi.yml
+    url: openapi/doi-campgrounds-api-openapi.yml
   - type: Documentation
     url: https://www.nps.gov/subjects/developer/api-documentation.htm
   - type: JSONSchema
@@ -924,16 +927,16 @@ apis:
     url: examples/earthquake-example.json
   - type: Documentation
     url: https://waterservices.usgs.gov/
-- aid: doi:department-of-the-interior-counts-api
+- aid: doi:doi-counts-api
   name: Department of Interior Counts API
   description: Event count queries
-  humanURL: https://www.nps.gov/subjects/developer/api-documentation.htm
+  humanURL: https://www.nps.gov/subjects/developer/index.htm
   baseURL: https://developer.nps.gov/api/v1
   tags:
   - Counts
   properties:
   - type: OpenAPI
-    url: openapi/department-of-the-interior-counts-api-openapi.yml
+    url: openapi/doi-counts-api-openapi.yml
   - type: Documentation
     url: https://www.nps.gov/subjects/developer/api-documentation.htm
   - type: JSONSchema
@@ -950,18 +953,16 @@ apis:
     url: examples/earthquake-example.json
   - type: Documentation
     url: https://waterservices.usgs.gov/
-- aid: doi:department-of-the-interior-dailyvalues-api
-  name: Department of Interior DailyValues API
+- aid: doi:doi-dailyvalues-api
+  name: Department of Interior Daily Values API
   description: Daily statistical values
-  humanURL: https://www.nps.gov/subjects/developer/api-documentation.htm
+  humanURL: https://www.nps.gov/subjects/developer/index.htm
   baseURL: https://developer.nps.gov/api/v1
   tags:
-  - Daily Values
-  tags_raw:
   - DailyValues
   properties:
   - type: OpenAPI
-    url: openapi/department-of-the-interior-dailyvalues-api-openapi.yml
+    url: openapi/doi-dailyvalues-api-openapi.yml
   - type: Documentation
     url: https://www.nps.gov/subjects/developer/api-documentation.htm
   - type: JSONSchema
@@ -978,18 +979,16 @@ apis:
     url: examples/earthquake-example.json
   - type: Documentation
     url: https://waterservices.usgs.gov/
-- aid: doi:department-of-the-interior-events-api
+- aid: doi:doi-events-api
   name: Department of Interior Events API
   description: Park events
-  humanURL: https://www.nps.gov/subjects/developer/api-documentation.htm
+  humanURL: https://www.nps.gov/subjects/developer/index.htm
   baseURL: https://developer.nps.gov/api/v1
   tags:
-  - Event
-  tags_raw:
   - Events
   properties:
   - type: OpenAPI
-    url: openapi/department-of-the-interior-events-api-openapi.yml
+    url: openapi/doi-events-api-openapi.yml
   - type: Documentation
     url: https://www.nps.gov/subjects/developer/api-documentation.htm
   - type: JSONSchema
@@ -1006,16 +1005,16 @@ apis:
     url: examples/earthquake-example.json
   - type: Documentation
     url: https://waterservices.usgs.gov/
-- aid: doi:department-of-the-interior-instantaneousvalues-api
-  name: Department of Interior InstantaneousValues API
+- aid: doi:doi-instantaneousvalues-api
+  name: Department of Interior Instantaneous Values API
   description: Real-time instantaneous values
-  humanURL: https://www.nps.gov/subjects/developer/api-documentation.htm
+  humanURL: https://www.nps.gov/subjects/developer/index.htm
   baseURL: https://developer.nps.gov/api/v1
   tags:
   - InstantaneousValues
   properties:
   - type: OpenAPI
-    url: openapi/department-of-the-interior-instantaneousvalues-api-openapi.yml
+    url: openapi/doi-instantaneousvalues-api-openapi.yml
   - type: Documentation
     url: https://www.nps.gov/subjects/developer/api-documentation.htm
   - type: JSONSchema
@@ -1032,16 +1031,16 @@ apis:
     url: examples/earthquake-example.json
   - type: Documentation
     url: https://waterservices.usgs.gov/
-- aid: doi:department-of-the-interior-parks-api
+- aid: doi:doi-parks-api
   name: Department of Interior Parks API
   description: National parks
-  humanURL: https://www.nps.gov/subjects/developer/api-documentation.htm
+  humanURL: https://www.nps.gov/subjects/developer/index.htm
   baseURL: https://developer.nps.gov/api/v1
   tags:
   - Parks
   properties:
   - type: OpenAPI
-    url: openapi/department-of-the-interior-parks-api-openapi.yml
+    url: openapi/doi-parks-api-openapi.yml
   - type: Documentation
     url: https://www.nps.gov/subjects/developer/api-documentation.htm
   - type: JSONSchema
@@ -1058,16 +1057,16 @@ apis:
     url: examples/earthquake-example.json
   - type: Documentation
     url: https://waterservices.usgs.gov/
-- aid: doi:department-of-the-interior-sites-api
+- aid: doi:doi-sites-api
   name: Department of Interior Sites API
   description: Water-monitoring sites
-  humanURL: https://www.nps.gov/subjects/developer/api-documentation.htm
+  humanURL: https://www.nps.gov/subjects/developer/index.htm
   baseURL: https://developer.nps.gov/api/v1
   tags:
   - Sites
   properties:
   - type: OpenAPI
-    url: openapi/department-of-the-interior-sites-api-openapi.yml
+    url: openapi/doi-sites-api-openapi.yml
   - type: Documentation
     url: https://www.nps.gov/subjects/developer/api-documentation.htm
   - type: JSONSchema
@@ -1084,16 +1083,16 @@ apis:
     url: examples/earthquake-example.json
   - type: Documentation
     url: https://waterservices.usgs.gov/
-- aid: doi:department-of-the-interior-visitor-centers-api
+- aid: doi:doi-visitor-centers-api
   name: Department of Interior Visitor Centers API
   description: Visitor centers
-  humanURL: https://data.doi.gov/
+  humanURL: https://www.nps.gov/subjects/developer/index.htm
   baseURL: https://developer.nps.gov/api/v1
   tags:
   - Visitor Centers
   properties:
   - type: OpenAPI
-    url: openapi/department-of-the-interior-visitor-centers-api-openapi.yml
+    url: openapi/doi-visitor-centers-api-openapi.yml
   - type: Documentation
     url: https://www.nps.gov/subjects/developer/api-documentation.htm
   - type: JSONSchema
