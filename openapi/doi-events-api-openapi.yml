@@ -132,6 +132,19 @@ paths:
               schema:
                 $ref: '#/components/schemas/EarthquakeFeatureCollection'
 components:
+  parameters:
+    parkCode:
+      name: parkCode
+      in: query
+      schema:
+        type: string
+      description: Comma-separated four-letter park codes (e.g. yose,grca)
+    stateCode:
+      name: stateCode
+      in: query
+      schema:
+        type: string
+        pattern: ^[A-Z]{2}(,[A-Z]{2})*$
   schemas:
     EarthquakeFeatureCollection:
       type: object
@@ -267,19 +280,6 @@ components:
           items:
             type: object
             additionalProperties: true
-  parameters:
-    stateCode:
-      name: stateCode
-      in: query
-      schema:
-        type: string
-        pattern: ^[A-Z]{2}(,[A-Z]{2})*$
-    parkCode:
-      name: parkCode
-      in: query
-      schema:
-        type: string
-      description: Comma-separated four-letter park codes (e.g. yose,grca)
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

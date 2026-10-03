@@ -37,6 +37,12 @@ paths:
                 $ref: '#/components/schemas/CampgroundResponse'
 components:
   parameters:
+    q:
+      name: q
+      in: query
+      schema:
+        type: string
+      description: Free-text search
     stateCode:
       name: stateCode
       in: query
@@ -49,12 +55,6 @@ components:
       schema:
         type: string
       description: Comma-separated four-letter park codes (e.g. yose,grca)
-    q:
-      name: q
-      in: query
-      schema:
-        type: string
-      description: Free-text search
   schemas:
     CampgroundResponse:
       type: object

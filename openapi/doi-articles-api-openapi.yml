@@ -44,18 +44,18 @@ components:
         type: integer
         default: 50
         maximum: 50
-    parkCode:
-      name: parkCode
-      in: query
-      schema:
-        type: string
-      description: Comma-separated four-letter park codes (e.g. yose,grca)
     q:
       name: q
       in: query
       schema:
         type: string
       description: Free-text search
+    parkCode:
+      name: parkCode
+      in: query
+      schema:
+        type: string
+      description: Comma-separated four-letter park codes (e.g. yose,grca)
   schemas:
     GenericResponse:
       type: object
