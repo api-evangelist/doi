@@ -959,6 +959,8 @@ apis:
   humanURL: https://www.nps.gov/subjects/developer/index.htm
   baseURL: https://developer.nps.gov/api/v1
   tags:
+  - Daily Values
+  tags_raw:
   - DailyValues
   properties:
   - type: OpenAPI
@@ -985,6 +987,8 @@ apis:
   humanURL: https://www.nps.gov/subjects/developer/index.htm
   baseURL: https://developer.nps.gov/api/v1
   tags:
+  - Event
+  tags_raw:
   - Events
   properties:
   - type: OpenAPI
