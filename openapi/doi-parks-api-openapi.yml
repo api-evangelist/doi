@@ -39,12 +39,24 @@ paths:
                 $ref: '#/components/schemas/ParkResponse'
 components:
   parameters:
+    stateCode:
+      name: stateCode
+      in: query
+      schema:
+        type: string
+        pattern: ^[A-Z]{2}(,[A-Z]{2})*$
     start:
       name: start
       in: query
       schema:
         type: integer
         default: 0
+    parkCode:
+      name: parkCode
+      in: query
+      schema:
+        type: string
+      description: Comma-separated four-letter park codes (e.g. yose,grca)
     q:
       name: q
       in: query
@@ -58,19 +70,20 @@ components:
         type: integer
         default: 50
         maximum: 50
-    parkCode:
-      name: parkCode
-      in: query
-      schema:
-        type: string
-      description: Comma-separated four-letter park codes (e.g. yose,grca)
-    stateCode:
-      name: stateCode
-      in: query
-      schema:
-        type: string
-        pattern: ^[A-Z]{2}(,[A-Z]{2})*$
   schemas:
+    ParkResponse:
+      type: object
+      properties:
+        total:
+          type: string
+        limit:
+          type: string
+        start:
+          type: string
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Park'
     Park:
       type: object
       properties:
@@ -131,19 +144,6 @@ components:
           type: array
           items:
             type: object
-    ParkResponse:
-      type: object
-      properties:
-        total:
-          type: string
-        limit:
-          type: string
-        start:
-          type: string
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Park'
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

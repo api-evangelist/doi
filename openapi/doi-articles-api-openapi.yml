@@ -37,6 +37,12 @@ paths:
                 $ref: '#/components/schemas/GenericResponse'
 components:
   parameters:
+    q:
+      name: q
+      in: query
+      schema:
+        type: string
+      description: Free-text search
     limit:
       name: limit
       in: query
@@ -44,12 +50,6 @@ components:
         type: integer
         default: 50
         maximum: 50
-    q:
-      name: q
-      in: query
-      schema:
-        type: string
-      description: Free-text search
     parkCode:
       name: parkCode
       in: query
