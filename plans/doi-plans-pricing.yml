@@ -1,3 +1,7 @@
+# Provenance stamped 2026-10-07 (roadmap#943): written by an API Evangelist sweep (undated — the file carries no date and git cannot supply one), not
+# harvested from the provider. `method: generated` so the economics campaign may replace it with a
+# dated, verbatim transcription; every figure below is unverified until it does.
+method: generated
 name: Department of Interior API Plans and Pricing
 description: >-
   DOI bureau APIs are publicly funded federal government services provided
@@ -52,3 +56,28 @@ notes: >-
   subscription fees. Commercial use is permitted under standard government
   data policies. Some data may carry specific licensing or attribution
   requirements.
+x-canonical:
+  generated: '2026-10-08'
+  vocabulary: all/0-working/economics/plans-canonical.yml
+  models:
+  - free
+  units: []
+  plans:
+  - name: Public Access (No Key)
+    access: other
+    model: free
+    model_how: derived
+    units: []
+    periods: []
+  - name: Registered Developer (API Key)
+    access: other
+    model: free
+    model_how: derived
+    units: []
+    periods: []
+  - name: USGS Water Data API Key
+    access: other
+    model: free
+    model_how: derived
+    units: []
+    periods: []
