@@ -1,0 +1,189 @@
+openapi: 3.2.0
+info:
+  description: This API is designed to provide authoritative National Park Service (NPS) data and content about parks and their facilities, events, news, alerts, and more. Explore the NPS API below and even try to make API calls. In order to try an API call, you'll need to click on the "Authorize" button below and add your API key. If you don't have an API key yet, visit our Get Started page.
+  version: 1.0.0
+  title: National Park Service Multimedia/galleries/assets API
+servers:
+- url: https://developer.nps.gov/api/v1
+tags:
+- name: multimedia/galleries/assets
+  description: Retrieve gallery assets by unique asset id, or gallery id, etc.
+paths:
+  /multimedia/galleries/assets:
+    get:
+      tags:
+      - multimedia/galleries/assets
+      description: Returns assets in National Park Service multimedia galleries, with optional filters for asset ID, gallery ID, park code, state code, or a search term.
+      operationId: getMultimediaGalleriesAssets
+      parameters:
+      - name: id
+        in: query
+        description: The unique identifier of an asset within a gallery
+        required: false
+        schema:
+          type: string
+      - name: galleryId
+        in: query
+        description: The unique identifier for a gallery
+        required: false
+        schema:
+          type: string
+      - name: parkCode
+        in: query
+        description: A comma delimited list of 4 character park codes.
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+      - name: stateCode
+        in: query
+        description: A comma delimited list of 2 character state codes.
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+      - name: limit
+        in: query
+        description: Number of results to return per request. Default is 50.
+        required: false
+        schema:
+          type: integer
+      - name: start
+        in: query
+        description: Get the next [limit] results starting with this number. Default is 0.
+        required: false
+        schema:
+          type: integer
+      - name: q
+        in: query
+        description: Term to search on
+        required: false
+        schema:
+          type: string
+      security:
+      - api_key: []
+      - api_key_header: []
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MultimediaGalleriesAssets'
+        '400':
+          description: Invalid status value
+      summary: Get multimedia galleries assets
+      x-summary-source: derived
+components:
+  schemas:
+    MultimediaGalleriesAssets:
+      type: object
+      properties:
+        total:
+          type: string
+          example: '13'
+        limit:
+          type: string
+          example: '50'
+        start:
+          type: string
+          example: '0'
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+                example: F2D0A915-155D-451F-67EA-767489860884
+              permalinkUrl:
+                type: string
+                example: https://www.nps.gov/media/photo/gallery-item.htm?pg=1&id=F2D0A915-155D-451F-67EA-767489860884&gid=F2D0A8A2-155D-451F-67A9-A67E74025286
+              title:
+                type: string
+                example: '1st place: 6th – 8th grade category'
+              description:
+                type: string
+                example: '1st place: 6th – 8th grade category'
+              altText:
+                type: string
+                example: '1st place: 6th – 8th grade category'
+              fileInfo:
+                type: object
+                properties:
+                  url:
+                    type: string
+                    example: https://www.nps.gov/npgallery/GetAsset/F2D0A915-155D-451F-67EA-767489860884
+                  fileType:
+                    type: string
+                    example: image/jpeg
+                  widthPixels:
+                    type: integer
+                    example: 1024
+                  heightPixels:
+                    type: integer
+                    example: 768
+                  fileSizeKb:
+                    type: integer
+                    example: 147265
+              relatedParks:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    states:
+                      type: string
+                      example: MT
+                    parkCode:
+                      type: string
+                      example: glac
+                    designation:
+                      type: string
+                      example: National Park
+                    fullName:
+                      type: string
+                      example: Glacier National Park
+                    url:
+                      type: string
+                      example: https://www.nps.gov/glac/index.htm
+                    name:
+                      type: string
+                      example: Glacier
+              tags:
+                type: array
+                items:
+                  type: string
+                  example: postcard
+              credit:
+                type: string
+                example: ''
+              constraintsInfo:
+                type: object
+                properties:
+                  constraint:
+                    type: string
+                    example: Public domain
+                  grantingRights:
+                    type: string
+                    example: Full
+              copyright:
+                type: string
+                example: Permission must be secured from the individual copyright owners to reproduce any copyrighted materials contained within this website. Digital assets without any copyright restrictions are public domain.
+              ordinal:
+                type: integer
+                example: 1
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: api_key
+      in: query
+    api_key_header:
+      type: apiKey
+      name: X-Api-Key
+      in: header

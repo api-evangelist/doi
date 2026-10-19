@@ -1,0 +1,100 @@
+openapi: 3.2.0
+info:
+  description: This API is designed to provide authoritative National Park Service (NPS) data and content about parks and their facilities, events, news, alerts, and more. Explore the NPS API below and even try to make API calls. In order to try an API call, you'll need to click on the "Authorize" button below and add your API key. If you don't have an API key yet, visit our Get Started page.
+  version: 1.0.0
+  title: National Park Service Amenities API
+servers:
+- url: https://developer.nps.gov/api/v1
+tags:
+- name: amenities
+  description: Retrieve the amenity types (accessible restrooms, fire pit, picnic area, etc.) available in national parks.
+paths:
+  /amenities:
+    get:
+      tags:
+      - amenities
+      description: Returns National Park Service amenities, with optional filters for amenity IDs or a search term.
+      operationId: getAmenities
+      parameters:
+      - name: id
+        in: query
+        description: One or more amenity unique IDs.
+        required: false
+        style: form
+        explode: false
+        schema:
+          type: array
+          items:
+            type: string
+      - name: q
+        in: query
+        description: A string to search for.
+        required: false
+        schema:
+          type: string
+      - name: limit
+        in: query
+        description: Number of results to return per request. Default is 50.
+        required: false
+        schema:
+          type: integer
+      - name: start
+        in: query
+        description: Get the next [limit] results starting with this number. Default is 0.
+        required: false
+        schema:
+          type: integer
+      security:
+      - api_key: []
+      - api_key_header: []
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Amenities'
+        '400':
+          description: Invalid status value
+      summary: Get amenities
+      x-summary-source: derived
+components:
+  schemas:
+    Amenities:
+      type: object
+      properties:
+        total:
+          type: string
+          example: '121'
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+                description: Unique identifier for this amenity
+                example: 75F2DA2A-1741-445A-9FA7-B63A81E4BD7F
+              name:
+                type: string
+                description: This amenity's name
+                example: Accessibility - Accessible Restroom
+              categories:
+                type: array
+                items:
+                  type: string
+        limit:
+          type: string
+          example: '50'
+        start:
+          type: string
+          example: '0'
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: api_key
+      in: query
+    api_key_header:
+      type: apiKey
+      name: X-Api-Key
+      in: header

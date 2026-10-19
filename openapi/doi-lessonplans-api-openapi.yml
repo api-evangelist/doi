@@ -1,0 +1,204 @@
+openapi: 3.2.0
+info:
+  description: This API is designed to provide authoritative National Park Service (NPS) data and content about parks and their facilities, events, news, alerts, and more. Explore the NPS API below and even try to make API calls. In order to try an API call, you'll need to click on the "Authorize" button below and add your API key. If you don't have an API key yet, visit our Get Started page.
+  version: 1.0.0
+  title: National Park Service Lessonplans API
+servers:
+- url: https://developer.nps.gov/api/v1
+tags:
+- name: lessonplans
+  description: Retrieve lesson plans created by national parks and other NPS entities.
+paths:
+  /lessonplans:
+    get:
+      tags:
+      - lessonplans
+      description: Returns educational lesson plans, with optional filters for park codes, state codes, or a search term.
+      operationId: getLessonPlans
+      parameters:
+      - name: parkCode
+        in: query
+        description: A comma delimited list of park codes (each 4 characters in length).
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+      - name: stateCode
+        in: query
+        description: A comma delimited list of 2 character state codes.
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+      - name: limit
+        in: query
+        description: Number of results to return per request. Default is 50.
+        required: false
+        schema:
+          type: integer
+      - name: start
+        in: query
+        description: Get the next [limit] results starting with this number. Default is 0.
+        required: false
+        schema:
+          type: integer
+      - name: q
+        in: query
+        description: Term to search on
+        required: false
+        schema:
+          type: string
+      - name: sort
+        in: query
+        description: A comma delimited list of resource properties to sort the results by. Each resource identifies which properties are 'sortable'. Ascending order is assumed for each property. If descending order is desired, the unary negative should prefix the property name. The sortable properties are listed in the documentation for each resource. Invalid property values will be ignored. Default is title.
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+      security:
+      - api_key: []
+      - api_key_header: []
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LessonPlan'
+        '400':
+          description: Invalid status value
+      summary: Get lesson plans
+      x-summary-source: derived
+components:
+  schemas:
+    LessonPlan:
+      type: object
+      properties:
+        total:
+          type: string
+          example: '806'
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              commonCore:
+                type: object
+                description: Educational standards that apply to this lesson
+                properties:
+                  stateStandards:
+                    type: string
+                  mathStandards:
+                    type: array
+                    items:
+                      type: string
+                  additionalStandards:
+                    type: string
+                  elaStandards:
+                    type: array
+                    items:
+                      type: string
+              duration:
+                type: string
+                description: Time it takes to peform the lesson
+              gradeLevel:
+                type: string
+                description: Grade level of students at which this lesson is aimed
+              id:
+                type: string
+                description: Unique identifier for this lesson plan
+                example: '4837917'
+              parks:
+                type: array
+                description: Related parks for this lesson plan
+                items:
+                  type: string
+              questionObjective:
+                type: string
+                description: Objective of the lesson or the question student should be able to answer at the end of the lesson
+              subject:
+                type: array
+                description: Broad subject the lesson falls under= literacy and language arts, math, science, or social studies
+                items:
+                  type: string
+              title:
+                type: string
+                description: Lesson plan title
+              url:
+                type: string
+                description: Lesson plan link
+          example:
+          - commonCore:
+              stateStandards: "State: Nebraska\t\nSubject: History        \nGrade Level:  8th  \t\n\n State Standards:  8.1.2, 8.1.5, 8.4.2"
+              mathStandards:
+              - 6-8.RH.1
+              - 6-8.RH.2
+              - 6-8.RH.3
+              - 6-8.RH.4
+              - 6-8.RH.5
+              - 6-8.RH.6
+              - 6-8.RH.7
+              - 6-8.RH.8
+              - 6-8.RH.9
+              - 6-8.RH.10
+              additionalStandards: ''
+              elaStandards:
+              - 6-8.RH.1
+              - 6-8.RH.2
+              - 6-8.RH.3
+              - 6-8.RH.4
+              - 6-8.RH.5
+              - 6-8.RH.6
+              - 6-8.RH.7
+              - 6-8.RH.8
+              - 6-8.RH.9
+              - 6-8.RH.10
+            duration: 60 Minutes
+            gradeLevel: 'Middle School: Sixth Grade through Eighth Grade'
+            id: '4837942'
+            parks:
+            - home
+            questionObjective: "In \"Dawes Act,\" students will look at the similarities and differences between the Homestead Act and the Dawes Act by analyzing primary sources. \nIn this lesson, students will answer the following essential question: What are the cause and effects of the Dawes Act?"
+            subject:
+            - Social Studies
+            title: Dawes Act
+            url: https://www.nps.gov/teachers/classrooms/dawact.htm
+          - commonCore:
+              stateStandards: ''
+              mathStandards: []
+              additionalStandards: ''
+              elaStandards: []
+            duration: 90 Minutes
+            gradeLevel: 'Upper Elementary: Third Grade through Fifth Grade'
+            id: '3922862'
+            parks:
+            - flni
+            questionObjective: 'This program utilizes multimedia, exhibits, oral presentations and the memorial landscape to deliver a unique learning opportunity.  The overall objective of this program is to expose students to the various passengers and crew members of Flight 93: Who they were, their names, what made them unique, and how do we remember them today at the memorial. There will also be a special emphasis on the story of Flight 93 and the actions of the passengers and crew members.'
+            subject:
+            - Social Studies
+            title: A Walk to Remember
+            url: https://www.nps.gov/flni/learn/education/classrooms/index.htm
+        limit:
+          type: string
+          example: '50'
+        start:
+          type: string
+          example: '0'
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: api_key
+      in: query
+    api_key_header:
+      type: apiKey
+      name: X-Api-Key
+      in: header

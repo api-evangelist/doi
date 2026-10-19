@@ -1,0 +1,193 @@
+openapi: 3.2.0
+info:
+  description: This API is designed to provide authoritative National Park Service (NPS) data and content about parks and their facilities, events, news, alerts, and more. Explore the NPS API below and even try to make API calls. In order to try an API call, you'll need to click on the "Authorize" button below and add your API key. If you don't have an API key yet, visit our Get Started page.
+  version: 1.0.0
+  title: National Park Service Multimedia/audio API
+servers:
+- url: https://developer.nps.gov/api/v1
+tags:
+- name: multimedia/audio
+  description: Retrieve metadata relating to audio files created by national parks.
+paths:
+  /multimedia/audio:
+    get:
+      tags:
+      - multimedia/audio
+      description: Returns audio resources from National Park Service sites, with optional filters for park codes, state codes, or a search term.
+      operationId: getMultimediaAudio
+      parameters:
+      - name: parkCode
+        in: query
+        description: A comma delimited list of park codes (each 4 characters in length).
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+      - name: stateCode
+        in: query
+        description: A comma delimited list of 2 character state codes.
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+      - name: limit
+        in: query
+        description: Number of results to return per request. Default is 50.
+        required: false
+        schema:
+          type: integer
+      - name: start
+        in: query
+        description: Get the next [limit] results starting with this number. Default is 0.
+        required: false
+        schema:
+          type: integer
+      - name: q
+        in: query
+        description: Term to search on
+        required: false
+        schema:
+          type: string
+      security:
+      - api_key: []
+      - api_key_header: []
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MultimediaAudio'
+        '400':
+          description: Invalid status value
+      summary: Get multimedia audio
+      x-summary-source: derived
+components:
+  schemas:
+    MultimediaAudio:
+      type: object
+      properties:
+        total:
+          type: string
+          example: '3427'
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+                description: unique identifier for this audio asset
+                example: 6A437071-C23A-4754-ABBD-47027A1464E0
+              permalinkUrl:
+                type: string
+                example: https://www.nps.gov/media/video/view.htm?id=6A437071-C23A-4754-ABBD-47027A1464E0
+              title:
+                type: string
+                example: Theodore Roosevelt A Complicated Legacy
+              description:
+                type: string
+                example: No one is infallible, not our heroes, not our leaders, not even those who pioneered for the preservation of the natural world. President Theodore Roosevelt left a complex legacy. While he helped to create the National Park Service and set out to protect and preserve public lands, he excluded Indigenous voices. What would it be like to sit down and talk with Teddy today? —What would you ask him? In this episode, park visitors share how they respond to this multifaceted human and the legacy he left behind.
+              splashImage:
+                type: object
+                properties:
+                  url:
+                    type: string
+                    example: https://www.nps.gov/common/uploads/ser/park/carl//896018B2-B099-D284-F1497C6FEA15018B/896018B2-B099-D284-F1497C6FEA15018B-large.jpg
+              relatedParks:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    states:
+                      type: string
+                      example: AZ
+                    parkCode:
+                      type: string
+                      example: grca
+                    designation:
+                      type: string
+                      example: National Park
+                    fullName:
+                      type: string
+                      example: Grand Canyon National Park
+                    url:
+                      type: string
+                      example: https://www.nps.gov/grca/index.htm
+                    name:
+                      type: string
+                      example: Grand Canyon
+              tags:
+                type: array
+                items:
+                  type: string
+                  example: Theodore Roosevelt
+                example:
+                - Theodore Roosevelt
+                - Grand Canyon
+                - Presidency
+                - CONSERVATION LEGACY
+                - NATIVE AMERICAN CULTURE
+                - legacy and national park service
+                - diversity
+                - Native American
+                - American Indian
+              latitude:
+                type:
+                - number
+                - 'null'
+                example: 36.0566279811578
+              longitude:
+                type:
+                - number
+                - 'null'
+                example: -112.143759727478
+              geometryPoiId:
+                type: string
+              durationMs:
+                type: number
+                example: 1263020
+              credit:
+                type: string
+                example: Behind the Scenery Podcast
+              transcript:
+                type: string
+              callToAction:
+                type: string
+              callToActionUrl:
+                type: string
+              versions:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    fileSize:
+                      type: number
+                      example: 50539839
+                    fileType:
+                      type: string
+                      example: audio/mp3
+                    url:
+                      type: string
+                      example: https://www.nps.gov/nps-audiovideo/audiovideo/754f468d-0777-4647-b64b-d59c2c7803bd.mp3
+        limit:
+          type: string
+          example: '50'
+        start:
+          type: string
+          example: '0'
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: api_key
+      in: query
+    api_key_header:
+      type: apiKey
+      name: X-Api-Key
+      in: header

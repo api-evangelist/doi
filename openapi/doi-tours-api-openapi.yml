@@ -1,0 +1,271 @@
+openapi: 3.2.0
+info:
+  description: This API is designed to provide authoritative National Park Service (NPS) data and content about parks and their facilities, events, news, alerts, and more. Explore the NPS API below and even try to make API calls. In order to try an API call, you'll need to click on the "Authorize" button below and add your API key. If you don't have an API key yet, visit our Get Started page.
+  version: 1.0.0
+  title: National Park Service Tours API
+servers:
+- url: https://developer.nps.gov/api/v1
+tags:
+- name: Tours
+  description: Retrieve tours with stops at the special places, campgrounds, and visitor centers found within national parks.
+paths:
+  /tours:
+    get:
+      tags:
+      - Tours
+      description: Returns tours at National Park Service sites, with optional filters for tour IDs, park codes, state codes, or a search term.
+      operationId: getTours
+      parameters:
+      - name: id
+        in: query
+        description: A comma delimited list of tour IDs.
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+      - name: parkCode
+        in: query
+        description: A comma delimited list of 4 character park codes.
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+      - name: stateCode
+        in: query
+        description: A comma delimited list of 2 character state codes.
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+      - name: q
+        in: query
+        description: A string to search for.
+        required: false
+        schema:
+          type: string
+      - name: limit
+        in: query
+        description: Number of results to return per request. Default is 50.
+        required: false
+        schema:
+          type: integer
+      - name: start
+        in: query
+        description: Get the next [limit] results starting with this number. Default is 0.
+        required: false
+        schema:
+          type: integer
+      - name: sort
+        in: query
+        description: A comma delimited list of resource properties to sort the results by. Ascending order is assumed for each property. If descending order is desired, the unary negative should prefix the property name. Invalid property values will be ignored. If no sort parameter is passed in a request, the default sort is by display order. If sorting by relevanceScore, you 1) will likely use -relevanceScore as a higher score indicates a more relevant result and 2) cannot use it in conjunction with other sort properties. Possible fields to sort by are name, parkCode, Title, and relevanceScore.
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+      security:
+      - api_key: []
+      - api_key_header: []
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tours'
+        '400':
+          description: Invalid status value
+      summary: Get tours
+      x-summary-source: derived
+components:
+  schemas:
+    Tours:
+      type: object
+      properties:
+        total:
+          type: string
+          example: '2'
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              topics:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      description: UUID for this topic
+                      example: 77B7EFDF-1A74-409C-8BA2-324EC919DB0E
+                    name:
+                      type: string
+                      description: Name for this topic
+                      example: Arctic
+              description:
+                type: string
+                description: ''
+                example: A tour that exists purely to ensure tours show up in the API successfully.
+              images:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    credit:
+                      type: string
+                      description: photo credit for this image
+                      example: NPS Photo / Emily Mesner
+                    crops:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          aspectRatio:
+                            type: number
+                            description: ''
+                            example: 1
+                          url:
+                            type: string
+                            description: URL to this image crop
+                            example: https://www.nps.gov/common/uploads/tours/primary/6B230275-0DCB-8052-19039607F9A25672.jpg
+                    altText:
+                      type: string
+                      description: the alternate text for this image
+                      example: a brown bear
+                    title:
+                      type: string
+                      description: title for this image
+                      example: Title!
+                    caption:
+                      type: string
+                      description: caption for this image
+                      example: Grizzlies can sometimes be seen in the Savage River area of Denali
+                    url:
+                      type: string
+                      description: URL for this image.
+                      example: https://www.nps.gov/common/uploads/tours/6B230275-0DCB-8052-19039607F9A25672.jpg
+              durationMax:
+                type: string
+                description: ''
+                example: '120'
+              stops:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    significance:
+                      type: string
+                    assetId:
+                      type: string
+                      description: ''
+                      example: CD74CF08-6C88-418B-A2C2-F7B957975C76
+                    assetName:
+                      type: string
+                      description: ''
+                      example: Savage River
+                    assetType:
+                      type: string
+                      description: ''
+                      example: Place
+                    id:
+                      type: string
+                      description: ''
+                      example: 6886BB60-C11B-1A87-589FEABEE387E9E4
+                    ordinal:
+                      type: string
+                      description: ''
+                      example: '1'
+                    directionsToNextStop:
+                      type: string
+                      description: ''
+                    audioFileUrl:
+                      type: string
+                    audioTranscript:
+                      type: string
+              activities:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      example: BFF8C027-7C8F-480B-A5F8-CD8CE490BFBA
+                    name:
+                      type: string
+                      example: Hiking
+              durationUnit:
+                type: string
+                description: ''
+                example: m
+              title:
+                type: string
+                description: ''
+                example: API Test
+              id:
+                type: string
+                description: ''
+                example: 6880801D-EDC4-00AF-FBD5EAFFB3B7FD32
+              durationMin:
+                type: string
+                description: ''
+                example: '60'
+              relevanceScore:
+                type: number
+                description: The relevance score is a numeric calculation of how much your item meets the criteria of your q (query text) search. This is normally coupled with a sort value of -relevanceScore. A higher value means that your item meets the criteria of the q search with a higher frequency and accuracy.
+                example: 1
+              tags:
+                type: array
+                items:
+                  type: string
+              type:
+                type: string
+                description: 'Tour type. Options: Standard, Driving, or Non-Geo-Located'
+                example: Standard
+              park:
+                type: object
+                properties:
+                  states:
+                    type: string
+                    example: AK
+                  designation:
+                    type: string
+                    example: National Park & Preserve
+                  parkCode:
+                    type: string
+                    example: dena
+                  fullName:
+                    type: string
+                    example: Denali National Park & Preserve
+                  url:
+                    type: string
+                    example: https://www.nps.gov/dena/index.htm
+                  name:
+                    type: string
+                    example: Denali
+        limit:
+          type: string
+          example: '50'
+        start:
+          type: string
+          example: '0'
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: api_key
+      in: query
+    api_key_header:
+      type: apiKey
+      name: X-Api-Key
+      in: header

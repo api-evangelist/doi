@@ -1,0 +1,755 @@
+openapi: 3.2.0
+info:
+  description: This API is designed to provide authoritative National Park Service (NPS) data and content about parks and their facilities, events, news, alerts, and more. Explore the NPS API below and even try to make API calls. In order to try an API call, you'll need to click on the "Authorize" button below and add your API key. If you don't have an API key yet, visit our Get Started page.
+  version: 1.0.0
+  title: National Park Service Parkinglots API
+servers:
+- url: https://developer.nps.gov/api/v1
+tags:
+- name: parkinglots
+  description: Retrieve information related to parking lots created by national parks and other NPS entities.
+paths:
+  /parkinglots:
+    get:
+      tags:
+      - parkinglots
+      description: Returns parking lot information for National Park Service sites, with optional filters for park codes, state codes, or a search term.
+      operationId: getParkinglots
+      parameters:
+      - name: parkCode
+        in: query
+        description: A comma delimited list of park codes (each 4 characters in length).
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+      - name: stateCode
+        in: query
+        description: A comma delimited list of 2 character state codes.
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+      - name: limit
+        in: query
+        description: Number of results to return per request. Default is 50.
+        required: false
+        schema:
+          type: integer
+      - name: start
+        in: query
+        description: Get the next [limit] results starting with this number. Default is 0.
+        required: false
+        schema:
+          type: integer
+      - name: q
+        in: query
+        description: term to search on
+        required: false
+        schema:
+          type: string
+      security:
+      - api_key: []
+      - api_key_header: []
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Parkinglot'
+        '400':
+          description: Invalid status value
+      summary: Get parkinglots
+      x-summary-source: derived
+components:
+  schemas:
+    Parkinglot:
+      type: object
+      properties:
+        total:
+          type: string
+          example: '4'
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+                description: Unique identifier for the parking lot
+              name:
+                type: string
+                description: Parkinglot name
+              altName:
+                type: string
+                description: alternative names for this parklinglot
+              description:
+                type: string
+                description: General description of the parkinglot
+              relatedParks:
+                type: array
+                description: which parks are associated with this parkinglot
+                items:
+                  type: object
+                  properties:
+                    states:
+                      type: string
+                      example: AR
+                    parkCode:
+                      type: string
+                      example: buff
+                    designation:
+                      type: string
+                      example: National River
+                    fullName:
+                      type: string
+                      example: Buffalo National River
+                    url:
+                      type: string
+                      example: https://www.nps.gov/buff/index.htm
+                    name:
+                      type: string
+                      example: Buffalo
+              latitude:
+                type: number
+                description: The latitude of the parkinglot location
+              longitude:
+                type: number
+                description: The longitude of the parkinglot location
+              geometryPoiId:
+                type: string
+                description: Id for Geometry Point of Interest
+                example: 8793be28-0d54-493f-8556-877e7ecbe937
+              managedByOrganization:
+                type: string
+                description: which organization manages this parkinglot
+                example: NPS
+              timeZone:
+                type: string
+                description: the time zone in which this parkinglot is found
+                example: ET
+              webcamUrl:
+                type: string
+                description: URL of parkinglot webcam
+              contacts:
+                type: object
+                description: Information about contacting the park regarding this campground
+                properties:
+                  phoneNumbers:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        phoneNumber:
+                          type: string
+                        description:
+                          type: string
+                        extension:
+                          type: string
+                        type:
+                          type: string
+                          enum:
+                          - Voice
+                          - Fax
+                          - TTY
+                  emailAddresses:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        emailAddress:
+                          type: string
+                        description:
+                          type: string
+              fees:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    cost:
+                      type: string
+                      example: '30'
+                    description:
+                      type: string
+                      example: From May to October, entrance into the park including Cadillac Mountain and Blue Hill Overlook require paying a park entrance fee.  Always display your pass in your vehicle when parking in the park. Please visit our Fees & Passes page for more information.
+                    title:
+                      type: string
+                      example: Acadia Entrance Fee - Per person or vehicle
+              operatingHours:
+                type: array
+                description: the operating hours for this parkinglot
+                items:
+                  type: object
+                  properties:
+                    description:
+                      type: string
+                    exceptions:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          name:
+                            type: string
+                          startDate:
+                            type: string
+                          endDate:
+                            type: string
+                          exceptionHours:
+                            type: object
+                            properties:
+                              sunday:
+                                type: string
+                              monday:
+                                type: string
+                              tuesday:
+                                type: string
+                              wednesday:
+                                type: string
+                              thursday:
+                                type: string
+                              friday:
+                                type: string
+                              saturday:
+                                type: string
+                    name:
+                      type: string
+                      example: Cadillac Mountain
+                    standardHours:
+                      type: object
+                      properties:
+                        friday:
+                          type: string
+                          example: All Day
+                        monday:
+                          type: string
+                          example: All Day
+                        saturday:
+                          type: string
+                          example: All Day
+                        sunday:
+                          type: string
+                          example: All Day
+                        thursday:
+                          type: string
+                          example: All Day
+                        tuesday:
+                          type: string
+                          example: All Day
+                        wednesday:
+                          type: string
+                          example: All Day
+              images:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    altText:
+                      type: string
+                    caption:
+                      type: string
+                    credit:
+                      type: string
+                    title:
+                      type: string
+                    url:
+                      type: string
+              accessibility:
+                type: object
+                properties:
+                  adaFacilitiesDescription:
+                    type: string
+                    example: ''
+                  isLotAccessibleToDisabled:
+                    type: boolean
+                    example: true
+                  numberOfOversizeVehicleSpaces:
+                    type: integer
+                    example: 0
+                  numberofAdaSpaces:
+                    type: integer
+                    example: 6
+                  numberofAdaStepFreeSpaces:
+                    type: integer
+                    example: 6
+                  numberofAdaVanAccessbileSpaces:
+                    type: integer
+                    example: 6
+                  totalSpaces:
+                    type: integer
+                    example: 145
+              liveStatus:
+                type: object
+                properties:
+                  description:
+                    type: string
+                  estimatedWaitTimeInMinutes:
+                    type:
+                    - integer
+                    - 'null'
+                    example: 0
+                  expirationDate:
+                    type: string
+                  isActive:
+                    type: boolean
+                    example: true
+                  occupancy:
+                    type: string
+                    example: Light
+          example:
+          - id: 7DE234F8-0156-4ADE-BB94-CA01B72DA7C2
+            name: Cadillac Mountain
+            altName: ''
+            description: Cadillac Mountain summit and Blue Hill Overlook
+            relatedParks:
+            - states: ME
+              parkCode: acad
+              designation: National Park
+              fullName: Acadia National Park
+              url: https://www.nps.gov/acad/index.htm
+              name: Acadia
+            latitude: 44.3526
+            longitude: 68.2251
+            geometryPoiId: ''
+            managedByOrganization: NPS
+            timeZone: ET
+            webcamUrl: ''
+            contacts:
+              phoneNumbers: []
+              emailAddresses: []
+            fees:
+            - cost: '30.00'
+              description: From May to October, entrance into the park including Cadillac Mountain and Blue Hill Overlook require paying a park entrance fee.  Always display your pass in your vehicle when parking in the park. Please visit our Fees & Passes page for more information.
+              title: Acadia Entrance Fee - Per person or vehicle
+            operatingHours:
+            - exceptions:
+              - exceptionHours:
+                  wednesday: All Day
+                  monday: All Day
+                  thursday: All Day
+                  sunday: All Day
+                  tuesday: All Day
+                  friday: All Day
+                  saturday: All Day
+                startDate: '2022-05-26'
+                name: Memorial Day weekend
+                endDate: '2022-05-29'
+              - exceptionHours:
+                  wednesday: All Day
+                  monday: All Day
+                  thursday: All Day
+                  sunday: All Day
+                  tuesday: All Day
+                  friday: All Day
+                  saturday: All Day
+                startDate: '2022-07-01'
+                name: July 4th week
+                endDate: '2022-07-07'
+              - exceptionHours:
+                  wednesday: All Day
+                  monday: All Day
+                  thursday: All Day
+                  sunday: All Day
+                  tuesday: All Day
+                  friday: All Day
+                  saturday: All Day
+                startDate: '2022-08-31'
+                name: Labor Day weekend
+                endDate: '2022-09-03'
+              - exceptionHours:
+                  wednesday: All Day
+                  monday: All Day
+                  thursday: All Day
+                  sunday: All Day
+                  tuesday: All Day
+                  friday: All Day
+                  saturday: All Day
+                startDate: '2022-09-08'
+                name: Star Party
+                endDate: '2022-09-08'
+              - exceptionHours:
+                  wednesday: All Day
+                  monday: All Day
+                  thursday: All Day
+                  sunday: All Day
+                  tuesday: All Day
+                  friday: All Day
+                  saturday: All Day
+                startDate: '2022-10-06'
+                name: Columbus Day weekend
+                endDate: '2022-10-08'
+              - exceptionHours:
+                  wednesday: All Day
+                  monday: All Day
+                  thursday: All Day
+                  sunday: All Day
+                  tuesday: All Day
+                  friday: All Day
+                  saturday: All Day
+                startDate: '2022-10-09'
+                name: mid-late october
+                endDate: '2022-10-31'
+              - exceptionHours:
+                  wednesday: Closed
+                  monday: Closed
+                  thursday: Closed
+                  sunday: Closed
+                  tuesday: Closed
+                  friday: Closed
+                  saturday: Closed
+                startDate: '2021-11-25'
+                name: winter
+                endDate: '2022-04-15'
+              - exceptionHours:
+                  wednesday: Closed
+                  monday: Closed
+                  thursday: Closed
+                  sunday: Closed
+                  tuesday: Closed
+                  friday: Closed
+                  saturday: Closed
+                startDate: '2021-12-01'
+                name: Winter
+                endDate: '2022-04-15'
+              description: ''
+              standardHours:
+                wednesday: All Day
+                monday: All Day
+                thursday: All Day
+                sunday: All Day
+                tuesday: All Day
+                friday: All Day
+                saturday: All Day
+              name: Cadillac Mountain
+            images: []
+            accessibility:
+              isLotAccessibleToDisabled: true
+              totalSpaces: 145
+              numberofAdaSpaces: 6
+              numberofAdaVanAccessbileSpaces: 6
+              numberofAdaStepFreeSpaces: 6
+              numberOfOversizeVehicleSpaces: 0
+              adaFacilitiesDescription: ''
+            liveStatus:
+              isActive: true
+              occupancy: ''
+              estimatedWaitTimeInMinutes: null
+              description: ''
+              expirationDate: ''
+          - id: F1E71B54-41B6-4674-A37F-E77C8034D419
+            name: Echo Lake
+            altName: ''
+            description: Parking lot for Echo Lake Swim Beach, Beech Cliff Trail and Canada Cliffs Climbing. Lot closed to recreational vehicles (RVs) and trailer. Only buses with permits are allowed.
+            relatedParks:
+            - states: ME
+              parkCode: acad
+              designation: National Park
+              fullName: Acadia National Park
+              url: https://www.nps.gov/acad/index.htm
+              name: Acadia
+            latitude: 44.314308
+            longitude: -68.336482
+            geometryPoiId: ''
+            managedByOrganization: NPS
+            timeZone: ET
+            webcamUrl: ''
+            contacts:
+              phoneNumbers: []
+              emailAddresses: []
+            fees:
+            - cost: '30.00'
+              description: From May to October, parking at Echo Lake requires the purchase of a park entrance pass.  Always display your pass in your vehicle when parked.  Please visit our Fees & Passes page for more information.
+              title: Acadia National Park Entrance Fee - Per Person or Vehicle
+            operatingHours:
+            - exceptions:
+              - exceptionHours:
+                  wednesday: All Day
+                  monday: All Day
+                  thursday: All Day
+                  sunday: All Day
+                  tuesday: All Day
+                  friday: All Day
+                  saturday: All Day
+                startDate: '2022-05-26'
+                name: Memorial Day weekend
+                endDate: '2022-05-29'
+              - exceptionHours:
+                  wednesday: All Day
+                  monday: All Day
+                  thursday: All Day
+                  sunday: All Day
+                  tuesday: All Day
+                  friday: All Day
+                  saturday: All Day
+                startDate: '2022-07-01'
+                name: July 4th week
+                endDate: '2022-07-07'
+              - exceptionHours:
+                  wednesday: All Day
+                  monday: All Day
+                  thursday: All Day
+                  sunday: All Day
+                  tuesday: All Day
+                  friday: All Day
+                  saturday: All Day
+                startDate: '2022-08-31'
+                name: Labor Day weekend
+                endDate: '2022-09-03'
+              - exceptionHours:
+                  wednesday: All Day
+                  monday: All Day
+                  thursday: All Day
+                  sunday: All Day
+                  tuesday: All Day
+                  friday: All Day
+                  saturday: All Day
+                startDate: '2022-10-06'
+                name: Columbus Day weekend
+                endDate: '2022-10-08'
+              - exceptionHours:
+                  wednesday: Closed
+                  monday: Closed
+                  thursday: Closed
+                  sunday: Closed
+                  tuesday: Closed
+                  friday: Closed
+                  saturday: Closed
+                startDate: '2021-11-25'
+                name: winter
+                endDate: '2022-04-15'
+              description: ''
+              standardHours:
+                wednesday: All Day
+                monday: All Day
+                thursday: All Day
+                sunday: All Day
+                tuesday: All Day
+                friday: All Day
+                saturday: All Day
+              name: Echo Lake
+            images: []
+            accessibility:
+              isLotAccessibleToDisabled: true
+              totalSpaces: 89
+              numberofAdaSpaces: 5
+              numberofAdaVanAccessbileSpaces: 5
+              numberofAdaStepFreeSpaces: 5
+              numberOfOversizeVehicleSpaces: 0
+              adaFacilitiesDescription: a long ramp leads down to the restrooms and swim beach from the East side of the parking lot.
+            liveStatus:
+              isActive: true
+              occupancy: ''
+              estimatedWaitTimeInMinutes: null
+              description: ''
+              expirationDate: ''
+          - id: 00A1A3F7-6D63-4B36-A276-57D087167A91
+            name: Jordan Pond
+            altName: ''
+            description: Jordan Pond North lot and boat launch area
+            relatedParks:
+            - states: ME
+              parkCode: acad
+              designation: National Park
+              fullName: Acadia National Park
+              url: https://www.nps.gov/acad/index.htm
+              name: Acadia
+            latitude: 44.321547
+            longitude: -68.251892
+            geometryPoiId: ''
+            managedByOrganization: NPS
+            timeZone: ET
+            webcamUrl: ''
+            contacts:
+              phoneNumbers: []
+              emailAddresses: []
+            fees:
+            - cost: '30.00'
+              description: From May to October, parking at Jordan Pond House requires the purchase of a park entrance pass.  Always display your pass in your vehicle when parked.  Please visit our Fees & Passes page for more information.
+              title: Acadia National Park Entrance Fees
+            operatingHours:
+            - exceptions:
+              - exceptionHours:
+                  wednesday: All Day
+                  monday: All Day
+                  thursday: All Day
+                  sunday: All Day
+                  tuesday: All Day
+                  friday: All Day
+                  saturday: All Day
+                startDate: '2022-05-25'
+                name: Memorial Day weekend
+                endDate: '2022-05-28'
+              - exceptionHours:
+                  wednesday: All Day
+                  monday: All Day
+                  thursday: All Day
+                  sunday: All Day
+                  tuesday: All Day
+                  friday: All Day
+                  saturday: All Day
+                startDate: '2022-07-01'
+                name: July 4th week
+                endDate: '2022-07-07'
+              - exceptionHours:
+                  wednesday: All Day
+                  monday: All Day
+                  thursday: All Day
+                  sunday: All Day
+                  tuesday: All Day
+                  friday: All Day
+                  saturday: All Day
+                startDate: '2022-08-31'
+                name: Labor Day weekend
+                endDate: '2022-09-03'
+              - exceptionHours:
+                  wednesday: All Day
+                  monday: All Day
+                  thursday: All Day
+                  sunday: All Day
+                  tuesday: All Day
+                  friday: All Day
+                  saturday: All Day
+                startDate: '2022-10-05'
+                name: Columbus Day
+                endDate: '2022-10-08'
+              description: ''
+              standardHours:
+                wednesday: All Day
+                monday: All Day
+                thursday: All Day
+                sunday: All Day
+                tuesday: All Day
+                friday: All Day
+                saturday: All Day
+              name: Jordan Pond
+            images: []
+            accessibility:
+              isLotAccessibleToDisabled: true
+              totalSpaces: 152
+              numberofAdaSpaces: 2
+              numberofAdaVanAccessbileSpaces: 2
+              numberofAdaStepFreeSpaces: 2
+              numberOfOversizeVehicleSpaces: 12
+              adaFacilitiesDescription: ''
+            liveStatus:
+              isActive: true
+              occupancy: ''
+              estimatedWaitTimeInMinutes: null
+              description: ''
+              expirationDate: ''
+          - id: 42C4054C-D1E0-4655-B1F7-20F7C6271C3F
+            name: Sand Beach Park Lot
+            altName: ''
+            description: Sand Beach Parking Lot serves Sand Beach, Ocean Path, and Great Head Trail. It is closed to buses, RVs, and trailers. The parking lot regularly fills during summer and you may see rangers directing vehicles at the intersection or parking lot. Follow their instructions and if parking is full or temporarily closed, be prepared to visit the site at a different time. Use the right-hand lane parking along the Park Loop Road as an alternative.
+            relatedParks:
+            - states: ME
+              parkCode: acad
+              designation: National Park
+              fullName: Acadia National Park
+              url: https://www.nps.gov/acad/index.htm
+              name: Acadia
+            latitude: 44.330185
+            longitude: -68.183989
+            geometryPoiId: ''
+            managedByOrganization: NPS
+            timeZone: ET
+            webcamUrl: ''
+            contacts:
+              phoneNumbers: []
+              emailAddresses: []
+            fees:
+            - cost: '30.00'
+              description: From May to October, parking at Sand Beach requires the purchase of a park entrance pass.  Always display your pass in your vehicle when parked.  Please visit our Fees & Passes page for more information.
+              title: Acadia National Park Entrance Fees
+            operatingHours:
+            - exceptions:
+              - exceptionHours:
+                  wednesday: All Day
+                  monday: All Day
+                  thursday: All Day
+                  sunday: All Day
+                  tuesday: All Day
+                  friday: All Day
+                  saturday: All Day
+                startDate: '2022-05-25'
+                name: Memorial Day
+                endDate: '2022-05-28'
+              - exceptionHours:
+                  wednesday: All Day
+                  monday: All Day
+                  thursday: All Day
+                  sunday: All Day
+                  tuesday: All Day
+                  friday: All Day
+                  saturday: All Day
+                startDate: '2022-07-01'
+                name: July 4th Week
+                endDate: '2022-07-07'
+              - exceptionHours:
+                  wednesday: All Day
+                  monday: All Day
+                  thursday: All Day
+                  sunday: All Day
+                  tuesday: All Day
+                  friday: All Day
+                  saturday: All Day
+                startDate: '2022-08-31'
+                name: Labor Day
+                endDate: '2022-09-03'
+              - exceptionHours:
+                  wednesday: All Day
+                  monday: All Day
+                  thursday: All Day
+                  sunday: All Day
+                  tuesday: All Day
+                  friday: All Day
+                  saturday: All Day
+                startDate: '2022-10-05'
+                name: Columbus Day Weekend
+                endDate: '2022-10-08'
+              description: ''
+              standardHours:
+                wednesday: All Day
+                monday: All Day
+                thursday: All Day
+                sunday: All Day
+                tuesday: All Day
+                friday: All Day
+                saturday: All Day
+              name: Sand Beach
+            images: []
+            accessibility:
+              isLotAccessibleToDisabled: true
+              totalSpaces: 101
+              numberofAdaSpaces: 5
+              numberofAdaVanAccessbileSpaces: 5
+              numberofAdaStepFreeSpaces: 5
+              numberOfOversizeVehicleSpaces: 0
+              adaFacilitiesDescription: While the comfort stations are accessible, to reach Sand Beach visitors must use a set of granite stairs.
+            liveStatus:
+              isActive: true
+              occupancy: Light
+              estimatedWaitTimeInMinutes: 0
+              description: ''
+              expirationDate: ''
+        limit:
+          type: string
+          example: '50'
+        start:
+          type: string
+          example: '0'
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: api_key
+      in: query
+    api_key_header:
+      type: apiKey
+      name: X-Api-Key
+      in: header

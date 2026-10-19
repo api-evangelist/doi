@@ -1,95 +1,163 @@
 openapi: 3.2.0
 info:
-  title: National Park Service (NPS) Data Alerts API
-  description: The National Park Service Data API provides programmatic access to information about U.S. national parks - park overviews, alerts, events, visitor centers, campgrounds, things to do, news releases, articles, people, places, and more. The API is REST-based and returns JSON.
-  version: '1'
-  contact:
-    name: NPS Developer Resources
-    url: https://www.nps.gov/subjects/developer/
-  license:
-    name: Public Domain
-    url: https://creativecommons.org/publicdomain/mark/1.0/
+  description: This API is designed to provide authoritative National Park Service (NPS) data and content about parks and their facilities, events, news, alerts, and more. Explore the NPS API below and even try to make API calls. In order to try an API call, you'll need to click on the "Authorize" button below and add your API key. If you don't have an API key yet, visit our Get Started page.
+  version: 1.0.0
+  title: National Park Service Alerts API
 servers:
 - url: https://developer.nps.gov/api/v1
-  description: Production
-security:
-- ApiKeyAuth: []
 tags:
 - name: Alerts
-  description: Park alerts and emergencies
+  description: Retrieve alerts (danger, closure, caution, and information) posted by parks.
 paths:
   /alerts:
     get:
       tags:
       - Alerts
-      summary: List park alerts
-      operationId: listAlerts
+      description: Returns park alerts, with optional filters for park codes, state codes, or a search term.
+      operationId: getAlerts
       parameters:
-      - $ref: '#/components/parameters/parkCode'
-      - $ref: '#/components/parameters/stateCode'
-      - $ref: '#/components/parameters/q'
+      - name: parkCode
+        in: query
+        description: A comma delimited list of park codes (each 4-10 characters in length).
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+      - name: stateCode
+        in: query
+        description: A comma delimited list of 2 character state codes.
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+      - name: limit
+        in: query
+        description: Number of results to return per request. Default is 50.
+        required: false
+        schema:
+          type: integer
+      - name: start
+        in: query
+        description: Get the next [limit] results starting with this number. Default is 0.
+        required: false
+        schema:
+          type: integer
+      - name: q
+        in: query
+        description: Term to search on
+        required: false
+        schema:
+          type: string
+      security:
+      - api_key: []
+      - api_key_header: []
       responses:
         '200':
-          description: Alerts
+          description: successful operation
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/AlertResponse'
+                $ref: '#/components/schemas/Alert'
+        '400':
+          description: Invalid status value
+      summary: Get alerts
+      x-summary-source: derived
 components:
-  parameters:
-    parkCode:
-      name: parkCode
-      in: query
-      schema:
-        type: string
-      description: Comma-separated four-letter park codes (e.g. yose,grca)
-    q:
-      name: q
-      in: query
-      schema:
-        type: string
-      description: Free-text search
-    stateCode:
-      name: stateCode
-      in: query
-      schema:
-        type: string
-        pattern: ^[A-Z]{2}(,[A-Z]{2})*$
   schemas:
-    AlertResponse:
+    Alert:
       type: object
       properties:
         total:
           type: string
+          example: '474'
         data:
           type: array
           items:
             type: object
             properties:
-              id:
-                type: string
-              url:
-                type: string
-              title:
-                type: string
-              parkCode:
-                type: string
-              description:
-                type: string
               category:
                 type: string
+                description: 'Alert type: Danger, Caution, Information, or Park Closure'
                 enum:
-                - Caution
                 - Danger
+                - Caution
                 - Information
                 - Park Closure
+              description:
+                type: string
+                description: Alert description
+              id:
+                type: string
+                description: Unique identifier for an alert record
+              parkCode:
+                type: string
+                description: A variable width character code that uniquely identifies a specific park
+              title:
+                type: string
+                description: Alert title
+              url:
+                type: string
+                description: Link to more information about the alert, if available
               lastIndexedDate:
                 type: string
+                description: date/time stamp of when this alert was last indexed
+              relatedRoadEvents:
+                type: array
+                description: more information about a road event related to this alert (if any)
+                items:
+                  type: object
+                  properties:
+                    title:
+                      type: string
+                      description: title of this related road event
+                    id:
+                      type: string
+                      description: UUID for this related road event
+                    type:
+                      type: string
+                      description: what type of related road event is this
+                    url:
+                      type: string
+                      description: URL for more information about this related road event
+          example:
+          - category: Information
+            description: Some destinations are unavailable because of construction related to the Canyon Overlooks and Trails Restoration Project.
+            id: 4C3095E2-1DD8-B71B-0BAC8E16AABF3113
+            parkCode: yell
+            title: Area Closures in Canyon
+            url: https://www.nps.gov/yell/planyourvisit/canyonprojects.htm
+            lastIndexedDate: '2023-06-27 14:10:21.0'
+            relatedRoadEvents: []
+          - category: Caution
+            description: The road between Roaring Mountain and Willow Park is under construction. Expect delays up to 30 minutes and night closures June 11–September 10 from 10pm–7am (excluding Saturday nights).
+            id: 696FC8C9-1DD8-B71B-0BF3D47A2BF92890
+            parkCode: yell
+            title: Construction & Nightly Closures between Norris & Mammoth Hot Springs
+            url: https://www.nps.gov/yell/planyourvisit/parkroads.htm
+            lastIndexedDate: '2023-06-27 14:10:21.0'
+            relatedRoadEvents:
+            - title: Crazy Squirrels
+              id: 68BC589E-7FFC-4AFC-AD02-85E123C4C145
+              type: roadevent
+              url: https://www.nps.gov/yose/planyourvisit/conditions.htm
+        limit:
+          type: string
+          example: '50'
+        start:
+          type: string
+          example: '0'
   securitySchemes:
-    ApiKeyAuth:
+    api_key:
       type: apiKey
-      in: query
       name: api_key
-externalDocs:
-  description: NPS API documentation
-  url: https://www.nps.gov/subjects/developer/api-documentation.htm
+      in: query
+    api_key_header:
+      type: apiKey
+      name: X-Api-Key
+      in: header

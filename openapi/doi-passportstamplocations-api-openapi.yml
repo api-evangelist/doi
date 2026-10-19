@@ -1,0 +1,130 @@
+openapi: 3.2.0
+info:
+  description: This API is designed to provide authoritative National Park Service (NPS) data and content about parks and their facilities, events, news, alerts, and more. Explore the NPS API below and even try to make API calls. In order to try an API call, you'll need to click on the "Authorize" button below and add your API key. If you don't have an API key yet, visit our Get Started page.
+  version: 1.0.0
+  title: National Park Service Passportstamplocations API
+servers:
+- url: https://developer.nps.gov/api/v1
+tags:
+- name: passportstamplocations
+  description: Retrieve locations (see "campgrounds", "places", and "visitorcenters") that have national park passport stamps.
+paths:
+  /passportstamplocations:
+    get:
+      tags:
+      - passportstamplocations
+      description: Returns locations where visitors can obtain National Park Passport stamps, with optional filters for park codes, state codes, or a search term.
+      operationId: getPassportstamplocations
+      parameters:
+      - name: parkCode
+        in: query
+        description: A comma delimited list of 4 character park codes.
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+      - name: stateCode
+        in: query
+        description: A comma delimited list of 2 character state codes.
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+      - name: q
+        in: query
+        description: A string to search for.
+        required: false
+        schema:
+          type: string
+      - name: limit
+        in: query
+        description: Number of results to return per request. Default is 50.
+        required: false
+        schema:
+          type: integer
+      - name: start
+        in: query
+        description: Get the next [limit] results starting with this number. Default is 0.
+        required: false
+        schema:
+          type: integer
+      security:
+      - api_key: []
+      - api_key_header: []
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Passportstamplocations'
+        '400':
+          description: Invalid status value
+      summary: Get passportstamplocations
+      x-summary-source: derived
+components:
+  schemas:
+    Passportstamplocations:
+      type: object
+      properties:
+        total:
+          type: string
+          example: '70'
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              label:
+                type: string
+                example: Anaktuvuk Pass Ranger Station
+              id:
+                type: string
+                example: B13EC2AF-3E68-430D-8846-293320E2D018
+              type:
+                type: string
+                example: Visitor Center
+              parks:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    states:
+                      type: string
+                      example: AK
+                    designation:
+                      type: string
+                      example: National Park & Preserve
+                    parkCode:
+                      type: string
+                      example: gaar
+                    fullName:
+                      type: string
+                      example: Gates Of The Arctic National Park & Preserve
+                    url:
+                      type: string
+                      example: https://www.nps.gov/gaar/index.htm
+                    name:
+                      type: string
+                      example: Gates Of The Arctic
+        limit:
+          type: string
+          example: '50'
+        start:
+          type: string
+          example: '0'
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: api_key
+      in: query
+    api_key_header:
+      type: apiKey
+      name: X-Api-Key
+      in: header

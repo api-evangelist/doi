@@ -1,0 +1,12 @@
+{
+ "url": "https://www.nps.gov/subjects/developer/customcf/swagger.json?03142019",
+ "final": "https://www.nps.gov/subjects/developer/customcf/swagger.json?03142019",
+ "status": 200,
+ "content_type": "application/json",
+ "bytes": 352536,
+ "sha256": "f1704d8b814275fe1624df7f5a9e53eecfc027105d5927ee14add8181d0df092",
+ "fetched_at": "2026-10-19",
+ "fetched_by": "APIEvangelist-Harvest/1.0 (+https://apievangelist.com)",
+ "match": "byte-identical",
+ "note": "re-archived: the provider's current document replaced a stale archive (roadmap#793); the old files are in openapi/_superseded/2026-10-19-stale"
+}

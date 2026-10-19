@@ -1,0 +1,250 @@
+openapi: 3.2.0
+info:
+  description: This API is designed to provide authoritative National Park Service (NPS) data and content about parks and their facilities, events, news, alerts, and more. Explore the NPS API below and even try to make API calls. In order to try an API call, you'll need to click on the "Authorize" button below and add your API key. If you don't have an API key yet, visit our Get Started page.
+  version: 1.0.0
+  title: National Park Service Multimedia/videos API
+servers:
+- url: https://developer.nps.gov/api/v1
+tags:
+- name: multimedia/videos
+  description: Retrieve metadata relating to videos created by national parks.
+paths:
+  /multimedia/videos:
+    get:
+      tags:
+      - multimedia/videos
+      description: Returns video resources from National Park Service sites, with optional filters for park codes, state codes, or a search term.
+      operationId: getMultimediaVideo
+      parameters:
+      - name: parkCode
+        in: query
+        description: A comma delimited list of park codes (each 4 characters in length).
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+      - name: stateCode
+        in: query
+        description: A comma delimited list of 2 character state codes.
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+      - name: limit
+        in: query
+        description: Number of results to return per request. Default is 50.
+        required: false
+        schema:
+          type: integer
+      - name: start
+        in: query
+        description: Get the next [limit] results starting with this number. Default is 0.
+        required: false
+        schema:
+          type: integer
+      - name: q
+        in: query
+        description: Term to search on
+        required: false
+        schema:
+          type: string
+      security:
+      - api_key: []
+      - api_key_header: []
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MultimediaVideos'
+        '400':
+          description: Invalid status value
+      summary: Get multimedia video
+      x-summary-source: derived
+components:
+  schemas:
+    MultimediaVideos:
+      type: object
+      properties:
+        total:
+          type: string
+          example: '9375'
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+                example: CA91ADBF-BCE3-4434-B3D6-7691D7347758
+              permalinkUrl:
+                type: string
+                example: https://www.nps.gov/media/video/view.htm?id=CA91ADBF-BCE3-4434-B3D6-7691D7347758
+              title:
+                type: string
+                example: Cowboy Gives Tour of Family Homestead
+              description:
+                type: string
+                example: Find out what homesteading means to this cowboy.
+              descriptiveTranscript:
+                type: string
+                example: <p>Two video clips showing a prairie dog standing alert above and within its burrow in a windy grassland environment.</p>
+              splashImage:
+                type: object
+                properties:
+                  url:
+                    type: string
+                    example: ''
+              relatedParks:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    states:
+                      type: string
+                      example: NM,TX
+                    parkCode:
+                      type: string
+                      example: bisc
+                    designation:
+                      type: string
+                      example: National Park
+                    fullName:
+                      type: string
+                      example: Biscayne National Park
+                    url:
+                      type: string
+                      example: https://www.nps.gov/bisc/index.htm
+                    name:
+                      type: string
+                      example: Biscayne
+              tags:
+                type: array
+                items:
+                  type: string
+                example:
+                - Biscayne
+                - national
+                - park
+                - introduction
+                - underwater
+                - Shipwreck
+                - ocean
+                - miami
+                - homestead
+                - south
+                - Florida
+                - fl
+                - FLA
+                - dive
+                - history
+                - podcast
+                - video
+                - astrid
+                - rybeck
+                - bnp
+                - bisc
+              latitude:
+                type:
+                - number
+                - 'null'
+                example: 25.4829769134522
+              longitude:
+                type:
+                - number
+                - 'null'
+                example: -80.2179336547852
+              audioDescription:
+                type: string
+              audioDescriptionUrl:
+                type: string
+              aslVideoUrl:
+                type: string
+              geometryPoiId:
+                type: string
+              durationMs:
+                type: number
+                example: 263000
+              credit:
+                type: string
+                example: Thomas M. Strom
+              transcript:
+                type: string
+                example: 'Hi! I''m Park Ranger Astrid Rybeck and together we''ll explore the six shipwrecks that make up Biscayne National Park''s Maritime Heritage Trail. Each ship tells a different story, and contributes to the maritime history that is unique to Biscayne National Park. Ships of all nationalities and all sizes have navigated these waters. Let''s talk about Biscayne''s natural features which were so vital in shaping the human history of Biscayne National Park. The park has four different ecosystems that all work together: a mangrove shoreline, the crystal clear waters of Biscayne Bay, the northern portion of the Florida Keys, and the northern portion of the shallow Florida coral reef. It is the beauty and the wealth of these natural features that have drawn people to this area for over 10,000 years. From homesteaders to millionaires, to native people and pirates, these natural features have shaped the stories of the people who have called Biscayne home. The outer waters of the park have long been a ''superhighway'' for marine trade and commerce. The northward flowing Gulf Stream has, and continues to, carry goods, ideas, and cultures around the tip of Florida to ports all around the world. While many ships made it safely to their destinations, many others did not. A combination of perfectly occurring natural features in the eastern waters of Biscayne National Park was often fatal for sailing ships. Whether headed north or south, sailing captains had to battle easterly winds, shallow reefs, uncharted waters, and strong currents. The waters of Biscayne National Park now safeguard the ghosts of over 400 years of maritime traffic. Park scientists have identified over fifty shipwrecks in the park. But while the identities of some of these have been uncovered, many still hold secrets. From Spanish galleons to English man of wars, from modern cruisers to unknown remnants of events long since forgotten, Biscayne National Park''s Maritime Heritage Trail serves to literally submerge visitors into history. Come see how a 19th-century wooden sailing ship left only ballast stones behind as a clue to its identity. Explore "Lugano," which at one time was the largest ship ever to have wrecked upon the shallow reef patches. Divers can enjoy exploring "Arratoon Apcar," a ship that slammed into the reef only a few hundred yards away from horrified men building a lighthouse to warn vessels away from that very spot. Snorkelers will marvel at the ruins of "Mandalay," the most recent wreck on the Trail. The wreck of "Erl King" represents a major transition from ships powered by sail to ships powered by steam. History will open up with the remains of "Alicia," one of the last big ships to be salvaged by traditional ''Keys Wreckers'',. Each of the shipwrecks on the trail tells a unique story. Most of them lie in about 20 feet of water giving experienced divers and first time snorkelers the opportunity to view these magnificent pieces of history while ensuring that the ship''s remains will be around for many years of exploration and enjoyment. Each site has permanent mooring balls installed, so private boaters can discover the wrecks without having to worry about dropping an anchor onto the wrecks or the fragile ecosystems that surround them. You can help protect the stories and the futures of all of these ships by remembering that these six sites, like all of the archeological sites in Biscayne National Park, are part of our shared heritage. Leave the sites as you find them. Please take only pictures and leave only bubbles. Dive into history and discover the stories behind the shipwrecks of Biscayne''s Maritime Heritage Trail.'
+              callToAction:
+                type: string
+                example: ''
+              callToActionUrl:
+                type: string
+                example: ''
+              audioDescribedBuiltIn:
+                type: boolean
+                example: false
+              hasOpenCaptions:
+                type: boolean
+                example: false
+              isBRoll:
+                type: boolean
+                example: false
+              isVideoOnly:
+                type: boolean
+                example: false
+              captionFiles:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    language:
+                      type: string
+                      example: english
+                    fileType:
+                      type: string
+                      example: text/vtt
+                    url:
+                      type: string
+                      example: https://www.nps.gov/nps-audiovideo/closed-caption/5E069AB9-EE15-33B2-27A194C84A61BCBE.vtt
+              versions:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    fileSizeKb:
+                      type: number
+                      example: 10012
+                    fileType:
+                      type: string
+                      example: video/mp4
+                    aspectRatio:
+                      type: number
+                      example: 1.778
+                    heightPixels:
+                      type: number
+                      example: 360
+                    url:
+                      type: string
+                      example: https://www.nps.gov/nps-audiovideo/audiovideo/f0f43726-f2b5-4492-b11c-9e89a13527d9360p.mp4
+                    widthPixels:
+                      type: number
+                      example: 640
+        limit:
+          type: string
+          example: '50'
+        start:
+          type: string
+          example: '0'
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: api_key
+      in: query
+    api_key_header:
+      type: apiKey
+      name: X-Api-Key
+      in: header

@@ -1,0 +1,228 @@
+openapi: 3.2.0
+info:
+  description: This API is designed to provide authoritative National Park Service (NPS) data and content about parks and their facilities, events, news, alerts, and more. Explore the NPS API below and even try to make API calls. In order to try an API call, you'll need to click on the "Authorize" button below and add your API key. If you don't have an API key yet, visit our Get Started page.
+  version: 1.0.0
+  title: National Park Service Roadevents API
+servers:
+- url: https://developer.nps.gov/api/v1
+tags:
+- name: roadevents
+  description: Retrieve information relating to road events by park and/or type of event (incident or workzone)
+paths:
+  /roadevents:
+    get:
+      tags:
+      - roadevents
+      description: Returns road events, optionally filtered by park code and event type.
+      operationId: getRoadevents
+      parameters:
+      - name: parkCode
+        in: query
+        description: A comma delimited list of 4 character park codes.
+        required: false
+        schema:
+          type: string
+      - name: type
+        in: query
+        description: either 'incident' or 'workzone'
+        required: false
+        schema:
+          type: string
+      security:
+      - api_key: []
+      - api_key_header: []
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RoadEvents'
+        '400':
+          description: Invalid status data
+      summary: Get roadevents
+      x-summary-source: derived
+components:
+  schemas:
+    RoadEvents:
+      type: object
+      properties:
+        features:
+          type: array
+          items:
+            type: object
+            properties:
+              geometry:
+                type: object
+                properties:
+                  coordinates:
+                    type: array
+                    items:
+                      type: array
+                      items:
+                        type: number
+                        description: arrays of geocoordinates
+                      example:
+                      - -119.702835431915
+                      - 37.6557553889563
+                  type:
+                    type: string
+                    example: LineString
+              id:
+                type: string
+                description: UUID for this feature
+                example: 13a5ed88-e452-440f-8daf-98707ed728b5
+              properties:
+                type: object
+                description: ''
+                properties:
+                  core_details:
+                    type: object
+                    properties:
+                      data_source_id:
+                        type: string
+                        example: 16e33ae7-e71f-45ce-2e37-08d4c7ad36e2
+                      description:
+                        type: string
+                        example: Glacier Point Road is closed from July 9 at 10 pm through July 14. The road will be open starting July 15, with 30-minute delays.
+                      direction:
+                        type: string
+                        example: unknown
+                      event_type:
+                        type: string
+                        example: work-zone
+                      name:
+                        type: string
+                        example: Glacier Point Road Construction Closure
+                      road_names:
+                        type: array
+                        items:
+                          type: string
+                          example: Glacier Point Road
+                  end_date:
+                    type: string
+                    example: '2023-07-15T01:00:00Z'
+                  is_end_date_verified:
+                    type: boolean
+                    example: false
+                  is_end_position_verified:
+                    type: boolean
+                    example: false
+                  is_start_date_verified:
+                    type: boolean
+                    example: false
+                  is_start_position_verified:
+                    type: boolean
+                    example: false
+                  location_method:
+                    type: string
+                    example: unknown
+                  start_date:
+                    type: string
+                    example: '2023-06-30T23:04:00Z'
+                  types_of_work:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        type_name:
+                          type: string
+                          example: painting
+                        description:
+                          type: string
+                        incident_category:
+                          type: string
+                        incident_type:
+                          type: string
+                  vehicle_impact:
+                    type: string
+                    example: all-lanes-closed
+                  Id:
+                    type: string
+                  _id:
+                    type: integer
+                  beginning_accuracy:
+                    type: string
+                  end_date_accuracy:
+                    type: string
+                  ending_accuracy:
+                    type: string
+                  start_date_accuracy:
+                    type: string
+                  types_of_incident:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        description:
+                          type: string
+                        incident_category:
+                          type: string
+                        incident_type:
+                          type: string
+              type:
+                type: string
+                description: ''
+                example: Feature
+        road_event_feed_info:
+          type: object
+          properties:
+            contact_email:
+              type: string
+              example: asknps@nps.gov
+            contact_name:
+              type: string
+              example: National Park Service
+            data_sources:
+              type: array
+              items:
+                type: object
+                properties:
+                  contact_email:
+                    type: string
+                    example: YOSE_Superintendent@nps.gov
+                  contact_name:
+                    type: string
+                    example: Yosemite National Park
+                  data_source_id:
+                    type: string
+                    example: 16e33ae7-e71f-45ce-2e37-08d4c7ad36e2
+                  organization_name:
+                    type: string
+                    example: Yosemite National Park
+                  update_date:
+                    type: string
+                    example: '2023-07-09T11:07:22.389219Z'
+                  update_frequency:
+                    type: number
+                    example: 150
+            id:
+              type: string
+              example: 6ba84a20-3be7-4df0-81eb-711eccf84f18
+            license:
+              type: string
+              example: https://creativecommons.org/publicdomain/zero/1.0/
+            publisher:
+              type: string
+              example: National Park Service
+            update_date:
+              type: string
+              example: '2023-04-28T06:37:22.497618Z'
+            update_frequency:
+              type: number
+              example: 60
+            version:
+              type: string
+              example: '4.1'
+        type:
+          type: string
+          example: FeatureCollection
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: api_key
+      in: query
+    api_key_header:
+      type: apiKey
+      name: X-Api-Key
+      in: header

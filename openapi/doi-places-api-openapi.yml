@@ -1,0 +1,333 @@
+openapi: 3.2.0
+info:
+  description: This API is designed to provide authoritative National Park Service (NPS) data and content about parks and their facilities, events, news, alerts, and more. Explore the NPS API below and even try to make API calls. In order to try an API call, you'll need to click on the "Authorize" button below and add your API key. If you don't have an API key yet, visit our Get Started page.
+  version: 1.0.0
+  title: National Park Service Places API
+servers:
+- url: https://developer.nps.gov/api/v1
+tags:
+- name: Places
+  description: Retrieve articles providing a synopsis of specific places related to national parks.
+paths:
+  /places:
+    get:
+      tags:
+      - Places
+      description: Returns places within National Park Service sites, with optional filters for park codes, state codes, or a search term.
+      operationId: getPlaces
+      parameters:
+      - name: parkCode
+        in: query
+        description: A comma delimited list of park codes (each 4 characters in length).
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+      - name: stateCode
+        in: query
+        description: A comma delimited list of 2 character state codes.
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+      - name: limit
+        in: query
+        description: Number of results to return per request. Default is 50.
+        required: false
+        schema:
+          type: integer
+      - name: start
+        in: query
+        description: Get the next [limit] results starting with this number. Default is 0.
+        required: false
+        schema:
+          type: integer
+      - name: q
+        in: query
+        description: Term to search on
+        required: false
+        schema:
+          type: string
+      security:
+      - api_key: []
+      - api_key_header: []
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Place'
+        '400':
+          description: Invalid status value
+      summary: Get places
+      x-summary-source: derived
+components:
+  schemas:
+    Place:
+      type: object
+      properties:
+        total:
+          type: string
+          example: '950'
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              latLong:
+                type: string
+                description: geospatial coordinates
+                example: 38.871843,-78.203699
+              longitude:
+                type: string
+                example: '-78.203699'
+              geometryPoiId:
+                type: string
+                description: Id for Geometry Point of Interest
+                example: 8793be28-0d54-493f-8556-877e7ecbe937
+              id:
+                type: string
+                description: Uniquely identifies place record
+                example: 770F90DA-DE86-4C87-8F65-00369A398BC9
+              latitude:
+                type: string
+                example: '38.871843'
+              listingDescription:
+                type: string
+                description: Short description of the content
+              relatedParks:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    states:
+                      type: string
+                      description: comma separated list of state codes
+                      example: VA
+                    fullName:
+                      type: string
+                      description: full name of related park
+                      example: Shenandoah National Park
+                    url:
+                      type: string
+                      description: URL to park home page
+                      example: https://www.nps.gov/shen/index.htm
+                    parkCode:
+                      type: string
+                      description: four letter code for related park
+                      example: shen
+                    designation:
+                      type: string
+                      example: National Park
+                    name:
+                      type: string
+                      example: Shenandoah
+                description: Parks that have a tie to this asset in a comma-delimited list
+              title:
+                type: string
+                description: Asset title
+              url:
+                type: string
+                description: Link to more information about the asset, if available
+                example: https://www.nps.gov/places/fox-hollow-trailhead.htm
+              images:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    url:
+                      type: string
+                    credit:
+                      type: string
+                    altText:
+                      type: string
+                    title:
+                      type: string
+                    description:
+                      type: string
+                    caption:
+                      type: string
+                    crops:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          aspectRatio:
+                            type: string
+                          url:
+                            type: string
+              amenities:
+                type: array
+                items:
+                  type: string
+                  example: '"Beach/Water Access", "ORV Access", "Parking - Auto"'
+              quickFacts:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                    value:
+                      type: string
+                    name:
+                      type: string
+              npmapId:
+                type: string
+              tags:
+                type: array
+                items:
+                  type: string
+              relatedOrganizations:
+                type: array
+                items:
+                  type: string
+              audioDescription:
+                type: string
+              associatedIcon:
+                type: string
+              credit:
+                type: string
+              isMapPinHidden:
+                type: string
+              isPassportStampLocation:
+                type: string
+              location:
+                type: string
+              locationDescription:
+                type: string
+              passportStampImages:
+                type: array
+                items:
+                  type: object
+              passportStampLocationDescription:
+                type: string
+              relevanceScore:
+                type: number
+              managedByUrl:
+                type: string
+                example: ''
+              isOpenToPublic:
+                type: string
+                example: '1'
+              isManagedByNps:
+                type: string
+                example: '1'
+              managedByOrg:
+                type: string
+                example: ''
+              bodyText:
+                type: string
+                description: HTML and text
+              multimedia:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    title:
+                      type: string
+                      description: title of multimedia asset
+                      example: The Worthington Farm
+                    id:
+                      type: string
+                      description: UUID for multimedia asset
+                      example: 4FD5B472-D6D9-43AA-9532-2AC5BF920883
+                    type:
+                      type: string
+                      description: the kind of asset
+                      example: multimedia/videos
+                    url:
+                      type: string
+                      description: The URL of the multimedia asset
+                      example: https://www.nps.gov/media/video/view.htm?id=4FD5B472-D6D9-43AA-9532-2AC5BF920883
+          example:
+          - latLong: 63.71951367351548,-148.96849470706263
+            longitude: '-148.96849470706263'
+            geometryPoiId: 8793be28-0d54-493f-8556-877e7ecbe937
+            relatedParks:
+            - states: AK
+              fullName: Denali National Park & Preserve
+              url: https://www.nps.gov/dena/index.htm
+              parkCode: dena
+              designation: National Park & Preserve
+              name: Denali
+            url: https://www.nps.gov/places/sled-dog-kennels.htm
+            images: []
+            npmapId: ''
+            tags: []
+            amenities:
+            - Accessibility - Accessible Restroom
+            - Accessibility- Assistive Listening Systems
+            - Accessibility - Tactile Exhibit
+            - Accessibility - Wheelchair Accessible
+            - Amphitheatre
+            - Benches/Seating
+            - Bus/Shuttle Stop
+            - Cellular Signal
+            - First Aid Kit Available
+            - Historical/Interpretive Information/Exhibits
+            - Information
+            - Information Kiosk/Bulletin Board
+            - Information - Ranger/Staff Member Present
+            - Information - Maps Available
+            - Kennel
+            - Parking - Auto
+            - Restroom
+            - Toilet - Vault/Composting
+            id: BCCAC67C-519B-49B9-BBB1-6DF3BFE3FF31
+            quickFacts:
+            - id: 5C252B96-2DEB-4EF4-91D1-B5D2B202FCD7
+              value: Mile 3.4, Denali Park Road
+              name: 'Location: '
+            - id: 208F1B3C-44DC-4CF5-9A61-9B26A364D701
+              value: The only working sled dog kennels in the National Park System
+              name: 'Significance: '
+            relatedOrganizations: []
+            audioDescription: In the center is the historic kennels building. It is a brown, wooden, two story building. There are two entrances to the building on the front side. The door to the west has the words Sled Room above it. On the western side of the building is the dog yard where about 30 dogs live. A gravel path leads visitors through the yard. To the north side are two rows of dog houses made out of wood logs. Each dog is tethered to their housing area. On the south side of the dog yard is a row of pens made of wire fencing. There is one dog in each pen and they also each have a log dog house. The dogs can be on their log house, in it, or next to it. The dogs are all different colors, mixes of brown, white, black, and gray. On the eastern side of the kennels building are the stands for the sled dog demonstration. Steps lead up to different rows where people can stand and watch the presentation. In the first row of most of the sections there is bench seating. In the demonstration area, there is a rectangular gravel pit with a pair of antlers, pile of wood, and sound equipment to be used as props in the demonstration.
+            managedByUrl: ''
+            isOpenToPublic: '1'
+            isManagedByNps: '1'
+            listingDescription: Explore the only working sled dog kennels in the National Park System.
+            managedByOrg: ''
+            title: Sled Dog Kennels
+            latitude: '63.71951367351548'
+            bodyText: 'Located about 3 miles inside the park at Park Headquarters, the sled dog kennels are open year-round for visitors to meet some of the 30 dogs who live and work in Denali.<br />
+
+              <br />
+
+              During the summer, sled dog demonstrations are offered daily. Rangers and dogs work together to demonstrate a traditional Alaskan mode of travel. These unique, 30 minute programs include an opportunity to tour the park kennels and visit Denali''s Alaskan huskies. Demonstrations are given three times daily in peak season (June 1 through September 1), at 10 am, 2 pm and 4 pm. Ask at the visitor center for demonstration times outside of peak season (May and September).<br />
+
+              <br />
+
+              In winter, the dogs and rangers are frequently busy working deep in the park rather than at the kennels, so you may wish to inquire at the visitor center before coming to see if the dogs are around.<br />
+
+              <br />
+
+              Welcoming visitors to the dog yard, the historic kennels building is the oldest building in the park that is still used for its original purpose. Step inside the Sled Room to learn about the history of mushing in Alaska and in the park. Sled dogs and rangers continue to work together to protect the wilderness of the park as they have since the 1920s.'
+            multimedia:
+            - title: The Worthington Farm
+              id: 4FD5B472-D6D9-43AA-9532-2AC5BF920883
+              type: multimedia/videos
+              url: https://www.nps.gov/media/video/view.htm?id=4FD5B472-D6D9-43AA-9532-2AC5BF920883
+        limit:
+          type: string
+          example: '50'
+        start:
+          type: string
+          example: '0'
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: api_key
+      in: query
+    api_key_header:
+      type: apiKey
+      name: X-Api-Key
+      in: header

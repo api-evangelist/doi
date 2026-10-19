@@ -1,81 +1,188 @@
 openapi: 3.2.0
 info:
-  title: National Park Service (NPS) Data Articles API
-  description: The National Park Service Data API provides programmatic access to information about U.S. national parks - park overviews, alerts, events, visitor centers, campgrounds, things to do, news releases, articles, people, places, and more. The API is REST-based and returns JSON.
-  version: '1'
-  contact:
-    name: NPS Developer Resources
-    url: https://www.nps.gov/subjects/developer/
-  license:
-    name: Public Domain
-    url: https://creativecommons.org/publicdomain/mark/1.0/
+  description: This API is designed to provide authoritative National Park Service (NPS) data and content about parks and their facilities, events, news, alerts, and more. Explore the NPS API below and even try to make API calls. In order to try an API call, you'll need to click on the "Authorize" button below and add your API key. If you don't have an API key yet, visit our Get Started page.
+  version: 1.0.0
+  title: National Park Service Articles API
 servers:
 - url: https://developer.nps.gov/api/v1
-  description: Production
-security:
-- ApiKeyAuth: []
 tags:
 - name: Articles
-  description: News articles and releases
+  description: Retrieve articles created by national parks and other NPS entities. (See "people" and "places" below for other specific article types.)
 paths:
   /articles:
     get:
       tags:
       - Articles
-      summary: List articles
-      operationId: listArticles
+      description: Returns National Park Service articles, with optional filters for park codes, state codes, or a search term.
+      operationId: getArticles
       parameters:
-      - $ref: '#/components/parameters/parkCode'
-      - $ref: '#/components/parameters/q'
-      - $ref: '#/components/parameters/limit'
+      - name: parkCode
+        in: query
+        description: A comma delimited list of 4 character park codes.
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+      - name: stateCode
+        in: query
+        description: A comma delimited list of 2 character state codes.
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+      - name: limit
+        in: query
+        description: Number of results to return per request. Default is 50.
+        required: false
+        schema:
+          type: integer
+      - name: start
+        in: query
+        description: Get the next [limit] results starting with this number. Default is 0.
+        required: false
+        schema:
+          type: integer
+      - name: q
+        in: query
+        description: Term to search on
+        required: false
+        schema:
+          type: string
+      security:
+      - api_key: []
+      - api_key_header: []
       responses:
         '200':
-          description: Articles
+          description: successful operation
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GenericResponse'
+                $ref: '#/components/schemas/Article'
+        '400':
+          description: Invalid status value
+      summary: Get articles
+      x-summary-source: derived
 components:
   schemas:
-    GenericResponse:
+    Article:
       type: object
       properties:
         total:
           type: string
-        limit:
-          type: string
-        start:
-          type: string
+          example: '7934'
         data:
           type: array
           items:
             type: object
-            additionalProperties: true
-  parameters:
-    parkCode:
-      name: parkCode
-      in: query
-      schema:
-        type: string
-      description: Comma-separated four-letter park codes (e.g. yose,grca)
-    q:
-      name: q
-      in: query
-      schema:
-        type: string
-      description: Free-text search
-    limit:
-      name: limit
-      in: query
-      schema:
-        type: integer
-        default: 50
-        maximum: 50
+            properties:
+              url:
+                type: string
+                description: Link to article
+              geometryPoiId:
+                type: string
+                description: Id for Geometry Point of Interest
+                example: 8793be28-0d54-493f-8556-877e7ecbe937
+              title:
+                type: string
+                description: Article title
+              id:
+                type: string
+                description: Unique identifier for this article
+              listingDescription:
+                type: string
+                description: Short description of the content
+              listingImage:
+                type: object
+                description: Small image that accompanies the short description
+                properties:
+                  credit:
+                    type: string
+                  altText:
+                    type: string
+                  title:
+                    type: string
+                  description:
+                    type: string
+                  caption:
+                    type: string
+                  url:
+                    type: string
+              relatedParks:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    states:
+                      type: string
+                    parkCode:
+                      type: string
+                    designation:
+                      type: string
+                    fullName:
+                      type: string
+                    url:
+                      type: string
+                    name:
+                      type: string
+                description: Parks that have a tie to this asset in a comma-delimited list
+              latLong:
+                type: string
+                description: geolocation coordinates
+              latitude:
+                type:
+                - number
+                - 'null'
+              longitude:
+                type:
+                - number
+                - 'null'
+              tags:
+                type: array
+                items:
+                  type: string
+              credit:
+                type: string
+            example:
+              url: https://www.nps.gov/articles/lafayette-square-preservation.htm
+              title: 'The “First Neighborhood”: Presidents and Preservation in Lafayette Park'
+              id: FB939FC8-04B4-42F7-BC97-5557890D33F8
+              geometryPoiId: 8793be28-0d54-493f-8556-877e7ecbe937
+              listingDescription: Presidents from Franklin D. Roosevelt to Lyndon B. Johnson, as well as two first ladies, were instrumental in preserving the 19th century historic character of Lafayette Square. Their advocacy influenced not only the White House's closest national historic district, but the development of national historic preservation law.
+              listingImage:
+                url: https://www.nps.gov/common/uploads/articles/images/nri/20170118/articles/F6AD3834-1DD8-B71B-0BA8516D0F8C4D85/F6AD3834-1DD8-B71B-0BA8516D0F8C4D85.jpg
+                credit: ''
+                altText: Historic town homes in front of modern brick building
+                title: ''
+                description: ''
+                caption: ''
+              relatedParks:
+              - states: DC
+                parkCode: whho
+                designation: ''
+                fullName: President's Park (White House)
+                url: https://www.nps.gov/whho
+                name: President's Park (White House)
+              latitude: 38.8994750976563
+              longitude: -77.0365524291992
+              latLong: '{lat:38.89947509765625, long:-77.03655242919922}'
+        limit:
+          type: string
+          example: '1'
+        start:
+          type: string
+          example: '0'
   securitySchemes:
-    ApiKeyAuth:
+    api_key:
       type: apiKey
-      in: query
       name: api_key
-externalDocs:
-  description: NPS API documentation
-  url: https://www.nps.gov/subjects/developer/api-documentation.htm
+      in: query
+    api_key_header:
+      type: apiKey
+      name: X-Api-Key
+      in: header

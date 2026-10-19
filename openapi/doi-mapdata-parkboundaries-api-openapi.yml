@@ -1,0 +1,133 @@
+openapi: 3.2.0
+info:
+  description: This API is designed to provide authoritative National Park Service (NPS) data and content about parks and their facilities, events, news, alerts, and more. Explore the NPS API below and even try to make API calls. In order to try an API call, you'll need to click on the "Authorize" button below and add your API key. If you don't have an API key yet, visit our Get Started page.
+  version: 1.0.0
+  title: National Park Service Mapdata/parkboundaries API
+servers:
+- url: https://developer.nps.gov/api/v1
+tags:
+- name: mapdata/parkboundaries
+  description: Retrieve geometry boundaries for park specified by a site code. (e.g. abli)
+paths:
+  /mapdata/parkboundaries/{sitecode}:
+    get:
+      tags:
+      - mapdata/parkboundaries
+      description: Returns park boundary data for the National Park Service site identified by the site code.
+      operationId: getMapdataParkboundaries
+      parameters:
+      - name: sitecode
+        in: path
+        description: park site code (e.g. abli)
+        required: true
+        schema:
+          type: string
+      security:
+      - api_key: []
+      - api_key_header: []
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MapdataParkboundary'
+        '400':
+          description: Invalid status value
+      summary: Get mapdata parkboundaries
+      x-summary-source: derived
+components:
+  schemas:
+    MapdataParkboundary:
+      type: object
+      description: GeoJSON FeatureCollection containing the park boundary.
+      properties:
+        type:
+          type: string
+          example: FeatureCollection
+        features:
+          type: array
+          items:
+            type: object
+            properties:
+              type:
+                type: string
+                example: Feature
+              id:
+                type: string
+                example: 9a08b873-4ce8-4175-2bd2-08d4c7ad36e2
+              geometry:
+                type: object
+                properties:
+                  type:
+                    type: string
+                    example: MultiPolygon
+                  coordinates:
+                    type: array
+                    items:
+                      type: array
+                      items:
+                        type: array
+                        items:
+                          type: array
+                          items:
+                            type: number
+              properties:
+                type: object
+                properties:
+                  alternateName:
+                    type: string
+                    example: Abraham Lincoln Birthplace
+                  designationId:
+                    type: string
+                    example: 1d936e11-1d6e-4402-e80d-08d4c7ad3656
+                  designation:
+                    type: object
+                    properties:
+                      abbreviation:
+                        type: string
+                        example: NHP
+                      parkDesignationCategoryId:
+                        type: string
+                        example: 77d93696-1fee-4033-841d-5140d70e867c
+                      name:
+                        type: string
+                        example: National Historical Park
+                      description:
+                        type: string
+                        example: National Historical Park
+                      id:
+                        type: string
+                        example: 1d936e11-1d6e-4402-e80d-08d4c7ad3656
+                  fullName:
+                    type: string
+                    example: Abraham Lincoln Birthplace National Historical Park
+                  aliases:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        parkId:
+                          type: string
+                          example: 9a08b873-4ce8-4175-2bd2-08d4c7ad36e2
+                        current:
+                          type: boolean
+                          example: true
+                        name:
+                          type: string
+                          example: ABLI
+                        id:
+                          type: string
+                          example: 64c8dc08-2782-b508-9933-118689347282
+                  name:
+                    type: string
+                    example: Abraham Lincoln Birthplace
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: api_key
+      in: query
+    api_key_header:
+      type: apiKey
+      name: X-Api-Key
+      in: header

@@ -1,154 +1,498 @@
 openapi: 3.2.0
 info:
-  title: National Park Service (NPS) Data Parks API
-  description: The National Park Service Data API provides programmatic access to information about U.S. national parks - park overviews, alerts, events, visitor centers, campgrounds, things to do, news releases, articles, people, places, and more. The API is REST-based and returns JSON.
-  version: '1'
-  contact:
-    name: NPS Developer Resources
-    url: https://www.nps.gov/subjects/developer/
-  license:
-    name: Public Domain
-    url: https://creativecommons.org/publicdomain/mark/1.0/
+  description: This API is designed to provide authoritative National Park Service (NPS) data and content about parks and their facilities, events, news, alerts, and more. Explore the NPS API below and even try to make API calls. In order to try an API call, you'll need to click on the "Authorize" button below and add your API key. If you don't have an API key yet, visit our Get Started page.
+  version: 1.0.0
+  title: National Park Service Parks API
 servers:
 - url: https://developer.nps.gov/api/v1
-  description: Production
-security:
-- ApiKeyAuth: []
 tags:
 - name: Parks
-  description: National parks
+  description: Retrieve data about national parks (addresses, contacts, description, hours of operation, etc.).
 paths:
   /parks:
     get:
       tags:
       - Parks
-      summary: List or search national parks
-      operationId: listParks
+      description: Returns information about National Park Service parks and sites, with optional filters for park codes, state codes, or a search term.
+      operationId: getPark
       parameters:
-      - $ref: '#/components/parameters/parkCode'
-      - $ref: '#/components/parameters/stateCode'
-      - $ref: '#/components/parameters/q'
-      - $ref: '#/components/parameters/limit'
-      - $ref: '#/components/parameters/start'
+      - name: parkCode
+        in: query
+        description: A comma delimited list of park codes (each 4-10 characters in length).
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+      - name: stateCode
+        in: query
+        description: A comma delimited list of 2 character state codes.
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+      - name: limit
+        in: query
+        description: Number of results to return per request. Default is 50.
+        required: false
+        schema:
+          type: integer
+      - name: start
+        in: query
+        description: Get the next [limit] results starting with this number. Default is 0.
+        required: false
+        schema:
+          type: integer
+      - name: q
+        in: query
+        description: Term to search on
+        required: false
+        schema:
+          type: string
+      - name: sort
+        in: query
+        description: A comma delimited list of resource properties to sort the results by. Ascending order is assumed for each property. If descending order is desired, the unary negative should prefix the property name. Invalid property values will be ignored. If no sort parameter is passed in a request, the default sort is by fullName. If sorting by relevanceScore, you 1) will likely use -relevanceScore as a higher score indicates a more relevant result and 2) cannot use it in conjunction with other sort properties. Possible fields to sort by are fullName, parkCode, and relevanceScore.
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+      security:
+      - api_key: []
+      - api_key_header: []
       responses:
         '200':
-          description: Parks
+          description: successful operation
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ParkResponse'
+                $ref: '#/components/schemas/Park'
+        '400':
+          description: Invalid status value
+      summary: Get park
+      x-summary-source: derived
 components:
-  parameters:
-    q:
-      name: q
-      in: query
-      schema:
-        type: string
-      description: Free-text search
-    start:
-      name: start
-      in: query
-      schema:
-        type: integer
-        default: 0
-    parkCode:
-      name: parkCode
-      in: query
-      schema:
-        type: string
-      description: Comma-separated four-letter park codes (e.g. yose,grca)
-    stateCode:
-      name: stateCode
-      in: query
-      schema:
-        type: string
-        pattern: ^[A-Z]{2}(,[A-Z]{2})*$
-    limit:
-      name: limit
-      in: query
-      schema:
-        type: integer
-        default: 50
-        maximum: 50
   schemas:
-    ParkResponse:
+    Park:
       type: object
       properties:
         total:
           type: string
-        limit:
-          type: string
-        start:
-          type: string
+          example: '496'
         data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Park'
-    Park:
-      type: object
-      properties:
-        id:
-          type: string
-        url:
-          type: string
-        fullName:
-          type: string
-        parkCode:
-          type: string
-        description:
-          type: string
-        latitude:
-          type: string
-        longitude:
-          type: string
-        latLong:
-          type: string
-        states:
-          type: string
-        designation:
-          type: string
-        directionsInfo:
-          type: string
-        directionsUrl:
-          type: string
-        weatherInfo:
-          type: string
-        addresses:
-          type: array
-          items:
-            type: object
-        contacts:
-          type: object
-        operatingHours:
-          type: array
-          items:
-            type: object
-        entranceFees:
-          type: array
-          items:
-            type: object
-        activities:
           type: array
           items:
             type: object
             properties:
+              activities:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                    name:
+                      type: string
+              addresses:
+                type: array
+                description: Park addresses (physical and mailing)
+                items:
+                  type: object
+                  properties:
+                    postalCode:
+                      type: string
+                    city:
+                      type: string
+                    stateCode:
+                      type: string
+                    countryCode:
+                      type: string
+                      example: US
+                    provinceTerritoryCode:
+                      type: string
+                      example: ''
+                    line1:
+                      type: string
+                    type:
+                      type: string
+                      enum:
+                      - Physical
+                      - Mailing
+                    line3:
+                      type: string
+                    line2:
+                      type: string
+              contacts:
+                type: object
+                description: Information about contacting the park
+                properties:
+                  phoneNumbers:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        phoneNumber:
+                          type: string
+                        description:
+                          type: string
+                        extension:
+                          type: string
+                        type:
+                          type: string
+                          enum:
+                          - Voice
+                          - Fax
+                          - TTY
+                  emailAddresses:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        emailAddress:
+                          type: string
+                        description:
+                          type: string
+              description:
+                type: string
+                description: Introductory paragraph from the park homepage
+              pressEmail:
+                type: string
+                description: Email address for press and media inquiries
+              superintendentName:
+                type: string
+                description: Name of the park superintendent
+              designation:
+                type: string
+                description: Type of designation (eg, national park, national monument, national recreation area, etc)
+              directionsInfo:
+                type: string
+                description: General overview of how to get to the park
+              directionsUrl:
+                type: string
+                description: Link to page, if available, that provides additional detail on getting to the park
+              entranceFees:
+                type: array
+                description: Fee for entering the park
+                items:
+                  type: object
+                  properties:
+                    cost:
+                      type: string
+                    description:
+                      type: string
+                    title:
+                      type: string
+              entrancePasses:
+                type: array
+                description: Passes available to provide entry into the park
+                items:
+                  type: object
+                  properties:
+                    cost:
+                      type: string
+                    description:
+                      type: string
+                    title:
+                      type: string
+              fees:
+                type: array
+                description: Additional fees associated with the park
+                items:
+                  type: object
+                  properties:
+                    cost:
+                      type: string
+                    description:
+                      type: string
+                    title:
+                      type: string
+              fullName:
+                type: string
+                description: Full park name (with designation)
               id:
                 type: string
+                description: Park identification string
+              images:
+                type: array
+                description: Park images
+                items:
+                  type: object
+                  properties:
+                    credit:
+                      type: string
+                    altText:
+                      type: string
+                    title:
+                      type: string
+                    caption:
+                      type: string
+                    url:
+                      type: string
+              latLong:
+                type: string
+                description: Park GPS cordinates
+                example: lat:39.9818229675293, long:-84.0711364746094
+              latitude:
+                type: string
+                example: '39.9818229675293'
+              longitude:
+                type: string
+                example: '-84.0711364746094'
+              multimedia:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    title:
+                      type: string
+                      description: title of multimedia asset
+                      example: The Worthington Farm
+                    id:
+                      type: string
+                      description: UUID for multimedia asset
+                      example: 4FD5B472-D6D9-43AA-9532-2AC5BF920883
+                    type:
+                      type: string
+                      description: the kind of asset
+                      example: multimedia/videos
+                    url:
+                      type: string
+                      description: The URL of the multimedia asset
+                      example: 'https://www.nps.gov/media/video/view.htm?id=4FD5B472-D6D9-43AA-9532-2AC5BF920883              '
               name:
                 type: string
-        topics:
-          type: array
-          items:
-            type: object
-        images:
-          type: array
-          items:
-            type: object
+                description: Short park name (no designation)
+              operatingHours:
+                type: array
+                description: Hours and seasons when the park is open or closed
+                items:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    description:
+                      type: string
+                    standardHours:
+                      type: object
+                      properties:
+                        sunday:
+                          type: string
+                        monday:
+                          type: string
+                        tuesday:
+                          type: string
+                        wednesday:
+                          type: string
+                        thursday:
+                          type: string
+                        friday:
+                          type: string
+                        saturday:
+                          type: string
+                    exceptions:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          name:
+                            type: string
+                          startDate:
+                            type: string
+                            format: date
+                          endDate:
+                            type: string
+                            format: date
+                          exceptionHours:
+                            type: object
+                            properties:
+                              sunday:
+                                type: string
+                              monday:
+                                type: string
+                              tuesday:
+                                type: string
+                              wednesday:
+                                type: string
+                              thursday:
+                                type: string
+                              friday:
+                                type: string
+                              saturday:
+                                type: string
+              parkCode:
+                type: string
+                description: A variable width character code used to identify a specific park
+              relevanceScore:
+                type: number
+                description: The relevance score is a numeric calculation of how much your item meets the criteria of your q (query text) search. This is normally coupled with a sort value of -relevanceScore. A higher value means that your item meets the criteria of the q search with a higher frequency and accuracy.
+              states:
+                type: string
+                description: State(s) the park is located in (comma-delimited list)
+              topics:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                    name:
+                      type: string
+              url:
+                type: string
+                description: Park Website
+              weatherInfo:
+                type: string
+                description: General description of the weather in the park over the course of a year
+            example:
+              activities:
+              - id: B33DC9B6-0B7D-4322-BAD7-A13A34C584A3
+                name: Guided Tours
+              addresses:
+              - line1: 2 Officers Row
+                line2: Yellowstone National Park Headquarters
+                line3: ''
+                city: Yellowstone National Park
+                stateCode: WY
+                countryCode: US
+                provinceTerritoryCode: ''
+                postalCode: '82190'
+                type: Physical
+              - line1: P.O. Box 168
+                line2: ''
+                line3: ''
+                city: Yellowstone National Park
+                stateCode: WY
+                countryCode: US
+                provinceTerritoryCode: ''
+                postalCode: 82190-0168
+                type: Mailing
+              contacts:
+                phoneNumbers:
+                - phoneNumber: '3073447381'
+                  description: ''
+                  extension: ''
+                  type: Voice
+                - phoneNumber: '3073442014'
+                  description: ''
+                  extension: ''
+                  type: Fax
+                - phoneNumber: '3073442386'
+                  description: ''
+                  extension: ''
+                  type: TTY
+                emailAddresses:
+                - emailAddress: yell_visitor_services@nps.gov
+                  description: ''
+              description: Visit Yellowstone and experience the world's first national park. Marvel at a volcano's hidden power rising up in colorful hot springs, mudpots, and geysers. Explore mountains, forests, and lakes to watch wildlife and witness the drama of the natural world unfold. Discover the history that led to the conservation of our national treasures 'for the benefit and enjoyment of the people.'
+              designation: National Park
+              directionsInfo: Yellowstone National Park covers nearly 3,500 square miles in the northwest corner of Wyoming (3% of the park is in Montana and 1% is in Idaho). Yellowstone has five entrance stations, and several are closed to regular vehicles during winter. It takes many hours to drive between these entrances, so be sure to check the status of roads at the entrance you intend to use while planning your trip and before you arrive.
+              directionsUrl: https://www.nps.gov/yell/planyourvisit/directions.htm
+              entranceFees:
+              - cost: '30'
+                description: 7-day pass for Yellowstone National Park
+                title: Yellowstone (private, non-commercial vehicle)
+              - cost: '25'
+                description: 7-day pass for Yellowstone National Park. Snowmobile entry limited to guided tours or permit holders.
+                title: Yellowstone (motorcycle or snowmobile)
+              entrancePasses:
+              - cost: '60'
+                description: 'Annual pass providing free entrance to Yellowstone National Park for one year; valid through the month of purchase. Winter use: On a snowmobile, admits the signers and children (residing in the same household under the age of 21). In a snowcoach or shuttle, it admits the signers and up to three additional persons (16 and older) for a total of four people.'
+                title: Yellowstone National Park Annual Pass
+              fullName: Yellowstone National Park
+              id: F58C6D24-8D10-4573-9826-65D42B8B83AD
+              images:
+              - credit: NPS/Jim Peaco
+                altText: Crowd watching Aurum Geyser erupt
+                title: Aurum Geyser
+                caption: Aurum Geyser Erupting
+                url: https://www.nps.gov/common/uploads/structured_data/3C7D2FBB-1DD8-B71B-0BED99731011CFCE.jpg
+              - credit: NPS/Neal Herbert
+                altText: Photo of bison in Lamar Valley
+                title: Bison in Lamar Valley
+                caption: Bison in Lamar Valley
+                url: https://www.nps.gov/common/uploads/structured_data/3C7D34E6-1DD8-B71B-0BBB1C0F478318E2.jpg
+              latLong: lat:44.59824417, long:-110.5471695
+              multimedia:
+              - title: The Worthington Farm
+                id: 4FD5B472-D6D9-43AA-9532-2AC5BF920883
+                type: multimedia/videos
+                url: https://www.nps.gov/media/video/view.htm?id=4FD5B472-D6D9-43AA-9532-2AC5BF920883
+              name: Yellowstone
+              operatingHours:
+              - name: All Park Hours
+                description: 'Yellowstone is open daily, year-round, although activities and services are limited at night and certain times of year. The park has five entrance stations, but not all entrance stations are open year-round. Make sure to carefully read about access at each station at different times of year. And remember, all dates are weather dependent!
+
+
+                  Please note that camping is possible only in designated campgrounds.'
+                standardHours:
+                  sunday: All Day
+                  monday: All Day
+                  tuesday: All Day
+                  wednesday: All Day
+                  thursday: All Day
+                  friday: All Day
+                  saturday: All Day
+                exceptions:
+                - name: Thanksgiving Day
+                  startDate: '2015-11-26'
+                  endDate: '2015-11-26'
+                  exceptionHours:
+                    sunday: Closed
+                    monday: Closed
+                    tuesday: Closed
+                    wednesday: Closed
+                    thursday: Closed
+                    friday: Closed
+                    saturday: Closed
+                - name: Christmas Day
+                  startDate: '2015-12-25'
+                  endDate: '2015-12-25'
+                  exceptionHours:
+                    sunday: Closed
+                    monday: Closed
+                    tuesday: Closed
+                    wednesday: Closed
+                    thursday: Closed
+                    friday: Closed
+                    saturday: Closed
+              - name: West Entrance
+                description: Adjacent to the town of West Yellowstone, MT, the West Entrance is usually open (weather dependent) to wheeled vehicles from the third Friday in April through early November, and to tracked-oversnow (snowmobiles and snowcoaches) vehicles from December 15 to March 15.
+                standardHours:
+                  sunday: Closed
+                  monday: Closed
+                  tuesday: Closed
+                  wednesday: Closed
+                  thursday: Closed
+                  friday: Closed
+                  saturday: Closed
+                exceptions: []
+              parkCode: yell
+              relevanceScore: 1
+              states: ID,MT,WY
+              topics:
+              - id: B912363F-771C-4098-BA3A-938DF38A9D7E
+                name: Aviation
+              url: https://www.nps.gov/yell/index.htm
+              weatherInfo: Yellowstone's weather can vary quite a bit, even in a single day. In the summer, daytime highs can exceed 70F (25C), only to drop 20 or more degrees when a thunderstorm rolls through. It can snow during any month of the year, and winter lows frequently drop below zero, especially at night. Bring a range of clothing options, including a warm jacket and rain gear, even in the summer.
+        limit:
+          type: string
+          example: '50'
+        start:
+          type: string
+          example: '0'
   securitySchemes:
-    ApiKeyAuth:
+    api_key:
       type: apiKey
-      in: query
       name: api_key
-externalDocs:
-  description: NPS API documentation
-  url: https://www.nps.gov/subjects/developer/api-documentation.htm
+      in: query
+    api_key_header:
+      type: apiKey
+      name: X-Api-Key
+      in: header

@@ -1,0 +1,450 @@
+openapi: 3.2.0
+info:
+  description: This API is designed to provide authoritative National Park Service (NPS) data and content about parks and their facilities, events, news, alerts, and more. Explore the NPS API below and even try to make API calls. In order to try an API call, you'll need to click on the "Authorize" button below and add your API key. If you don't have an API key yet, visit our Get Started page.
+  version: 1.0.0
+  title: National Park Service Visitorcenters API
+servers:
+- url: https://developer.nps.gov/api/v1
+tags:
+- name: visitorcenters
+  description: Retrieve data about National Park Service visitor centers including addresses, contacts, description, hours of operation, etc.
+paths:
+  /visitorcenters:
+    get:
+      tags:
+      - visitorcenters
+      description: Returns information about National Park Service visitor centers, with optional filters for park codes, state codes, or a search term.
+      operationId: getVisitorCenters
+      parameters:
+      - name: parkCode
+        in: query
+        description: A comma delimited list of park codes (each 4 characters in length).
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+      - name: stateCode
+        in: query
+        description: A comma delimited list of 2 character state codes.
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+      - name: limit
+        in: query
+        description: Number of results to return per request. Default is 50.
+        required: false
+        schema:
+          type: integer
+      - name: start
+        in: query
+        description: Get the next [limit] results starting with this number. Default is 0.
+        required: false
+        schema:
+          type: integer
+      - name: q
+        in: query
+        description: Term to search on
+        required: false
+        schema:
+          type: string
+      - name: sort
+        in: query
+        description: A comma delimited list of resource properties to sort the results by. Ascending order is assumed for each property. If descending order is desired, the unary negative should prefix the property name. Invalid property values will be ignored. If no sort parameter is passed in a request, the default sort is by display order. If sorting by relevanceScore, you 1) will likely use -relevanceScore as a higher score indicates a more relevant result and 2) cannot use it in conjunction with other sort properties. Possible fields to sort by are name, parkCode, Title,and relevanceScore.
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+      security:
+      - api_key: []
+      - api_key_header: []
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VisitorCenter'
+        '400':
+          description: Invalid status value
+      summary: Get visitor centers
+      x-summary-source: derived
+components:
+  schemas:
+    VisitorCenter:
+      type: object
+      properties:
+        total:
+          type: string
+          example: '584'
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              addresses:
+                type: array
+                description: Visitor Center addresses (physical and mailing)
+                items:
+                  type: object
+                  properties:
+                    postalCode:
+                      type: string
+                    city:
+                      type: string
+                    stateCode:
+                      type: string
+                    countryCode:
+                      type: string
+                      example: US
+                    provinceTerritoryCode:
+                      type: string
+                      example: ''
+                    line1:
+                      type: string
+                    type:
+                      type: string
+                      enum:
+                      - Physical
+                      - Mailing
+                    line3:
+                      type: string
+                    line2:
+                      type: string
+              amenities:
+                type: array
+                items:
+                  type: string
+              audioDescription:
+                type: string
+                description: audio description of the facility
+              contacts:
+                type: object
+                description: Information about contacting staff at the facility
+                properties:
+                  phoneNumbers:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        phoneNumber:
+                          type: string
+                        description:
+                          type: string
+                        extension:
+                          type: string
+                        type:
+                          type: string
+                          enum:
+                          - Voice
+                          - Fax
+                          - TTY
+                  emailAddresses:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        emailAddress:
+                          type: string
+                        description:
+                          type: string
+              description:
+                type: string
+                description: General description of the facility
+              directionsInfo:
+                type: string
+                description: General overview of how to get to the facility
+              directionsUrl:
+                type: string
+                description: Link to page, if available, that provides additional detail on getting to the facility
+              geometryPoiId:
+                type: string
+                description: Id for Geometry Point of Interest
+                example: 8793be28-0d54-493f-8556-877e7ecbe937
+              id:
+                type: string
+                description: ID
+                example: '23'
+              images:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    credit:
+                      type: string
+                    crops:
+                      type: array
+                      items:
+                        type: object
+                    title:
+                      type: string
+                    altText:
+                      type: string
+                    caption:
+                      type: string
+                    url:
+                      type: string
+              isPassportStampLocation:
+                type: string
+                description: 0 or 1
+              lastIndexedDate:
+                type: string
+              latLong:
+                type: string
+                description: Facility latitude and longitude
+                example: '{lat:63.7308262, lng:-148.9171829}'
+              latitude:
+                type: string
+                example: '63.7308262'
+              longitude:
+                type: string
+                example: '-148.9171829'
+              multimedia:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    title:
+                      type: string
+                      description: title of multimedia asset
+                      example: The Worthington Farm
+                    id:
+                      type: string
+                      description: UUID for multimedia asset
+                      example: 4FD5B472-D6D9-43AA-9532-2AC5BF920883
+                    type:
+                      type: string
+                      description: the kind of asset
+                      example: multimedia/videos
+                    url:
+                      type: string
+                      description: The URL of the multimedia asset
+                      example: https://www.nps.gov/media/video/view.htm?id=4FD5B472-D6D9-43AA-9532-2AC5BF920883
+              name:
+                type: string
+                description: Facility name
+              operatingHours:
+                type: array
+                description: Hours and seasons when the facility is open or closed
+                items:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    description:
+                      type: string
+                    standardHours:
+                      type: object
+                      properties:
+                        sunday:
+                          type: string
+                        monday:
+                          type: string
+                        tuesday:
+                          type: string
+                        wednesday:
+                          type: string
+                        thursday:
+                          type: string
+                        friday:
+                          type: string
+                        saturday:
+                          type: string
+                    exceptions:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          name:
+                            type: string
+                          startDate:
+                            type: string
+                            format: date
+                          endDate:
+                            type: string
+                            format: date
+                          exceptionHours:
+                            type: object
+                            properties:
+                              sunday:
+                                type: string
+                              monday:
+                                type: string
+                              tuesday:
+                                type: string
+                              wednesday:
+                                type: string
+                              thursday:
+                                type: string
+                              friday:
+                                type: string
+                              saturday:
+                                type: string
+              parkCode:
+                type: string
+                description: A variable width character code used to identify a specific park
+              passportStampLocationDescription:
+                type: string
+                example: Classic NPS cancellation with site name and date
+              passportStampImages:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    credit:
+                      type: string
+                    description:
+                      type: string
+                    crops:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          aspectRatio:
+                            type: number
+                          url:
+                            type: string
+                    altText:
+                      type: string
+                    title:
+                      type: string
+                    caption:
+                      type: string
+                    url:
+                      type: string
+              relevanceScore:
+                type: number
+                description: The relevance score is a numeric calculation of how much your item meets the criteria of your q (query text) search. This is normally coupled with a sort value of -relevanceScore. A higher value means that your item meets the criteria of the q search with a higher frequency and accuracy.
+              url:
+                type: string
+                description: The URL corresponding to the visitor center
+            example:
+              id: 6024ADBB-9505-45FD-A9AE-FF50CDA658A0
+              url: ''
+              name: Alpine Visitor Center
+              parkCode: romo
+              description: Located along Trail Ridge Road, this is the highest elevation visitor center in the National Park System at 11,796'. Alpine Visitor Center is closed for the 2022 season.
+              latitude: '40.44103093774664'
+              longitude: '-105.75452021953589'
+              latLong: '{lat:40.44103093774664, lng:-105.75452021953589}'
+              audioDescription: ''
+              isPassportStampLocation: '0'
+              passportStampLocationDescription: ''
+              passportStampImages: []
+              geometryPoiId: 2C48E54F-1F93-4E49-BCDA-5A5DAAFAD622
+              amenities:
+              - Food/Drink - Snacks
+              - Information - Maps Available
+              - Information - Park Newspaper Available
+              - Information - Ranger/Staff Member Present
+              - Toilet - Vault/Composting
+              contacts:
+                phoneNumbers:
+                - phoneNumber: '9705861206'
+                  description: ''
+                  extension: ''
+                  type: Voice
+                emailAddresses:
+                - description: ''
+                  emailAddress: romo_information@nps.gov
+              directionsInfo: Fall River Pass at the junction of Trail Ridge and Old Fall River roads. Check the status of Trail Ridge Road by calling 970-586-1222.
+              directionsUrl: ''
+              operatingHours:
+              - exceptions:
+                - exceptionHours:
+                    wednesday: 10:30AM - 4:30PM
+                    monday: 10:30AM - 4:30PM
+                    thursday: 10:30AM - 4:30PM
+                    sunday: 10:30AM - 4:30PM
+                    tuesday: 10:30AM - 4:30PM
+                    friday: 10:30AM - 4:30PM
+                    saturday: 10:30AM - 4:30PM
+                  startDate: '2023-05-29'
+                  name: Reduced hours in late Spring (weather permitting)
+                  endDate: '2023-06-12'
+                - exceptionHours:
+                    wednesday: Closed
+                    monday: Closed
+                    thursday: Closed
+                    sunday: Closed
+                    tuesday: Closed
+                    friday: Closed
+                    saturday: Closed
+                  startDate: '2022-10-12'
+                  name: Mid-Fall through late Spring
+                  endDate: '2023-05-28'
+                description: Alpine Visitor Center is closed for the winter season. Check back for the 2023 Summer Schedule.
+                standardHours:
+                  wednesday: Closed
+                  monday: Closed
+                  thursday: Closed
+                  sunday: Closed
+                  tuesday: Closed
+                  friday: Closed
+                  saturday: Closed
+                name: Alpine Visitor Center
+              addresses:
+              - postalCode: '80517'
+                city: Estes Park
+                stateCode: CO
+                countryCode: US
+                provinceTerritoryCode: ''
+                line1: ''
+                type: Physical
+                line3: ''
+                line2: ''
+              - postalCode: '80517'
+                city: Estes Park
+                stateCode: CO
+                countryCode: US
+                provinceTerritoryCode: ''
+                line1: 1000 US Hwy 36
+                type: Mailing
+                line3: ''
+                line2: ''
+              images:
+              - credit: NPS Photo / Ann Schonlau
+                crops: []
+                title: Alpine Visitor Center
+                altText: A long rectangular building with large logs on the roof.
+                caption: The Alpine Visitor Center in the height of summer.
+                url: https://www.nps.gov/common/uploads/structured_data/1A040051-E81A-FA40-C7A5F1E24F6E78D0.jpg
+              - credit: NPS Photo
+                crops: []
+                title: Alpine Visitor Center from Alpine Ridge Trail
+                altText: Visitors hike a trail above the Alpine Visitor Center.
+                caption: The Alpine Ridge Trail leads from the visitor center up many steps to a scenic overlook.
+                url: https://www.nps.gov/common/uploads/structured_data/1A0C8153-E844-CFEC-D3AC2F043EBC0051.jpg
+              - credit: NPS Photo
+                crops: []
+                title: Digging Out the Alpine Visitor Center
+                altText: Staff dig out Alpine Visitor Center from feet of snow.
+                caption: The Alpine Visitor Center is covered by snow all winter long and has to be dug out every May.
+                url: https://www.nps.gov/common/uploads/structured_data/1A15D77D-CD52-A8C6-CBA0E70A85617516.jpg
+              multimedia: []
+              lastIndexedDate: ''
+              relevanceScore: 1
+        limit:
+          type: string
+          example: '50'
+        start:
+          type: string
+          example: '0'
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: api_key
+      in: query
+    api_key_header:
+      type: apiKey
+      name: X-Api-Key
+      in: header

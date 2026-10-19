@@ -1,0 +1,434 @@
+openapi: 3.2.0
+info:
+  description: This API is designed to provide authoritative National Park Service (NPS) data and content about parks and their facilities, events, news, alerts, and more. Explore the NPS API below and even try to make API calls. In order to try an API call, you'll need to click on the "Authorize" button below and add your API key. If you don't have an API key yet, visit our Get Started page.
+  version: 1.0.0
+  title: National Park Service Feespasses API
+servers:
+- url: https://developer.nps.gov/api/v1
+tags:
+- name: feespasses
+  description: Retrieve fees and passes information created by national parks and other NPS entities.
+paths:
+  /feespasses:
+    get:
+      tags:
+      - feespasses
+      description: Returns information about fees and passes, with optional filters for park codes, state codes, or a search term.
+      operationId: getFeesPasses
+      parameters:
+      - name: parkCode
+        in: query
+        description: A comma delimited list of park codes (each 4 characters in length).
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+      - name: start
+        in: query
+        description: Get the next [limit] results starting with this number. Default is 0.
+        required: false
+        schema:
+          type: integer
+      - name: limit
+        in: query
+        description: Number of results to return per request. Default is 50.
+        required: false
+        schema:
+          type: integer
+      - name: q
+        in: query
+        description: Term to search on
+        required: false
+        schema:
+          type: string
+      - name: sort
+        in: query
+        description: A comma delimited list of resource properties to sort the results by. Each resource identifies which properties are 'sortable'. Ascending order is assumed for each property. If descending order is desired, the unary negative should prefix the property name. The sortable properties are listed in the documentation for each resource. Invalid property values will be ignored. Default is title.
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+      - name: statecode
+        in: query
+        description: A comma delimited list of 2 character state codes.
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+      security:
+      - api_key: []
+      - api_key_header: []
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FeesPasses'
+        '400':
+          description: Invalid status value
+      summary: Get fees passes
+      x-summary-source: derived
+components:
+  schemas:
+    FeesPasses:
+      type: object
+      properties:
+        total:
+          type: string
+          example: '469'
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              cashless:
+                type: string
+                description: ''
+                example: Depends on location
+              entranceFeeDescription:
+                type: string
+                description: ''
+                example: A park entrance pass is required year-round at Acadia National Park. All vehicles must display a pass clearly visible through the windshield. Display federal lands passes, such as annual and military passes, on your dashboard with the signature and expiration date facing up. Passes are non-transferable and passholder must be present. A separate vehicle reservation is also required to drive Cadillac Summit Road from mid-May into October. Vehicle reservations are only sold online in advance and are not available for purchase at the park. In addition to NPS locations in visitor centers and campgrounds, entrance passes are also available for purchase in-person at third-party sellers. These locations are not operated by the NPS and do not offer federal lands passes -- * Jordan Pond Gift Shop * Acadia Regional Chamber of Commerce at Thompson Island * Bar Harbor Chamber of Commerce, Cottage Street * Ellsworth Chamber of Commerce * Mount Desert Chamber of Commerce * Southwest Harbor/Tremont Chamber of Commerce
+              entrancePassDescription:
+                type: string
+                description: ''
+                example: A park entrance pass is required year-round. All vehicles must display a pass clearly visible through the windshield. Display federal lands passes, such as annual and military passes, on your dashboard with the signature and expiration date facing up. Passes are non-transferable and passholder must be present.
+              fees:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    cost:
+                      type: string
+                      description: ''
+                      example: '6.00'
+                    description:
+                      type: string
+                      description: ''
+                      example: Vehicle reservations are not required for any other areas of the park, or for visitors who enter the area by foot, bike, or taxi. Vehicle reservations provide a timed entry, but do not require a departure time until 10 pm, when the road closes to vehicles. Reservations do not permit re-entry. Reservations are per vehicle, not per person. Reservations do not assign a specific parking space. Parking is prohibited outside of designated spaces. Cadillac is not served by the Island Explorer bus system.
+                    endDate:
+                      type: object
+                      properties:
+                        day:
+                          type: integer
+                          description: ''
+                          example: 22
+                        holiday:
+                          type:
+                          - string
+                          - 'null'
+                          description: Holiday name when the fee period is defined by a holiday.
+                          example: null
+                        month:
+                          type: integer
+                          description: ''
+                          example: 10
+                    entranceFeeType:
+                      type: string
+                      description: ''
+                      example: Timed Entry Reservation - Location
+                    exceptions:
+                      type: string
+                      description: ''
+                      example: ''
+                    id:
+                      type: string
+                      description: ''
+                      example: B0ACE361-8899-4098-A238-18BA39FD67C2
+                    informationUrl:
+                      type: string
+                      description: ''
+                      example: https://www.nps.gov/acad/planyourvisit/vehicle_reservations.htm
+                    npsGovPurchaseUrl:
+                      type: string
+                      description: ''
+                      example: ''
+                    payGovPurchaseUrl:
+                      type: string
+                      description: ''
+                      example: ''
+                    paymentDescription:
+                      type: string
+                      description: ''
+                      example: Vehicle reservations cost $6. They are only sold online in advance at Recreation.gov. They are not available for purchase at the park. In addition to purchasing a vehicle reservation for Cadillac Summit Road, vehicles must display a park entrance pass through the windshield. Park entrance passes are available at the park or online at Recreation.gov. Print or save a digital copy of the QR Code that comes with the vehicle reservation confirmation email. It will be scanned to verify the reservation.
+                    purchaseUrl:
+                      type: string
+                      description: ''
+                      example: ''
+                    recGovPurchaseUrl:
+                      type: string
+                      description: ''
+                      example: https://www.recreation.gov/timed-entry/400000
+                    startDate:
+                      type: object
+                      properties:
+                        day:
+                          type: integer
+                          description: ''
+                          example: 24
+                        holiday:
+                          type:
+                          - string
+                          - 'null'
+                          description: Holiday name when the fee period is defined by a holiday.
+                          example: null
+                        month:
+                          type: integer
+                          description: ''
+                          example: 5
+                    timedEntryLocation:
+                      type: string
+                      description: ''
+                      example: Cadillac Summit Road Vehicle Reservations
+                    timedEntryShortDescription:
+                      type: string
+                      description: ''
+                      example: Required to drive Cadillac Summit Road
+              feesAtWorkUrl:
+                type: string
+                description: ''
+                example: https://www.nps.gov/acad/planyourvisit/fees.htm
+              isFeeFreePark:
+                type: boolean
+                description: ''
+                example: true
+              isInteragencyPassAccepted:
+                type: boolean
+                description: ''
+                example: true
+              isParkingFeePossible:
+                type: boolean
+                description: ''
+                example: true
+              parkCode:
+                type: string
+                description: ''
+                example: acad
+              parkingDetailsUrl:
+                type: string
+                description: ''
+                example: ''
+              passes:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    category:
+                      type: string
+                      description: ''
+                      example: Annual Entrance - Park
+                    cost:
+                      type: string
+                      description: ''
+                      example: '70.00'
+                    description:
+                      type: string
+                      description: ''
+                      example: The Acadia Annual Pass is valid only at Acadia and may be purchased online or in person. You do not need an additional entrance pass if you already have a federal lands pass. It is valid for 12 months from purchase month. This pass admits the pass holder and passengers in a non-commercial vehicle. In addition to park visitor centers and campgrounds, the Acadia Annual Pass is available at the Acadia Regional Chamber at Thompson Island, and at Bar Harbor, Ellsworth and Southwest Harbor chambers of commerce.
+                    exceptions:
+                      type: string
+                      description: ''
+                      example: ''
+                    id:
+                      type: string
+                      description: ''
+                      example: F647C604-6000-4454-A9FB-6147436E8A7C
+                    image:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          altText:
+                            type: string
+                            description: ''
+                            example: Test Image
+                          caption:
+                            type: string
+                            description: ''
+                            example: Testing
+                          credit:
+                            type: string
+                            description: ''
+                            example: Test Credit
+                          title:
+                            type: string
+                            description: ''
+                            example: Test Image
+                          url:
+                            type: string
+                            description: ''
+                            example: /common/uploads/entrance_pass/D6D2EEDD-C4CD-4139-021C101891BD86AB.jpg
+                    informationUrl:
+                      type: string
+                      description: ''
+                      example: https://www.nps.gov/acad/planyourvisit/fees.htm
+                    payGovPurchaseUrl:
+                      type: string
+                      description: ''
+                      example: ''
+                    paymentDescription:
+                      type: string
+                      description: ''
+                      example: ''
+                    npsGovPurchaseUrl:
+                      type: string
+                      description: ''
+                      example: https://www.nps.gov/acad/planyourvisit/fees.htm
+                    recGovPurchaseUrl:
+                      type: string
+                      description: ''
+                      example: https://www.recreation.gov/sitepass/74271
+              timedEntryHeading:
+                type: string
+                description: ''
+                example: Timed Entry Reservation
+              timedEntryDescription:
+                type: string
+                description: ''
+                example: 'A timed entry reservation is required from 7:00 am to 3:00 pm for two areas of the park: (1) Paradise Corridor entering through the Nisqually and Stevens Canyon Entrances, and (2) Sunrise Corridor entering through the White River Entrance. Each corridor requires a separate vehicle reservation. Timed entry reservations are for good a single day, per vehicle, and are required in addition to an entrance fee or park pass.'
+              isParkingOrTransportationFeePossible:
+                type: boolean
+                example: false
+              paidParkingHeading:
+                type: string
+                example: Paid Parking Available
+              paidParkingDescription:
+                type: string
+                example: Details about paid parking go here.
+              customFeeHeading:
+                type: string
+                example: Special Fees May Apply
+              customFeeDescription:
+                type: string
+                example: Details about custom fees go here.
+              customFeeLinkUrl:
+                type: string
+                example: https://www.nps.gov/etc/etc
+              customFeeLinkText:
+                type: string
+                example: Custom Fee Link Text
+              contentOrderOrdinals:
+                type: object
+                properties:
+                  entranceFee:
+                    type: integer
+                    example: 1
+                  timedEntry:
+                    type: integer
+                    example: 2
+                  paidParking:
+                    type: integer
+                    example: 3
+                  customFee:
+                    type: integer
+                    example: 4
+                example:
+                  entranceFee: 1
+                  timedEntry: 2
+                  paidParking: 3
+                  customFee: 4
+              relatedMultiSitePasses:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    title:
+                      type: string
+                      example: Andy's Pass To All The Good Spots
+                    audience:
+                      type: string
+                      example: People with great taste.
+                    type:
+                      type: string
+                      example: Multi-Site Pass
+                    cost:
+                      type: string
+                      example: '100.00'
+                    description:
+                      type: string
+                      example: All of these parks exist.
+                    images:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          credit:
+                            type: string
+                            example: NPS Photo
+                          title:
+                            type: string
+                            example: The Memorial Building with fall colors
+                          altText:
+                            type: string
+                            example: The Memorial Building surrounded by fall colors
+                          caption:
+                            type: string
+                            example: Over 200,000 people a year come to walk up the steps of the Memorial Building to visit the site where Abraham Lincoln was born
+                          url:
+                            type: string
+                            example: https://www.nps.gov/common/uploads/structured_data/3C861078-1DD8-B71B-0B774A242EF6A706.jpg
+                    purchaseLocations:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          type:
+                            type: string
+                            example: campgrounds
+                          id:
+                            type: string
+                            example: EA81BC45-C361-437F-89B8-5C89FB0D0F86
+                          title:
+                            type: string
+                            example: Houla Campground
+                          paymentMethod:
+                            type: string
+                            example: Cash Only
+                    relatedParks:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          states:
+                            type: string
+                            example: KY
+                          fullName:
+                            type: string
+                            example: Abraham Lincoln Birthplace National Historical Park
+                          url:
+                            type: string
+                            example: https://www.nps.gov/abli/index.htm
+                          parkCode:
+                            type: string
+                            example: abli
+                          designation:
+                            type: string
+                            example: National Historic Park
+                          name:
+                            type: string
+                            example: Abraham Lincoln Birthplace
+        limit:
+          type: string
+          example: '50'
+        start:
+          type: string
+          example: '0'
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: api_key
+      in: query
+    api_key_header:
+      type: apiKey
+      name: X-Api-Key
+      in: header

@@ -1,0 +1,207 @@
+openapi: 3.2.0
+info:
+  description: This API is designed to provide authoritative National Park Service (NPS) data and content about parks and their facilities, events, news, alerts, and more. Explore the NPS API below and even try to make API calls. In order to try an API call, you'll need to click on the "Authorize" button below and add your API key. If you don't have an API key yet, visit our Get Started page.
+  version: 1.0.0
+  title: National Park Service Webcams API
+servers:
+- url: https://developer.nps.gov/api/v1
+tags:
+- name: webcams
+  description: Retrieve metadata about National Park Service streaming and non-streaming web cams.
+paths:
+  /webcams:
+    get:
+      tags:
+      - webcams
+      description: Returns metadata for National Park Service webcams, with optional filters for park codes, state codes, webcam IDs, or a search term.
+      operationId: getWebcams
+      parameters:
+      - name: parkCode
+        in: query
+        description: A comma delimited list of 4 character park codes.
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+      - name: stateCode
+        in: query
+        description: A comma delimited list of 2 character state codes.
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+      - name: id
+        in: query
+        description: A comma delimited list of webcam IDs.
+        required: false
+        schema:
+          type: string
+      - name: limit
+        in: query
+        description: Number of results to return per request. Default is 50.
+        required: false
+        schema:
+          type: integer
+      - name: start
+        in: query
+        description: Get the next [limit] results starting with this number. Default is 0.
+        required: false
+        schema:
+          type: integer
+      - name: q
+        in: query
+        description: Term to search on.
+        required: false
+        schema:
+          type: string
+      security:
+      - api_key: []
+      - api_key_header: []
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Webcams'
+        '400':
+          description: Invalid status value
+      summary: Get webcams
+      x-summary-source: derived
+components:
+  schemas:
+    Webcams:
+      type: object
+      properties:
+        total:
+          type: string
+          example: '4'
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              url:
+                type: string
+                description: URL corresponding to this webcam
+              title:
+                type: string
+              geometryPoiId:
+                type: string
+                description: Id for Geometry Point of Interest
+                example: 8793be28-0d54-493f-8556-877e7ecbe937
+              id:
+                type: string
+              description:
+                type: string
+              images:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    url:
+                      type: string
+                      example: https://www.nps.gov/common/uploads/cropped_image/primary/55B6E49B-C6F3-38B9-82A9F7F3D7BDC873.jpg
+                    credit:
+                      type: string
+                      example: NPS
+                    altText:
+                      type: string
+                      example: NPS
+                    title:
+                      type: string
+                      example: Kennecott Mill and Mt. Blackburn
+                    description:
+                      type: string
+                      example: ''
+                    caption:
+                      type: string
+                      example: Kennecott Mill and Mt. Blackburn
+                    crops:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          aspectRatio:
+                            type: number
+                            example: 1.78
+                          url:
+                            type: string
+                            example: https://www.nps.gov/common/uploads/cropped_image/primary/55B6E49B-C6F3-38B9-82A9F7F3D7BDC873.jpg
+              relatedParks:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    states:
+                      type: string
+                      example: AK
+                    parkCode:
+                      type: string
+                      example: wrst
+                    designation:
+                      type: string
+                      example: National Park &amp; Preserve
+                    fullName:
+                      type: string
+                      example: Wrangell - St Elias National Park &amp; Preserve
+                    url:
+                      type: string
+                      example: https://www.nps.gov/wrst
+                    name:
+                      type: string
+                      example: Wrangell - St Elias
+              status:
+                type: string
+                example: Active
+              statusMessage:
+                type: string
+                example: ''
+              isStreaming:
+                type: boolean
+                example: false
+              tags:
+                type: array
+                items:
+                  type: string
+                example:
+                - Maine
+                - webcam
+                - peregrine falcon
+                - ranger programs
+                - Loon
+                - virtual activity
+                - Wild Gardens of Acadia
+              latitude:
+                type:
+                - number
+                - 'null'
+                example: 61.4871482849121
+              longitude:
+                type:
+                - number
+                - 'null'
+                example: -142.87907409668
+              credit:
+                type: string
+        limit:
+          type: string
+          example: '50'
+        start:
+          type: string
+          example: '4'
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: api_key
+      in: query
+    api_key_header:
+      type: apiKey
+      name: X-Api-Key
+      in: header

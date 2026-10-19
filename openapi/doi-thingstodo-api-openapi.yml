@@ -1,0 +1,398 @@
+openapi: 3.2.0
+info:
+  description: This API is designed to provide authoritative National Park Service (NPS) data and content about parks and their facilities, events, news, alerts, and more. Explore the NPS API below and even try to make API calls. In order to try an API call, you'll need to click on the "Authorize" button below and add your API key. If you don't have an API key yet, visit our Get Started page.
+  version: 1.0.0
+  title: National Park Service Thingstodo API
+servers:
+- url: https://developer.nps.gov/api/v1
+tags:
+- name: thingstodo
+  description: Retrieve suggested things to do recommended by and for specific national parks.
+paths:
+  /thingstodo:
+    get:
+      tags:
+      - thingstodo
+      description: Returns activities and experiences visitors can do at National Park Service sites, with optional filters for IDs, park codes, state codes, or a search term.
+      operationId: getThingstodo
+      parameters:
+      - name: id
+        in: query
+        description: A comma delimited list of things to do IDs.
+        required: false
+        schema:
+          type: string
+      - name: parkCode
+        in: query
+        description: A comma delimited list of 4 character park codes.
+        required: false
+        schema:
+          type: string
+      - name: stateCode
+        in: query
+        description: A comma delimited list of 2 character state codes.
+        required: false
+        schema:
+          type: string
+      - name: q
+        in: query
+        description: A string to search for.
+        required: false
+        schema:
+          type: string
+      - name: limit
+        in: query
+        description: Number of results to return per request. Default is 50.
+        required: false
+        schema:
+          type: integer
+      - name: start
+        in: query
+        description: Get the next [limit] results starting with this number. Default is 0.
+        required: false
+        schema:
+          type: integer
+      - name: sort
+        in: query
+        description: A comma delimited list of resource properties to sort the results by. Ascending order is assumed for each property. If descending order is desired, the unary negative should prefix the property name. Invalid property values will be ignored. If no sort parameter is passed in a request, the default sort is by descending order of date last modified. (Note that the date last modified is an unexposed property.) If sorting by relevanceScore, you will likely use -relevanceScore as a higher score indicates a more accurate result. The only sort option, besides the default, is relevanceScore.
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+      security:
+      - api_key: []
+      - api_key_header: []
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ThingsToDo'
+        '400':
+          description: Invalid status data
+      summary: Get thingstodo
+      x-summary-source: derived
+components:
+  schemas:
+    ThingsToDo:
+      type: object
+      properties:
+        total:
+          type: string
+          example: '638'
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              location:
+                type: string
+                description: ''
+              seasonDescription:
+                type: string
+                description: ''
+              accessibilityInformation:
+                type: string
+                description: ''
+              longitude:
+                type: string
+                description: ''
+              geometryPoiId:
+                type: string
+                description: Id for Geometry Point of Interest
+                example: 8793be28-0d54-493f-8556-877e7ecbe937
+              relatedParks:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    states:
+                      type: string
+                      description: comma separated list of state codes
+                      example: ID,MT,WY
+                    fullName:
+                      type: string
+                      description: full name of related park
+                      example: Yellowstone National Park
+                    url:
+                      type: string
+                      description: URL of related park website
+                      example: https://www.nps.gov/yell/index.htm
+                    parkCode:
+                      type: string
+                      description: four letter park code
+                      example: yell
+                    designation:
+                      type: string
+                      description: designation of related park
+                      example: National Park
+                    name:
+                      type: string
+                      description: name of related park
+                      example: Yellowstone
+              isReservationRequired:
+                type: string
+                description: true or false
+                example: 'false'
+              ageDescription:
+                type: string
+                description: ''
+              url:
+                type: string
+                description: URL for this Thing To Do
+                example: https://www.nps.gov/thingstodo/yell-bannock-ski-trail.htm
+              petsDescription:
+                type: string
+                description: pet-related information for this Thing To Do
+                example: Qualified service animals are welcome throughout the park and in all park facilities. However, they must be leashed and under your control at all times. This trail requires a backcountry access pass for service animals.<br />\n<br />\n<br />\n
+              timeOfDayDescription:
+                type: string
+                description: ''
+              images:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    credit:
+                      type: string
+                      description: credit for this image
+                    crops:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          aspectRatio:
+                            type: string
+                            description: the image ratio for this cropped image
+                            example: '3'
+                          url:
+                            type: string
+                            description: URL for this cropped image
+                            example: https://www.nps.gov/common/uploads/cropped_image/primary/20970C88-BB81-37F7-5FB606A6D4A87D9B.jpeg
+                    altText:
+                      type: string
+                      description: alternate text for this image
+                      example: The Bannock Trail is a mostly flat through mature forest.
+                    title:
+                      type: string
+                      description: title for this image
+                    caption:
+                      type: string
+                      description: caption for this image
+                    description:
+                      type: string
+                      description: description for this image
+                    url:
+                      type: string
+                      description: URL to this image
+                      example: https://www.nps.gov/common/uploads/cropped_image/20970C88-BB81-37F7-5FB606A6D4A87D9B.jpeg
+              feeDescription:
+                type: string
+                description: ''
+              id:
+                type: string
+                description: UUID for this Thing To Do
+                example: 8B175753-D37B-4DD5-BF96-00383F7BB46C
+              age:
+                type: string
+                description: ''
+              relatedOrganizations:
+                type: array
+                items:
+                  type: object
+                description: ''
+              arePetsPermittedWithRestrictions:
+                type: string
+                description: true or false
+                example: 'false'
+              amenities:
+                type: array
+                items:
+                  type: string
+              credit:
+                type: string
+              activities:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      description: UUID for this activity
+                      example: F9B1D433-6B86-4804-AED7-B50A519A3B7C
+                    name:
+                      type: string
+                      description: name for this activity
+                      example: Skiing
+                description: ''
+              activityDescription:
+                type: string
+                description: ''
+                example: Easiest
+              locationDescription:
+                type: string
+                description: ''
+                example: The trail begins at Warm Creek picnic area and ends in Silver Gate, Montana.
+              doFeesApply:
+                type: string
+                description: true or false
+                example: 'false'
+              longDescription:
+                type: string
+                description: ''
+                example: <p>The Bannock Ski Trail is a 2 mile (3.2 km) easy ski that follows the old road bed that once used to supply the mining town of Cooke City, Montana. Begin at Warm Creek picnic area, one mile west of the Northeast Entrance. This trail takes its name from the Bannock band of the Shoshone, who used this route to reach the buffalo grounds of the Great Plains. After crossing Soda Butte Creek, the terrain is mostly flat and the trail traverses open meadows and mixed conifer forests. You will reach the North Absaroka Wilderness approximately one mile (1.6 km) from the trailhead. At two miles (3.2 km) you come to Silver Gate, Montana. From here the road bed is used as a snowmobile route and is good skiing to Cooke City, 3 miles (4.8 km) to the east.</p>\n\n<p><b>Notes:</b> Bison and elk frequent this trail. Federal regulations require you to stay at least 100 yards (91 m) away from bears and wolves, and at least 25 yards (23 m) away from bison and all other wild animals.</p>\n\n<p>Check out the<a href=\"/thingstodo/yell-bannock-ski-trail.htm#Details\" id=\"CP___PAGEID=5744528,yell-bannock-ski-trail.htm#Details,30639|\"> ski trail details and accessibility information</a> at the bottom of this page.</p>
+              reservationDescription:
+                type: string
+                description: ''
+              season:
+                type: array
+                items:
+                  type: string
+                  example: winter
+                description: ''
+              topics:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      description: UUID for this topic
+                      example: 5BE55D7F-BDB6-4E3D-AC35-2D8EBB974417
+                    name:
+                      type: string
+                      description: name for this topic
+                      example: Trails
+                description: ''
+              durationDescription:
+                type: string
+                description: ''
+                example: The duration will vary depending on fitness level, snow conditions, and length of time spent along the trail.
+              arePetsPermitted:
+                type: string
+                description: ''
+                example: 'false'
+              timeOfDay:
+                type: array
+                items:
+                  type: string
+                  example: Day
+                description: ''
+              title:
+                type: string
+                description: ''
+                example: Bannock Ski Trail
+              latitude:
+                type: string
+                description: ''
+              shortDescription:
+                type: string
+                description: ''
+                example: The Bannock Ski Trail is a 2 mile (3.2 km) easy ski that follows the old road bed that once used to supply the mining town of Cooke City, Montana.
+              duration:
+                type: string
+                description: estimated duration of this Thing To Do
+                example: 1-2 hours
+              tags:
+                type: array
+                items:
+                  type: string
+                  example: cross country skiing
+                description: comma separated list of tags
+              relevanceScore:
+                type: number
+                description: The relevance score is a numeric calculation of how much your item meets the criteria of your q (query text) search. This is normally coupled with a sort value of -relevanceScore. A higher value means that your item meets the criteria of the q search with a higher frequency and accuracy.
+          example:
+          - location: Northeast Area
+            seasonDescription: ''
+            accessibilityInformation: <p>This skier-tracked easy trail follows a fairly flat old road after crossing a narrow bridge over Soda Butte Creek at the trailhead. The trail elevation gain/loss is 132 feet. Service dogs allowed with backcountry access permit.</p>
+            longitude: ''
+            geometryPoiId: 8793be28-0d54-493f-8556-877e7ecbe937
+            relatedParks:
+            - states: ID,MT,WY
+              fullName: Yellowstone National Park
+              url: https://www.nps.gov/yell/index.htm
+              parkCode: yell
+              designation: National Park
+              name: Yellowstone
+            isReservationRequired: 'false'
+            ageDescription: ''
+            url: https://www.nps.gov/thingstodo/yell-bannock-ski-trail.htm
+            petsDescription: "Qualified service animals are welcome throughout the park and in all park facilities. However, they must be leashed and under your control at all times. This trail requires a backcountry access pass for service animals.<br />\n<br />\n<br />\n "
+            timeOfDayDescription: ''
+            images:
+            - credit: ''
+              crops:
+              - aspectRatio: '3'
+                url: https://www.nps.gov/common/uploads/cropped_image/primary/20970C88-BB81-37F7-5FB606A6D4A87D9B.jpeg
+              - aspectRatio: '1'
+                url: https://www.nps.gov/common/uploads/cropped_image/secondary/20970C88-BB81-37F7-5FB606A6D4A87D9B.jpeg
+              altText: The Bannock Trail is a mostly flat through mature forest.
+              title: ''
+              caption: ''
+              url: https://www.nps.gov/common/uploads/cropped_image/20970C88-BB81-37F7-5FB606A6D4A87D9B.jpeg
+            feeDescription: ''
+            id: 8B175753-D37B-4DD5-BF96-00383F7BB46C
+            age: ''
+            relatedOrganizations: []
+            arePetsPermittedWithRestrictions: 'false'
+            activities:
+            - id: F9B1D433-6B86-4804-AED7-B50A519A3B7C
+              name: Skiing
+            activityDescription: Easiest
+            locationDescription: The trail begins at Warm Creek picnic area and ends in Silver Gate, Montana.
+            doFeesApply: 'false'
+            longDescription: '<p>The Bannock Ski Trail is a 2 mile (3.2 km) easy ski that follows the old road bed that once used to supply the mining town of Cooke City, Montana. Begin at Warm Creek picnic area, one mile west of the Northeast Entrance. This trail takes its name from the Bannock band of the Shoshone, who used this route to reach the buffalo grounds of the Great Plains. After crossing Soda Butte Creek, the terrain is mostly flat and the trail traverses open meadows and mixed conifer forests. You will reach the North Absaroka Wilderness approximately one mile (1.6 km) from the trailhead. At two miles (3.2 km) you come to Silver Gate, Montana. From here the road bed is used as a snowmobile route and is good skiing to Cooke City, 3 miles (4.8 km) to the east.</p>
+
+
+              <p><b>Notes:</b> Bison and elk frequent this trail. Federal regulations require you to stay at least 100 yards (91 m) away from bears and wolves, and at least 25 yards (23 m) away from bison and all other wild animals.</p>
+
+
+              <p>Check out the<a href="/thingstodo/yell-bannock-ski-trail.htm#Details" id="CP___PAGEID=5744528,yell-bannock-ski-trail.htm#Details,30639|"> ski trail details and accessibility information</a> at the bottom of this page.</p>'
+            reservationDescription: ''
+            season:
+            - Winter
+            topics:
+            - id: 5BE55D7F-BDB6-4E3D-AC35-2D8EBB974417
+              name: Trails
+            durationDescription: The duration will vary depending on fitness level, snow conditions, and length of time spent along the trail.
+            arePetsPermitted: 'false'
+            timeOfDay:
+            - Day
+            title: Bannock Ski Trail
+            latitude: ''
+            shortDescription: The Bannock Ski Trail is a 2 mile (3.2 km) easy ski that follows the old road bed that once used to supply the mining town of Cooke City, Montana.
+            duration: 1-2 Hours
+            relevanceScore: 1
+            tags:
+            - Yellowstone National Park
+            - Yellowstone National Park ski trail
+            - ski trail
+            - snowshoe trail
+            - snowshoeing
+            - cross country skiing
+            - Northeast Area
+            - easy ski
+            - forested trail
+            - mountains
+            - recreation
+            - winter recreation
+        limit:
+          type: string
+          example: '50'
+        start:
+          type: string
+          example: '0'
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: api_key
+      in: query
+    api_key_header:
+      type: apiKey
+      name: X-Api-Key
+      in: header

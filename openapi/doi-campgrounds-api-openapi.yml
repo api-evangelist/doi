@@ -1,47 +1,91 @@
 openapi: 3.2.0
 info:
-  title: National Park Service (NPS) Data Campgrounds API
-  description: The National Park Service Data API provides programmatic access to information about U.S. national parks - park overviews, alerts, events, visitor centers, campgrounds, things to do, news releases, articles, people, places, and more. The API is REST-based and returns JSON.
-  version: '1'
-  contact:
-    name: NPS Developer Resources
-    url: https://www.nps.gov/subjects/developer/
-  license:
-    name: Public Domain
-    url: https://creativecommons.org/publicdomain/mark/1.0/
+  description: This API is designed to provide authoritative National Park Service (NPS) data and content about parks and their facilities, events, news, alerts, and more. Explore the NPS API below and even try to make API calls. In order to try an API call, you'll need to click on the "Authorize" button below and add your API key. If you don't have an API key yet, visit our Get Started page.
+  version: 1.0.0
+  title: National Park Service Campgrounds API
 servers:
 - url: https://developer.nps.gov/api/v1
-  description: Production
-security:
-- ApiKeyAuth: []
 tags:
 - name: Campgrounds
-  description: Campground listings
+  description: Retrieve data about National Park Service campgrounds including addresses, contacts, description, hours of operation, etc.
 paths:
   /campgrounds:
     get:
       tags:
       - Campgrounds
-      summary: List campgrounds
-      operationId: listCampgrounds
+      description: Returns campground information, with optional filters for park codes, state codes, or a search term.
+      operationId: getCampgrounds
       parameters:
-      - $ref: '#/components/parameters/parkCode'
-      - $ref: '#/components/parameters/stateCode'
-      - $ref: '#/components/parameters/q'
+      - name: parkCode
+        in: query
+        description: A comma delimited list of park codes (each 4 characters in length).
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+      - name: stateCode
+        in: query
+        description: A comma delimited list of 2 character state codes.
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+      - name: limit
+        in: query
+        description: Number of results to return per request. Default is 50.
+        required: false
+        schema:
+          type: integer
+      - name: start
+        in: query
+        description: Get the next [limit] results starting with this number. Default is 0.
+        required: false
+        schema:
+          type: integer
+      - name: q
+        in: query
+        description: Term to search on
+        required: false
+        schema:
+          type: string
+      - name: sort
+        in: query
+        description: A comma delimited list of resource properties to sort the results by. Ascending order is assumed for each property. If descending order is desired, the unary negative should prefix the property name. Invalid property values will be ignored. If no sort parameter is passed in a request, the default sort is by display order. If sorting by relevanceScore, you 1) will likely use -relevanceScore as a higher score indicates a more relevant result and 2) cannot use it in conjunction with other sort properties. Possible fields to sort by are name, parkCode, Title, and relevanceScore.
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+      security:
+      - api_key: []
+      - api_key_header: []
       responses:
         '200':
-          description: Campgrounds
+          description: successful operation
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CampgroundResponse'
+                $ref: '#/components/schemas/Campground'
+        '400':
+          description: Invalid status value
+      summary: Get campgrounds
+      x-summary-source: derived
 components:
   schemas:
-    CampgroundResponse:
+    Campground:
       type: object
       properties:
         total:
           type: string
+          example: '665'
         data:
           type: array
           items:
@@ -49,54 +93,456 @@ components:
             properties:
               id:
                 type: string
+                description: Campground identification string
+                example: C4CB1781-C59F-4065-AFE3-F7A327B075A2
               url:
                 type: string
+                description: Link to more information about the campground
+                example: https://www.nps.gov/pais/planyourvisit/bird-island-basin-campground.htm
               name:
                 type: string
+                description: Campground name
+                example: Bird Island Basin Campground
               parkCode:
                 type: string
+                description: A variable width character code used to identify a specific park
+                example: pais
               description:
                 type: string
+                description: General description of the campground
+                example: Bird Island Basin lies along Laguna Madre with easy access for fishing, birding, windsurfing, and kayaking.
               latitude:
                 type: string
+                example: '27.466794'
               longitude:
                 type: string
+                example: '-97.313693'
+              latLong:
+                type: string
+                description: Campground GPS coordinates
+                example: '{lat:27.466794, lng:-97.313693}'
+              audioDescription:
+                type: string
+                description: Audio description of the campground
+                example: Turn right from the main park road at the Bird Island Basin sign.
+              isPassportStampLocation:
+                type: string
+                description: Indicates whether this campground is a passport stamp location
+                example: '0'
+              passportStampLocationDescription:
+                type: string
+                description: Information about the nearest passport stamp location
+                example: Visit Hole-in-the-Wall Information Center for nearest Passport Stamp.
+              passportStampImages:
+                type: array
+                description: Images associated with the passport stamp location
+                items:
+                  type: object
+                example: []
+              geometryPoiId:
+                type: string
+                description: Id for Geometry Point of Interest
+                example: 958187A4-DF58-4561-9043-364EC62231DA
               reservationInfo:
                 type: string
+                description: General information about the reservation process, if applicable
+                example: Reservations are required.
+              reservationUrl:
+                type: string
+                description: Link to website where reservations can be made
+                example: https://www.recreation.gov/camping/campgrounds/10332661
               regulationsurl:
                 type: string
+                description: Link to additional information about campground regulations, if available
+                example: http://www.nps.gov/moja/learn/management/lawsandpolicies.htm
+              regulationsOverview:
+                type: string
+                description: Information about campground regulations
+                example: Groups of 25 or more people and/or 7 or more vehicles are required to obtain a special use permit.
+              amenities:
+                type: object
+                description: Detailed information about amenities available in the campground
+                properties:
+                  trashRecyclingCollection:
+                    type: string
+                    example: Yes - year round
+                  toilets:
+                    type: array
+                    items:
+                      type: string
+                    example:
+                    - Vault Toilets - year round
+                  internetConnectivity:
+                    type: string
+                    example: 'No'
+                  showers:
+                    type: array
+                    items:
+                      type: string
+                    example:
+                    - None
+                  cellPhoneReception:
+                    type: string
+                    example: 'No'
+                  laundry:
+                    type: string
+                    example: 'No'
+                  amphitheater:
+                    type: string
+                    example: 'No'
+                  dumpStation:
+                    type: string
+                    example: 'No'
+                  campStore:
+                    type: string
+                    example: 'No'
+                  staffOrVolunteerHostOnsite:
+                    type: string
+                    example: Yes - seasonal
+                  potableWater:
+                    type: array
+                    items:
+                      type: string
+                    example:
+                    - No water
+                  iceAvailableForSale:
+                    type: string
+                    example: 'No'
+                  firewoodForSale:
+                    type: string
+                    example: 'No'
+                  foodStorageLockers:
+                    type: string
+                    example: 'No'
+              contacts:
+                type: object
+                description: Information about contacting the park regarding this campground
+                properties:
+                  phoneNumbers:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        phoneNumber:
+                          type: string
+                          example: '3619498068'
+                        description:
+                          type: string
+                          example: ''
+                        extension:
+                          type: string
+                          example: ''
+                        type:
+                          type: string
+                          enum:
+                          - Voice
+                          - Fax
+                          - TTY
+                          example: Voice
+                  emailAddresses:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        description:
+                          type: string
+                          example: ''
+                        emailAddress:
+                          type: string
+                          example: pais_visitor_center@nps.gov
               fees:
+                type: array
+                description: Information about the cost of camping
+                items:
+                  type: object
+                  properties:
+                    cost:
+                      type: string
+                      example: '8.00'
+                    description:
+                      type: string
+                      example: In addition to the park entrance fee, a nightly campground fee is required.
+                    title:
+                      type: string
+                      example: Standard Tent or RV Site
+              directionsOverview:
+                type: string
+                description: General overview of how to get to the campground
+                example: From the park entrance station, travel south on Park Road 22 for 0.8 miles.
+              directionsUrl:
+                type: string
+                description: Link to page, if available, that provides additional detail on getting to the campground
+                example: http://www.nps.gov/pais/planyourvisit/directions.htm
+              operatingHours:
+                type: array
+                description: Hours and seasons when the campground is open or closed
+                items:
+                  type: object
+                  properties:
+                    exceptions:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          exceptionHours:
+                            type: object
+                            properties:
+                              sunday:
+                                type: string
+                                example: All Day
+                              monday:
+                                type: string
+                                example: All Day
+                              tuesday:
+                                type: string
+                                example: All Day
+                              wednesday:
+                                type: string
+                                example: All Day
+                              thursday:
+                                type: string
+                                example: All Day
+                              friday:
+                                type: string
+                                example: All Day
+                              saturday:
+                                type: string
+                                example: All Day
+                          startDate:
+                            type: string
+                            format: date
+                            example: '2027-06-01'
+                          name:
+                            type: string
+                            example: Partial Summer Closure
+                          endDate:
+                            type: string
+                            format: date
+                            example: '2027-08-28'
+                    description:
+                      type: string
+                      example: Campgrounds are open 24 hours a day.
+                    standardHours:
+                      type: object
+                      properties:
+                        sunday:
+                          type: string
+                          example: All Day
+                        monday:
+                          type: string
+                          example: All Day
+                        tuesday:
+                          type: string
+                          example: All Day
+                        wednesday:
+                          type: string
+                          example: All Day
+                        thursday:
+                          type: string
+                          example: All Day
+                        friday:
+                          type: string
+                          example: All Day
+                        saturday:
+                          type: string
+                          example: All Day
+                    name:
+                      type: string
+                      example: Black Rock Campground
+              addresses:
+                type: array
+                description: Campground addresses (physical and mailing)
+                items:
+                  type: object
+                  properties:
+                    postalCode:
+                      type: string
+                      example: '78418'
+                    city:
+                      type: string
+                      example: Corpus Christi
+                    stateCode:
+                      type: string
+                      example: TX
+                    countryCode:
+                      type: string
+                      example: US
+                    provinceTerritoryCode:
+                      type: string
+                      example: ''
+                    line1:
+                      type: string
+                      example: Padre Island National Seashore
+                    type:
+                      type: string
+                      enum:
+                      - Physical
+                      - Mailing
+                      example: Physical
+                    line3:
+                      type: string
+                      example: ''
+                    line2:
+                      type: string
+                      example: 20420 Park Road 22
+              images:
+                type: array
+                description: Campground images
+                items:
+                  type: object
+                  properties:
+                    credit:
+                      type: string
+                      example: NPS photo
+                    crops:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          aspectratio:
+                            type: integer
+                            example: 3
+                          url:
+                            type: string
+                            example: https://www.nps.gov/common/uploads/cropped_image/primary/example.jpeg
+                    title:
+                      type: string
+                      example: Converted Schoolies parked at BIB CG
+                    altText:
+                      type: string
+                      example: Three converted school buses are parked in a row at the campground.
+                    caption:
+                      type: string
+                      example: Converted school buses are parked at Bird Island Basin Campground.
+                    url:
+                      type: string
+                      example: https://www.nps.gov/common/uploads/structured_data/3BB84171-95A1-7F40-EF558F390842E8F6.jpg
+              weatherOverview:
+                type: string
+                description: General description of the weather in the campground over the course of a year
+                example: Year-round, wind speed ranges from 5-25 miles per hour.
+              numberOfSitesReservable:
+                type: string
+                description: Number of sites that can be booked in advance
+                example: '0'
+              numberOfSitesFirstComeFirstServe:
+                type: string
+                description: Number of sites that are first come, first served
+                example: '34'
+              campsites:
+                type: object
+                description: Detailed information about campsites
+                properties:
+                  totalSites:
+                    type: string
+                    example: '34'
+                  group:
+                    type: string
+                    example: '0'
+                  horse:
+                    type: string
+                    example: '0'
+                  tentOnly:
+                    type: string
+                    example: '10'
+                  electricalHookups:
+                    type: string
+                    example: '0'
+                  rvOnly:
+                    type: string
+                    example: '0'
+                  walkBoatTo:
+                    type: string
+                    example: '0'
+                  other:
+                    type: string
+                    example: '0'
+              accessibility:
+                type: object
+                description: Detailed information about accessibility in the campground
+                properties:
+                  wheelchairAccess:
+                    type: string
+                    example: See the ADA Information for campground and site descriptions.
+                  internetInfo:
+                    type: string
+                    example: None available
+                  cellPhoneInfo:
+                    type: string
+                    example: Do not expect cellular reception however there are limited areas where it might be available.
+                  fireStovePolicy:
+                    type: string
+                    example: There are no charcoal grills or campfire rings.
+                  rvAllowed:
+                    type: string
+                    example: '1'
+                  rvInfo:
+                    type: string
+                    example: Bird Island Basin has 34 primitive designated sites for RV or tent camping.
+                  rvMaxLength:
+                    type: string
+                    example: '45'
+                  additionalInfo:
+                    type: string
+                    example: The Park Store sells bags of ice, snacks, sunscreen, bug spray and other toiletries.
+                  trailerMaxLength:
+                    type: string
+                    example: '0'
+                  adaInfo:
+                    type: string
+                    example: Bird Island Basin Campground does not have any designated accessible campsites.
+                  trailerAllowed:
+                    type: string
+                    example: '1'
+                  accessRoads:
+                    type: array
+                    items:
+                      type: string
+                    example:
+                    - Unpaved Roads - All vehicles OK in good weather
+                  classifications:
+                    type: array
+                    items:
+                      type: string
+                    example:
+                    - Primitive Camping Areas
+              multimedia:
                 type: array
                 items:
                   type: object
-              campsites:
-                type: object
-              amenities:
-                type: object
-  parameters:
-    parkCode:
-      name: parkCode
-      in: query
-      schema:
-        type: string
-      description: Comma-separated four-letter park codes (e.g. yose,grca)
-    q:
-      name: q
-      in: query
-      schema:
-        type: string
-      description: Free-text search
-    stateCode:
-      name: stateCode
-      in: query
-      schema:
-        type: string
-        pattern: ^[A-Z]{2}(,[A-Z]{2})*$
+                  properties:
+                    title:
+                      type: string
+                      example: 'Learn about the B.A.R.K. Ranger Principles '
+                    id:
+                      type: string
+                      example: 6E028876-7674-4524-9B65-2CA458B985EB
+                    type:
+                      type: string
+                      example: multimedia/video
+                    url:
+                      type: string
+                      example: https://www.nps.gov/media/video/view.htm?id=6E028876-7674-4524-9B65-2CA458B985EB
+              relevanceScore:
+                type: number
+                description: The relevance score is a numeric calculation of how much the item meets query-text search criteria
+                example: 1
+              lastIndexedDate:
+                type: string
+                description: When this match was last indexed
+                example: ''
+        limit:
+          type: string
+          example: '5'
+        start:
+          type: string
+          example: '0'
   securitySchemes:
-    ApiKeyAuth:
+    api_key:
       type: apiKey
-      in: query
       name: api_key
-externalDocs:
-  description: NPS API documentation
-  url: https://www.nps.gov/subjects/developer/api-documentation.htm
+      in: query
+    api_key_header:
+      type: apiKey
+      name: X-Api-Key
+      in: header
